@@ -1,5 +1,8 @@
 .centerblock {
   padding-top: 60px;
+}
+
+.centerblock_header {
   display: flex;
 }
 
@@ -39,4 +42,11 @@
 
 .slogan_bottom {
   margin-top: -17px;
+}
+
+.centerblock_cards {
+    padding-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
 }
