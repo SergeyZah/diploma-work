@@ -6,12 +6,10 @@ export default function Card() {
   return (
     <div className={styles.card}>
       <div className={styles.card_image}>
-        <Image
-          width={834}
-          height={557}
+        <img
           className={styles.card__image_yoga}
-          src="/img/yoga.png"
-          alt={'yoga'}
+          src="/img/yoga.jpg"
+          alt="yoga"
         />
       </div>
       <div className={styles.card_info}>
@@ -23,28 +21,28 @@ export default function Card() {
             className={classnames(styles.parameters, styles.parameters_days)}
           >
             <Image
-              width={15}
-              height={15}
+              width={18}
+              height={18}
               className={styles.logo__image}
               src="/img/calendar.svg"
               alt={'yoga'}
             />
             <div>
-              <p>25 дней</p>
+              <p className={styles.parameters_description}>25 дней</p>
             </div>
           </div>
           <div
             className={classnames(styles.parameters, styles.parameters_time)}
           >
             <Image
-              width={15}
-              height={15}
+              width={18}
+              height={18}
               className={styles.logo__image}
               src="/img/watch.svg"
               alt={'yoga'}
             />
             <div>
-              <p>20-50 мин/день</p>
+              <p className={styles.parameters_description}>20-50 мин/день</p>
             </div>
           </div>
           <div
@@ -58,7 +56,7 @@ export default function Card() {
               alt={'yoga'}
             />
             <div>
-              <p>Сложность</p>
+              <p className={styles.parameters_description}>Сложность</p>
             </div>
           </div>
         </div>
