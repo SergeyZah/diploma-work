@@ -17,6 +17,15 @@
   background-color: var(--background);
 }
 
+.home {
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  padding-left: 140px;
+  padding-right: 140px;
+  max-width: 1440px;
+}
+
 .main {
   display: flex;
   min-height: 100vh;
