@@ -5,20 +5,20 @@ import classnames from 'classnames';
 export default function Card() {
   return (
     <div className={styles.card}>
-      <div className={styles.card_image}>
+      <div className={styles.card__image}>
         <img
-          className={styles.card__image_yoga}
+          className={styles.card__imageYoga}
           src="/img/yoga.jpg"
           alt="yoga"
         />
       </div>
-      <div className={styles.card_info}>
-        <div className={styles.card_name}>
-          <h4 className={styles.name_title}>Йога</h4>
+      <div className={styles.card__info}>
+        <div className={styles.card__name}>
+          <h4 className={styles.name__title}>Йога</h4>
         </div>
-        <div className={styles.card_parameters}>
+        <div className={styles.card__parameters}>
           <div
-            className={classnames(styles.parameters, styles.parameters_days)}
+            className={classnames(styles.parameters, styles.parameters__days)}
           >
             <Image
               width={18}
@@ -28,11 +28,11 @@ export default function Card() {
               alt={'yoga'}
             />
             <div>
-              <p className={styles.parameters_description}>25 дней</p>
+              <p className={styles.parameters__description}>25 дней</p>
             </div>
           </div>
           <div
-            className={classnames(styles.parameters, styles.parameters_time)}
+            className={classnames(styles.parameters, styles.parameters__time)}
           >
             <Image
               width={18}
@@ -42,11 +42,11 @@ export default function Card() {
               alt={'yoga'}
             />
             <div>
-              <p className={styles.parameters_description}>20-50 мин/день</p>
+              <p className={styles.parameters__description}>20-50 мин/день</p>
             </div>
           </div>
           <div
-            className={classnames(styles.parameters, styles.parameters_level)}
+            className={classnames(styles.parameters, styles.parameters__level)}
           >
             <Image
               width={18}
@@ -56,7 +56,7 @@ export default function Card() {
               alt={'yoga'}
             />
             <div>
-              <p className={styles.parameters_description}>Сложность</p>
+              <p className={styles.parameters__description}>Сложность</p>
             </div>
           </div>
         </div>

@@ -2,11 +2,11 @@
   padding-top: 60px;
 }
 
-.centerblock_header {
+.centerblock__header {
   display: flex;
 }
 
-.centerblock_title {
+.centerblock__title {
   width: 890px;
   color: rgba(0, 0, 0, 1);
   font-size: 60px;
@@ -16,13 +16,13 @@
   text-align: left;
 }
 
-.centerblock_slogan {
+.centerblock__slogan {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.slogan_top {
+.slogan__top {
   width: 288px;
   height: 102px;
   align-items: center;
@@ -31,7 +31,7 @@
   background: rgba(188, 236, 48, 1);
 }
 
-.slogan_text {
+.slogan__text {
   color: rgba(32, 32, 32, 1);
   font-size: 32px;
   font-weight: 400;
@@ -40,11 +40,11 @@
   text-align: left;
 }
 
-.slogan_bottom {
+.slogan__bottom {
   margin-top: -17px;
 }
 
-.centerblock_cards {
+.centerblock__cards {
     padding-top: 50px;
     display: flex;
     flex-wrap: wrap;

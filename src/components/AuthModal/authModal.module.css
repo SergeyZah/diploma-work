@@ -20,7 +20,7 @@
   width: 360px;
 }
 
-.authModal_logo {
+.authModal__logo {
   display: flex;
   justify-content: center;
 }

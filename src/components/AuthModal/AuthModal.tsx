@@ -7,7 +7,7 @@ export default function AuthModal() {
   return (
     <div className={styles.authModal}>
       <div className={styles.authModalContainer}>
-        <div className={styles.authModal_logo}>
+        <div className={styles.authModal__logo}>
           <Link className={styles.logo__link} href="#">
             <Image
               width={220}

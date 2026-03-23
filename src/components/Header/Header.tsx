@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <div className={styles.header}>
       <div>
-        <div className={styles.header_logo}>
+        <div className={styles.header__logo}>
           <Link className={styles.logo__link} href="#">
             <Image
               width={220}
@@ -17,13 +17,13 @@ export default function Header() {
             />
           </Link>
         </div>
-        <h4 className={styles.header_title}>
+        <h4 className={styles.header__title}>
           Онлайн-тренировки для занятий дома
         </h4>
       </div>
-      <div className={styles.header_button}>
+      <div className={styles.header__button}>
         {/* <button className={styles.button_signin}>Войти</button> */}
-        <p className={styles.button_text}>Войти</p>
+        <p className={styles.button__text}>Войти</p>
       </div>
     </div>
   );
