@@ -3,6 +3,7 @@
   padding-top: 50px;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
 .header__title {
@@ -18,6 +19,7 @@
 .header__button {
   border-radius: 46px;
   background: rgba(188, 236, 48, 1);
+  border: 1px solid rgba(188, 236, 48, 1);
   width: 103px;
   height: 52px;
   display: flex;

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './fitnessCourse.module.css';
 
 export default function FitnessCourse() {
@@ -6,7 +7,13 @@ export default function FitnessCourse() {
       <div className={styles.fitnessCourse__header}>
         <h3 className={styles.header__title}>Йога</h3>
         <div className={styles.header__image}>
-          <img className={styles.image} src="/img/yoga.jpg" alt="yoga" />
+          <Image
+            width={440}
+            height={400}
+            className={styles.image}
+            src="/img/yoga.jpg"
+            alt="yoga"
+          />
         </div>
       </div>
       <div className={styles.fitnessCourse__description}>
@@ -37,48 +44,60 @@ export default function FitnessCourse() {
         <h4 className={styles.directions__title}>Направления</h4>
         <div className={styles.directions}>
           <div className={styles.direction}>
-            <img
-              src="/img/asterisk.svg"
+            <Image
+              width={26}
+              height={26}
+              src="/icon/asterisk.svg"
               alt="asterisk"
               className={styles.direction_asterisk}
             />
             <p className={styles.direction__text}>Йога для новичков</p>
           </div>
           <div className={styles.direction}>
-            <img
-              src="/img/asterisk.svg"
+            <Image
+              width={26}
+              height={26}
+              src="/icon/asterisk.svg"
               alt="asterisk"
               className={styles.direction_asterisk}
             />
             <p className={styles.direction__text}>Кундалини-йога</p>
           </div>
           <div className={styles.direction}>
-            <img
-              src="/img/asterisk.svg"
+            <Image
+              width={26}
+              height={26}
+              src="/icon/asterisk.svg"
               alt="asterisk"
               className={styles.direction_asterisk}
             />
             <p className={styles.direction__text}>Хатха-йога</p>
           </div>
           <div className={styles.direction}>
-            <img
-              src="/img/asterisk.svg"
+            <Image
+              width={26}
+              height={26}
+              src="/icon/asterisk.svg"
               alt="asterisk"
               className={styles.direction_asterisk}
             />
             <p className={styles.direction__text}>Классическая йога</p>
           </div>
           <div className={styles.direction}>
-            <img
-              src="/img/asterisk.svg"
+            <Image
+              width={26}
+              height={26}
+              src="/icon/asterisk.svg"
               alt="asterisk"
               className={styles.direction_asterisk}
             />
             <p className={styles.direction__text}>Йогатерапия</p>
           </div>
           <div className={styles.direction}>
-            <img
-              src="/img/asterisk.svg"
+            <Image
+              width={26}
+              height={26}
+              src="/icon/asterisk.svg"
               alt="asterisk"
               className={styles.direction_asterisk}
             />
@@ -118,18 +137,24 @@ export default function FitnessCourse() {
           </ul>
           <button className={styles.adding__button}>Добавить курс</button>
         </div>
-        <img
+        <Image
+          width={515}
+          height={568}
           src="/img/runner.png"
           alt="runner"
           className={styles.image_runner}
         />
-        <img
-          src="/img/vector_black.svg"
+        <Image
+          width={54}
+          height={46}
+          src="/icon/vector_black.svg"
           alt="vector_black"
           className={styles.image_vectorBlack}
         />
-        <img
-          src="/img/vector_green.svg"
+        <Image
+          width={738}
+          height={526}
+          src="/icon/vector_green.svg"
           alt="vector_green"
           className={styles.image_vectorGreen}
         />

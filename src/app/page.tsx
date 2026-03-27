@@ -3,6 +3,7 @@ import Header from '@/components/Header/Header';
 import styles from './page.module.css';
 import AuthModal from '@/components/AuthModal/AuthModal';
 import FitnessCourse from '@/components/FitnessCourse/FitnessCourse';
+import PopUser from '@/components/PopUser/PopUser';
 
 export default function Home() {
   return (

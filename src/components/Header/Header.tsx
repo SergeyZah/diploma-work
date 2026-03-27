@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from './header.module.css';
 import Image from 'next/image';
+import PopUser from '../PopUser/PopUser';
 
 export default function Header() {
   return (
@@ -21,10 +22,11 @@ export default function Header() {
           Онлайн-тренировки для занятий дома
         </h4>
       </div>
-      <div className={styles.header__button}>
+      <button className={styles.header__button}>
         {/* <button className={styles.button_signin}>Войти</button> */}
         <p className={styles.button__text}>Войти</p>
-      </div>
+      </button>
+      {/* <PopUser /> */}
     </div>
   );
 }

@@ -31,7 +31,6 @@
 
 .image {
   border-radius: 40px;
-  height: 400px;
 }
 
 .fitnessCourse__description {
@@ -122,11 +121,6 @@
   text-align: left;
 }
 
-.direction_asterisk {
-  width: 26px;
-  height: 26px;
-}
-
 .fitnessCourse__adding {
   margin-top: 102px;
   padding: 40px;
@@ -175,6 +169,7 @@
   margin-top: 28px;
   border-radius: 46px;
   background: rgba(188, 236, 48, 1);
+  border: 1px solid rgba(188, 236, 48, 1);
   color: rgba(0, 0, 0, 1);
   font-size: 18px;
   font-weight: 400;
