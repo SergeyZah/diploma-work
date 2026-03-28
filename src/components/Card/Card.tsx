@@ -24,7 +24,7 @@ export default function Card() {
               width={18}
               height={18}
               className={styles.logo__image}
-              src="/img/calendar.svg"
+              src="/icon/calendar.svg"
               alt={'yoga'}
             />
             <div>
@@ -38,7 +38,7 @@ export default function Card() {
               width={18}
               height={18}
               className={styles.logo__image}
-              src="/img/watch.svg"
+              src="/icon/watch.svg"
               alt={'yoga'}
             />
             <div>
@@ -52,7 +52,7 @@ export default function Card() {
               width={18}
               height={18}
               className={styles.logo__image}
-              src="/img/level.svg"
+              src="/icon/level.svg"
               alt={'yoga'}
             />
             <div>

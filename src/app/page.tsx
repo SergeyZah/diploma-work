@@ -1,15 +1,5 @@
-import Centerblock from '@/components/Centerblock/Centerblock';
-import Header from '@/components/Header/Header';
-import styles from './page.module.css';
-import AuthModal from '@/components/AuthModal/AuthModal';
-import FitnessCourse from '@/components/FitnessCourse/FitnessCourse';
-import PopUser from '@/components/PopUser/PopUser';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <div className={styles.home}>
-      <Header />
-      <FitnessCourse />
-    </div>
-  );
+  redirect('/courses/main');
 }
