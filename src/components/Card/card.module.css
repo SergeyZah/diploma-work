@@ -13,12 +13,6 @@
   height: 325px;
 }
 
-.card__imageYoga {
-  width: 360px;
-  height: 325px;
-  border-radius: 30px;
-}
-
 .card__info {
   padding: 0px 30px 15px 30px;
 }

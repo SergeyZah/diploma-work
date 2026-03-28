@@ -1,8 +1,12 @@
 import Image from 'next/image';
 import styles from './centerblock.module.css';
 import Card from '../Card/Card';
+import { data } from '@/data';
+import { Course } from '@/sharedTypes/types';
 
 export default function Centerblock() {
+  const sortData = data.sort((a: Course, b: Course) => a.order - b.order);
+
   return (
     <div className={styles.centerblock}>
       <div className={styles.centerblock__header}>
@@ -25,11 +29,9 @@ export default function Centerblock() {
         </div>
       </div>
       <div className={styles.centerblock__cards}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {sortData.map((course) => {
+          return <Card key={course._id} course={course} courses={data} />;
+        })}
       </div>
     </div>
   );

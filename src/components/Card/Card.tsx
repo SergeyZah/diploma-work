@@ -1,20 +1,33 @@
 import Image from 'next/image';
 import styles from './card.module.css';
 import classnames from 'classnames';
+import { Course } from '@/sharedTypes/types';
+import { FetchRightCover } from '@/utils/FetchRightCover';
 
-export default function Card() {
+type CardTypeProp = {
+  courses: Course[];
+  course: Course;
+};
+
+export default function Card({ courses, course }: CardTypeProp) {
+  const theme = FetchRightCover(course.nameEN);
+
+  console.log(theme);
+
   return (
     <div className={styles.card}>
       <div className={styles.card__image}>
-        <img
+        <Image
+          width={360}
+          height={325}
           className={styles.card__imageYoga}
-          src="/img/yoga.jpg"
+          src={theme.courseImageSrc}
           alt="yoga"
         />
       </div>
       <div className={styles.card__info}>
         <div className={styles.card__name}>
-          <h4 className={styles.name__title}>Йога</h4>
+          <h4 className={styles.name__title}>{course.nameRU}</h4>
         </div>
         <div className={styles.card__parameters}>
           <div
@@ -28,7 +41,9 @@ export default function Card() {
               alt={'yoga'}
             />
             <div>
-              <p className={styles.parameters__description}>25 дней</p>
+              <p className={styles.parameters__description}>
+                {course.durationInDays}
+              </p>
             </div>
           </div>
           <div
@@ -42,7 +57,10 @@ export default function Card() {
               alt={'yoga'}
             />
             <div>
-              <p className={styles.parameters__description}>20-50 мин/день</p>
+              <p className={styles.parameters__description}>
+                {course.dailyDurationInMinutes.from} -{' '}
+                {course.dailyDurationInMinutes.to} мин/день
+              </p>
             </div>
           </div>
           <div
@@ -56,7 +74,9 @@ export default function Card() {
               alt={'yoga'}
             />
             <div>
-              <p className={styles.parameters__description}>Сложность</p>
+              <p className={styles.parameters__description}>
+                {course.difficulty}
+              </p>
             </div>
           </div>
         </div>
