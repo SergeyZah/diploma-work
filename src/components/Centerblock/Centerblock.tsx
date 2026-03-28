@@ -2,10 +2,16 @@ import Image from 'next/image';
 import styles from './centerblock.module.css';
 import Card from '../Card/Card';
 import { data } from '@/data';
-import { Course } from '@/sharedTypes/types';
+import { CourseType } from '@/sharedTypes/types';
 
-export default function Centerblock() {
-  const sortData = data.sort((a: Course, b: Course) => a.order - b.order);
+type CenterblockTypeProp = {
+  courseList: CourseType[];
+};
+
+export default function Centerblock({ courseList }: CenterblockTypeProp) {
+  const sortData = courseList.sort(
+    (a: CourseType, b: CourseType) => a.order - b.order,
+  );
 
   return (
     <div className={styles.centerblock}>

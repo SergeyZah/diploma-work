@@ -5,7 +5,7 @@ export type DailyDurationInMinutes = {
   to: number;
 };
 
-export type Course = {
+export type CourseType = {
   _id: string;
   nameRU: string;
   nameEN: string;

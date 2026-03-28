@@ -1,21 +1,28 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './card.module.css';
 import classnames from 'classnames';
-import { Course } from '@/sharedTypes/types';
+import { CourseType } from '@/sharedTypes/types';
 import { FetchRightCover } from '@/utils/FetchRightCover';
+import { useRouter } from 'next/navigation';
 
 type CardTypeProp = {
-  courses: Course[];
-  course: Course;
+  courses: CourseType[];
+  course: CourseType;
 };
 
 export default function Card({ courses, course }: CardTypeProp) {
+  const router = useRouter();
+  const handleCourseCard = () => {
+    console.log('Yes');
+    router.push(`/music/course/${course._id}`);
+  };
+
   const theme = FetchRightCover(course.nameEN);
 
-  console.log(theme);
-
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleCourseCard}>
       <div className={styles.card__image}>
         <Image
           width={360}
