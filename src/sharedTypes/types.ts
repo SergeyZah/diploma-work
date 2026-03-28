@@ -1,4 +1,4 @@
-export type Difficulty = 'легкий' | 'средний' | 'сложный';
+export type Difficulty = 'начальный' | 'средний' | 'сложный';
 
 export type DailyDurationInMinutes = {
   from: number;
