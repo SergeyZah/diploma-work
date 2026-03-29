@@ -1,3 +1,5 @@
+'use client';
+
 import { getAllCourses } from '@/services/courses/coursesApi';
 import {
   setAllCourses,
@@ -37,4 +39,5 @@ export default function FetchingCourses() {
         });
     }
   });
+  return <></>;
 }

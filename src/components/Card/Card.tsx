@@ -29,7 +29,8 @@ export default function Card({ courses, course }: CardTypeProp) {
           height={325}
           className={styles.card__imageYoga}
           src={theme.courseImageSrc}
-          alt="yoga"
+          alt={course.nameEN}
+          priority
         />
       </div>
       <div className={styles.card__info}>

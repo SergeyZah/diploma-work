@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './centerblock.module.css';
 import Card from '../Card/Card';
@@ -9,7 +11,8 @@ type CenterblockTypeProp = {
 };
 
 export default function Centerblock({ courseList }: CenterblockTypeProp) {
-  const sortCourseList = courseList.sort(
+  const SortCourseList = courseList.slice();
+  const newSortCourseList = SortCourseList.sort(
     (a: CourseType, b: CourseType) => a.order - b.order,
   );
 
@@ -35,7 +38,7 @@ export default function Centerblock({ courseList }: CenterblockTypeProp) {
         </div>
       </div>
       <div className={styles.centerblock__cards}>
-        {sortCourseList.map((course) => {
+        {newSortCourseList.map((course) => {
           return <Card key={course._id} course={course} courses={data} />;
         })}
       </div>

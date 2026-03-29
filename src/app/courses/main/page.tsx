@@ -3,19 +3,15 @@
 import Centerblock from '@/components/Centerblock/Centerblock';
 import { getAllCourses } from '@/services/courses/coursesApi';
 import { CourseType } from '@/sharedTypes/types';
+import { useAppSelector } from '@/store/store';
 import { useEffect, useState } from 'react';
 
 export default function MainPage() {
-  const [courses, setCourses] = useState<CourseType[]>([]);
-  useEffect(() => {
-    getAllCourses().then((res) => {
-      setCourses(res);
-    });
-  }, []);
+  const { allCourses } = useAppSelector((state) => state.courses);
 
   return (
     <div>
-      <Centerblock courseList={courses} />
+      <Centerblock courseList={allCourses} />
     </div>
   );
 }
