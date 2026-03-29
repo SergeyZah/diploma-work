@@ -10,7 +10,6 @@ export const getAllCourses = (): Promise<CourseType[]> => {
 
 export const getCourseCardInfo = (id: string): Promise<CourseType> => {
   return axios(BASE_URL + `/api/fitness/courses/${id}`).then((res) => {
-    console.log('Прошло');
     return res.data;
   });
 };

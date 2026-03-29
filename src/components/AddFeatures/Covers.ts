@@ -1,31 +1,31 @@
 export type CourseTheme = {
   courseImageSrc: string;
-  BgcColor: string;
+  courseImageSrcLong: string;
 };
 
 export const CoverCourse: Record<string, CourseTheme> = {
   Yoga: {
     courseImageSrc: '/img/yoga.png',
-    BgcColor: '/images/courses/yoga-hero.png',
+    courseImageSrcLong: '/img/yogaLong.png',
   },
 
   Stretching: {
     courseImageSrc: '/img/stretching.png',
-    BgcColor: '/images/courses/stretching-hero.png',
+    courseImageSrcLong: '/img/stretchingLong.png',
   },
 
   Fitness: {
     courseImageSrc: '/img/fitness.png',
-    BgcColor: '/images/courses/fitness-hero.png',
+    courseImageSrcLong: '/img/fitnessLong.png',
   },
 
   StepAirobic: {
     courseImageSrc: '/img/step.png',
-    BgcColor: '/images/courses/step-hero.png',
+    courseImageSrcLong: '/img/stepLong.png',
   },
 
   BodyFlex: {
     courseImageSrc: '/img/bodyflex.png',
-    BgcColor: '/images/courses/bodyflex-hero.png',
+    courseImageSrcLong: '/img/bodyflexLong.png',
   },
 };

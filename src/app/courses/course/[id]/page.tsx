@@ -24,7 +24,6 @@ export default function CoursePage() {
       getCourseCardInfo(params?.id)
         .then((res) => {
           setCourseInfo(res);
-          console.log(res);
         })
         .catch((error) => {
           if (error instanceof AxiosError) {

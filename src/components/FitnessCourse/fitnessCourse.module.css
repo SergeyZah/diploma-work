@@ -1,10 +1,5 @@
-.fitnessCourse {
-  padding-top: 60px;
-}
-
 .fitnessCourse__header {
   border-radius: 30px;
-  background: rgba(255, 199, 0, 1);
   display: flex;
   justify-content: space-between;
   height: 310px;
@@ -21,12 +16,12 @@
   text-align: left;
   padding-left: 40px;
   padding-top: 40px;
+  position: absolute;
+  z-index: 2;
 }
 
 .header__image {
   position: absolute;
-  right: 55px;
-  bottom: -8px;
 }
 
 .image {
@@ -105,6 +100,8 @@
   grid-template-columns: repeat(3, 1fr);
   padding: 30px;
   gap: 34px 124px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-auto-flow: column;
 }
 
 .direction {

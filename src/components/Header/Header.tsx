@@ -8,13 +8,14 @@ export default function Header() {
     <div className={styles.header}>
       <div>
         <div className={styles.header__logo}>
-          <Link className={styles.logo__link} href="#">
+          <Link className={styles.logo__link} href="/courses/main">
             <Image
               width={220}
               height={35}
               className={styles.logo__image}
               src="/img/logo.png"
               alt={'logo'}
+              priority
             />
           </Link>
         </div>

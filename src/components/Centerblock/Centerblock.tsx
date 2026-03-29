@@ -11,10 +11,9 @@ type CenterblockTypeProp = {
 };
 
 export default function Centerblock({ courseList }: CenterblockTypeProp) {
-  const SortCourseList = courseList.slice();
-  const newSortCourseList = SortCourseList.sort(
-    (a: CourseType, b: CourseType) => a.order - b.order,
-  );
+  const sortCourseList = courseList
+    .slice()
+    .sort((a: CourseType, b: CourseType) => a.order - b.order);
 
   return (
     <div className={styles.centerblock}>
@@ -38,7 +37,7 @@ export default function Centerblock({ courseList }: CenterblockTypeProp) {
         </div>
       </div>
       <div className={styles.centerblock__cards}>
-        {newSortCourseList.map((course) => {
+        {sortCourseList.map((course) => {
           return <Card key={course._id} course={course} courses={data} />;
         })}
       </div>
