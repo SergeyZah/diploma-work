@@ -9,7 +9,7 @@ type CenterblockTypeProp = {
 };
 
 export default function Centerblock({ courseList }: CenterblockTypeProp) {
-  const sortData = courseList.sort(
+  const sortCourseList = courseList.sort(
     (a: CourseType, b: CourseType) => a.order - b.order,
   );
 
@@ -35,7 +35,7 @@ export default function Centerblock({ courseList }: CenterblockTypeProp) {
         </div>
       </div>
       <div className={styles.centerblock__cards}>
-        {sortData.map((course) => {
+        {sortCourseList.map((course) => {
           return <Card key={course._id} course={course} courses={data} />;
         })}
       </div>
