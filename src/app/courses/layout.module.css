@@ -10,7 +10,7 @@
 }
 
 .scroll {
-  max-height: 1000px;
+  max-height: 1200px;
   overflow-y: auto;
   scrollbar-width: none;
 }

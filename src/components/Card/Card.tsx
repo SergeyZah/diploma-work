@@ -15,8 +15,7 @@ type CardTypeProp = {
 export default function Card({ courses, course }: CardTypeProp) {
   const router = useRouter();
   const handleCourseCard = () => {
-    console.log('Yes');
-    router.push(`/music/course/${course._id}`);
+    router.push(`/courses/course/${course._id}`);
   };
 
   const theme = FetchRightCover(course.nameEN);

@@ -1,6 +1,6 @@
-import { Course } from '@/sharedTypes/types';
+import { CourseType } from '@/sharedTypes/types';
 
-export const data: Course[] = [
+export const data: CourseType[] = [
   {
     dailyDurationInMinutes: {
       from: 50,
