@@ -66,6 +66,11 @@ export default function AuthModal() {
         dispatch(setToken(res.token));
         router.push('/courses/main');
         dispatch(setVisibleAuthModal(false));
+
+        return getUserInfo(res.token);
+      })
+      .then((response) => {
+        console.log(response);
       })
       .catch((error) => {
         setIsLoading(false);
@@ -125,17 +130,17 @@ export default function AuthModal() {
       });
   };
 
-  useEffect(() => {
-    if (token.length) {
-      getUserInfo(token)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch(() => {
-          console.log('Не пошло');
-        });
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token.length) {
+  //     getUserInfo(token)
+  //       .then((res) => {
+  //         console.log(res);
+  //       })
+  //       .catch(() => {
+  //         console.log('Не пошло');
+  //       });
+  //   }
+  // }, [token]);
 
   return (
     <div className={styles.authModal} onClick={hadleCloseAuthModal}>

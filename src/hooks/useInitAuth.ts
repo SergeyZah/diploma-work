@@ -6,7 +6,7 @@ export const useInitAuth = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem('access') || '';
+    const token = localStorage.getItem('token') || '';
     const username = localStorage.getItem('username') || '';
 
     dispatch(setToken(token));

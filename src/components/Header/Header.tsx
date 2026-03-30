@@ -6,18 +6,28 @@ import Image from 'next/image';
 import PopUser from '../PopUser/PopUser';
 import AuthModal from '../AuthModal/AuthModal';
 import { useDispatch } from 'react-redux';
-import { setVisibleAuthModal } from '@/store/features/CourseSlice';
+import {
+  setVisibleAuthModal,
+  setVisiblePopUser,
+} from '@/store/features/CourseSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
+import { useState } from 'react';
 
 export default function Header() {
   const dispatch = useDispatch();
 
   const { username, token } = useAppSelector((state) => state.auth);
 
-  const { visibleAuthModal } = useAppSelector((state) => state.courses);
+  const { visibleAuthModal, visiblePopUser } = useAppSelector(
+    (state) => state.courses,
+  );
 
   const hadleAuthModal = () => {
     dispatch(setVisibleAuthModal(true));
+  };
+
+  const hadlePopUser = () => {
+    dispatch(setVisiblePopUser(true));
   };
   return (
     <div className={styles.header}>
@@ -47,7 +57,7 @@ export default function Header() {
             alt={'profile'}
             priority
           />
-          <div className={styles.authUser__container}>
+          <div className={styles.authUser__container} onClick={hadlePopUser}>
             <p className={styles.authUser__name}>
               {username || 'Пользователь'}
             </p>
@@ -66,7 +76,7 @@ export default function Header() {
         </button>
       )}
       {visibleAuthModal ? <AuthModal /> : <></>}
-      {/* <PopUser /> */}
+      {visiblePopUser ? <PopUser /> : <></>}
     </div>
   );
 }
