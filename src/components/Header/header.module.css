@@ -17,6 +17,19 @@
   padding-top: 10px;
 }
 
+.header__authUser {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.authUser__container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
 .header__button {
   border-radius: 46px;
   background: rgba(188, 236, 48, 1);

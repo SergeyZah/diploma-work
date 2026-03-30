@@ -23,7 +23,8 @@
       "@components/*": ["./components/*"],
       "@utils/*": ["./utils/*"],
       "@store/*": ["./store/*"],
-      "@sharedTypes/*": ["./sharedTypes/*"]
+      "@sharedTypes/*": ["./sharedTypes/*"],
+      "@hooks/*": ["./hooks/*"]
     }
   },
   "include": [

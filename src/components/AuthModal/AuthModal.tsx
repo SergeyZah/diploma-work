@@ -6,20 +6,24 @@ import Link from 'next/link';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { setVisibleAuthModal } from '@/store/features/CourseSlice';
-import { useState } from 'react';
-import { signIn, signUp } from '@/services/auth/authApi';
+import { useEffect, useState } from 'react';
+import { getUserInfo, signIn, signUp } from '@/services/auth/authApi';
 import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
+import { setToken } from '@/store/features/AuthSlice';
+import { useAppSelector } from '@/store/store';
 
 export default function AuthModal() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isSignIn, setIsSignIn] = useState(false);
-  const [errror, setError] = useState('');
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+
+  const { token } = useAppSelector((state) => state.auth);
 
   const hadleCloseAuthModal = () => {
     dispatch(setVisibleAuthModal(false));
@@ -59,8 +63,9 @@ export default function AuthModal() {
 
     signIn({ email, password })
       .then((res) => {
-        console.log(res);
+        dispatch(setToken(res.token));
         router.push('/courses/main');
+        dispatch(setVisibleAuthModal(false));
       })
       .catch((error) => {
         setIsLoading(false);
@@ -99,7 +104,7 @@ export default function AuthModal() {
 
     signUp({ email, password })
       .then((res) => {
-        console.log('Ответ после регистрации: ', res);
+        console.log('Ответ после регистрации: ', res.message);
         setIsSignIn(false);
       })
       .catch((error) => {
@@ -119,6 +124,18 @@ export default function AuthModal() {
         setIsLoading(false);
       });
   };
+
+  useEffect(() => {
+    if (token.length) {
+      getUserInfo(token)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch(() => {
+          console.log('Не пошло');
+        });
+    }
+  }, [token]);
 
   return (
     <div className={styles.authModal} onClick={hadleCloseAuthModal}>
@@ -168,6 +185,7 @@ export default function AuthModal() {
             <></>
           )}
         </div>
+        <div className={styles.errorContainer}>{error}</div>
         <div className={styles.authModal__buttons}>
           <button
             className={styles.authModal__btnSignin}

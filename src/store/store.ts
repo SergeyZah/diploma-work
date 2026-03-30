@@ -5,12 +5,14 @@ import {
   useSelector,
   useStore,
 } from 'react-redux';
-import { CourseSliceReducer } from './features/CourseSlice';
+import { courseSliceReducer } from './features/CourseSlice';
+import { authSliceReducer } from './features/AuthSlice';
 
 export const makeStore = () => {
   return configureStore({
     reducer: combineReducers({
-      courses: CourseSliceReducer,
+      courses: courseSliceReducer,
+      auth: authSliceReducer,
     }),
   });
 };

@@ -12,6 +12,8 @@ import { useAppDispatch, useAppSelector } from '@/store/store';
 export default function Header() {
   const dispatch = useDispatch();
 
+  const { username, token } = useAppSelector((state) => state.auth);
+
   const { visibleAuthModal } = useAppSelector((state) => state.courses);
 
   const hadleAuthModal = () => {
@@ -36,9 +38,33 @@ export default function Header() {
           Онлайн-тренировки для занятий дома
         </h4>
       </div>
-      <button className={styles.header__button} onClick={hadleAuthModal}>
-        <p className={styles.button__text}>Войти</p>
-      </button>
+      {token ? (
+        <div className={styles.header__authUser}>
+          <Image
+            width={50}
+            height={50}
+            src="/icon/profile.svg"
+            alt={'profile'}
+            priority
+          />
+          <div className={styles.authUser__container}>
+            <p className={styles.authUser__name}>
+              {username || 'Пользователь'}
+            </p>
+            <Image
+              width={8}
+              height={8}
+              src="/icon/arrowUser.svg"
+              alt={'arrowUser'}
+              priority
+            />
+          </div>
+        </div>
+      ) : (
+        <button className={styles.header__button} onClick={hadleAuthModal}>
+          <p className={styles.button__text}>Войти</p>
+        </button>
+      )}
       {visibleAuthModal ? <AuthModal /> : <></>}
       {/* <PopUser /> */}
     </div>

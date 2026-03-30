@@ -15,7 +15,7 @@ const initialState: initialStateType = {
   visibleAuthModal: false,
 };
 
-const CourseSlice = createSlice({
+const courseSlice = createSlice({
   name: 'courses',
   initialState,
   reducers: {
@@ -39,5 +39,5 @@ export const {
   setFetchIsLoading,
   setFetchError,
   setVisibleAuthModal,
-} = CourseSlice.actions;
-export const CourseSliceReducer = CourseSlice.reducer;
+} = courseSlice.actions;
+export const courseSliceReducer = courseSlice.reducer;

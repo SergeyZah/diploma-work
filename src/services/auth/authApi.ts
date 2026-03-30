@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants';
+import { UserType } from '@/sharedTypes/types';
 
 type signInTypeProp = {
   email: string;
@@ -7,7 +8,7 @@ type signInTypeProp = {
 };
 
 type signInReturnType = {
-  message: string;
+  token: string;
 };
 
 type signUpTypeProp = {
@@ -16,21 +17,39 @@ type signUpTypeProp = {
 };
 
 type signUpReturnType = {
-  token: string;
+  message: string;
 };
 
 export const signIn = (data: signInTypeProp): Promise<signInReturnType> => {
-  return axios.post(BASE_URL + '/api/fitness/auth/login', data, {
-    headers: {
-      'content-type': '',
-    },
-  });
+  return axios
+    .post(BASE_URL + '/api/fitness/auth/login', data, {
+      headers: {
+        'content-type': '',
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
 };
 
 export const signUp = (data: signUpTypeProp): Promise<signUpReturnType> => {
-  return axios.post(BASE_URL + '/api/fitness/auth/register', data, {
+  return axios
+    .post(BASE_URL + '/api/fitness/auth/register', data, {
+      headers: {
+        'content-type': '',
+      },
+    })
+    .then((res) => {
+      return res.data.message;
+    });
+};
+
+export const getUserInfo = (token: string): Promise<UserType> => {
+  return axios(BASE_URL + `/api/fitness/users/me`, {
     headers: {
-      'content-type': '',
+      Authorization: `Bearer ${token}`,
     },
+  }).then((res) => {
+    return res.data;
   });
 };

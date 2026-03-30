@@ -18,3 +18,11 @@ export type CourseType = {
   workouts: string[];
   order: number;
 };
+
+export type UserType = {
+  _id: string;
+  email: string;
+  password: string;
+  selectedCourses: string[];
+  courseProgress: string[];
+};
