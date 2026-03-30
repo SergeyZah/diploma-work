@@ -50,6 +50,6 @@ export const getUserInfo = (token: string): Promise<UserType> => {
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => {
-    return res.data;
+    return res.data.user;
   });
 };

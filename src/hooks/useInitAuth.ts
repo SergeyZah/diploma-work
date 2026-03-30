@@ -1,4 +1,5 @@
-import { setToken, setUsername } from '@/store/features/AuthSlice';
+import { getUserInfo } from '@/services/auth/authApi';
+import { setToken, setUser } from '@/store/features/AuthSlice';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -7,9 +8,13 @@ export const useInitAuth = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token') || '';
-    const username = localStorage.getItem('username') || '';
+    const userEmail = JSON.parse(localStorage.getItem('userEmail') || '');
 
     dispatch(setToken(token));
-    dispatch(setUsername(username));
+    dispatch(setUser(userEmail));
+
+    getUserInfo(token).then((response) => {
+      dispatch(setUser(response));
+    });
   }, [dispatch]);
 };

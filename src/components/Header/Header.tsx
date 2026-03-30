@@ -10,17 +10,20 @@ import {
   setVisibleAuthModal,
   setVisiblePopUser,
 } from '@/store/features/CourseSlice';
-import { useAppDispatch, useAppSelector } from '@/store/store';
-import { useState } from 'react';
+import { useAppSelector } from '@/store/store';
+import { getUserNameByEmail } from '@/hooks/getUserNameByEmail';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
   const dispatch = useDispatch();
 
-  const { username, token } = useAppSelector((state) => state.auth);
+  const { user, token } = useAppSelector((state) => state.auth);
 
   const { visibleAuthModal, visiblePopUser } = useAppSelector(
     (state) => state.courses,
   );
+
+  const [userName, setUserName] = useState('');
 
   const hadleAuthModal = () => {
     dispatch(setVisibleAuthModal(true));
@@ -29,6 +32,13 @@ export default function Header() {
   const hadlePopUser = () => {
     dispatch(setVisiblePopUser(true));
   };
+
+  useEffect(() => {
+    if (user) {
+      setUserName(getUserNameByEmail(user.email));
+    }
+  }, [user]);
+
   return (
     <div className={styles.header}>
       <div>
@@ -59,7 +69,7 @@ export default function Header() {
           />
           <div className={styles.authUser__container} onClick={hadlePopUser}>
             <p className={styles.authUser__name}>
-              {username || 'Пользователь'}
+              {userName ? userName : 'Пользователь'}
             </p>
             <Image
               width={8}

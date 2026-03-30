@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { getUserInfo, signIn, signUp } from '@/services/auth/authApi';
 import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
-import { setToken } from '@/store/features/AuthSlice';
+import { setToken, setUser } from '@/store/features/AuthSlice';
 import { useAppSelector } from '@/store/store';
 
 export default function AuthModal() {
@@ -66,11 +66,6 @@ export default function AuthModal() {
         dispatch(setToken(res.token));
         router.push('/courses/main');
         dispatch(setVisibleAuthModal(false));
-
-        return getUserInfo(res.token);
-      })
-      .then((response) => {
-        console.log(response);
       })
       .catch((error) => {
         setIsLoading(false);
@@ -129,18 +124,6 @@ export default function AuthModal() {
         setIsLoading(false);
       });
   };
-
-  // useEffect(() => {
-  //   if (token.length) {
-  //     getUserInfo(token)
-  //       .then((res) => {
-  //         console.log(res);
-  //       })
-  //       .catch(() => {
-  //         console.log('Не пошло');
-  //       });
-  //   }
-  // }, [token]);
 
   return (
     <div className={styles.authModal} onClick={hadleCloseAuthModal}>

@@ -1,12 +1,13 @@
+import { UserType } from '@/sharedTypes/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type initialStateType = {
-  username: string;
+  user: UserType | null;
   token: string;
 };
 
 const initialState: initialStateType = {
-  username: '',
+  user: null,
   token: '',
 };
 
@@ -14,16 +15,16 @@ const authSlice = createSlice({
   name: 'authSlice',
   initialState,
   reducers: {
-    setUsername: (state, action: PayloadAction<string>) => {
-      state.username = action.payload;
-      localStorage.setItem('username', action.payload);
+    setUser: (state, action: PayloadAction<UserType>) => {
+      state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
       localStorage.setItem('token', action.payload);
     },
     clearUser: (state) => {
-      state.username = '';
+      state.user = null;
       state.token = '';
       localStorage.removeItem('username');
       localStorage.removeItem('token');
@@ -31,5 +32,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUsername, setToken, clearUser } = authSlice.actions;
+export const { setUser, setToken, clearUser } = authSlice.actions;
 export const authSliceReducer = authSlice.reducer;
