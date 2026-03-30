@@ -5,20 +5,119 @@ import styles from './authModal.module.css';
 import Link from 'next/link';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '@/store/store';
 import { setVisibleAuthModal } from '@/store/features/CourseSlice';
 import { useState } from 'react';
+import { signIn, signUp } from '@/services/auth/authApi';
+import { useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
 
 export default function AuthModal() {
+  const router = useRouter();
   const dispatch = useDispatch();
-  const [signIn, setSignIn] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(false);
+  const [errror, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
 
   const hadleCloseAuthModal = () => {
     dispatch(setVisibleAuthModal(false));
   };
 
   const changeAuthModal = () => {
-    setSignIn(!signIn);
+    setIsSignIn(!isSignIn);
+  };
+
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const onChangeRepeatPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRepeatPassword(e.target.value);
+  };
+
+  const onSubmitSignIn = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    setError('');
+
+    if (!email.trim() && !password.trim()) {
+      return setError('Необходимо заполнить все поля.');
+    } else if (!email.trim()) {
+      return setError('Введите адрес эл.почты.');
+    } else if (!password.trim()) {
+      return setError('Введите пароль');
+    }
+
+    setIsLoading(true);
+
+    signIn({ email, password })
+      .then((res) => {
+        console.log(res);
+        router.push('/courses/main');
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data.message);
+          } else if (error.request) {
+            setError('Отсутствует интернет. Попробуйте позже');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+        console.log('error: ', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const onSubmitSignUp = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+
+    setError('');
+
+    if (!email.trim() || !password.trim() || !repeatPassword.trim()) {
+      return setError('Необходимо заполнить все поля.');
+    }
+
+    if (password.trim() !== repeatPassword.trim()) {
+      return setError('Пароли не совпадают.');
+    }
+
+    setIsLoading(true);
+
+    signUp({ email, password })
+      .then((res) => {
+        console.log('Ответ после регистрации: ', res);
+        setIsSignIn(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data.message);
+          } else if (error.request) {
+            setError('Отсутствует интернет. Попробуйте позже');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+        console.log('error: ', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -28,7 +127,11 @@ export default function AuthModal() {
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.authModal__logo}>
-          <Link className={styles.logo__link} href="#">
+          <Link
+            className={styles.logo__link}
+            href="/courses/main"
+            onClick={hadleCloseAuthModal}
+          >
             <Image
               width={220}
               height={35}
@@ -43,34 +146,42 @@ export default function AuthModal() {
             className={classnames(styles.authModal__input, styles.login)}
             type="text"
             name="login"
-            placeholder={signIn ? 'Эл. почта' : 'Логин'}
+            placeholder={isSignIn ? 'Эл. почта' : 'Логин'}
+            onChange={onChangeEmail}
           />
           <input
             className={classnames(styles.authModal__input, styles.password)}
-            type="text"
+            type={isSignIn ? 'text' : 'password'}
             name="password"
             placeholder="Пароль"
+            onChange={onChangePassword}
           />
-          {signIn ? (
+          {isSignIn ? (
             <input
               className={classnames(styles.authModal__input, styles.password)}
               type="text"
               name="password"
               placeholder="Повторите пароль"
+              onChange={onChangeRepeatPassword}
             />
           ) : (
             <></>
           )}
         </div>
         <div className={styles.authModal__buttons}>
-          <button className={styles.authModal__btnSignin}>
-            {signIn ? 'Зарегистрироваться' : 'Войти'}
+          <button
+            className={styles.authModal__btnSignin}
+            disabled={isLoading}
+            onClick={isSignIn ? onSubmitSignUp : onSubmitSignIn}
+          >
+            {isSignIn ? 'Зарегистрироваться' : 'Войти'}
           </button>
           <button
             className={styles.authModal__btnSignup}
             onClick={changeAuthModal}
+            disabled={isLoading}
           >
-            {signIn ? 'Войти' : 'Зарегистрироваться'}
+            {isSignIn ? 'Войти' : 'Зарегистрироваться'}
           </button>
         </div>
       </div>

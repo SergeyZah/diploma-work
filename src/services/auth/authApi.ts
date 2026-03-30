@@ -7,17 +7,30 @@ type signInTypeProp = {
 };
 
 type signInReturnType = {
-  data: {
-    email: string;
-    username: string;
-    _id: number | string;
-  };
+  message: string;
+};
+
+type signUpTypeProp = {
+  email: string;
+  password: string;
+};
+
+type signUpReturnType = {
+  token: string;
 };
 
 export const signIn = (data: signInTypeProp): Promise<signInReturnType> => {
-  return axios.post(BASE_URL + '/user/login/', data, {
+  return axios.post(BASE_URL + '/api/fitness/auth/login', data, {
     headers: {
-      'content-type': 'application/json',
+      'content-type': '',
+    },
+  });
+};
+
+export const signUp = (data: signUpTypeProp): Promise<signUpReturnType> => {
+  return axios.post(BASE_URL + '/api/fitness/auth/register', data, {
+    headers: {
+      'content-type': '',
     },
   });
 };
