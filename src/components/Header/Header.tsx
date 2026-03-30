@@ -1,9 +1,22 @@
+'use client';
+
 import Link from 'next/link';
 import styles from './header.module.css';
 import Image from 'next/image';
 import PopUser from '../PopUser/PopUser';
+import AuthModal from '../AuthModal/AuthModal';
+import { useDispatch } from 'react-redux';
+import { setVisibleAuthModal } from '@/store/features/CourseSlice';
+import { useAppDispatch, useAppSelector } from '@/store/store';
 
 export default function Header() {
+  const dispatch = useDispatch();
+
+  const { visibleAuthModal } = useAppSelector((state) => state.courses);
+
+  const hadleAuthModal = () => {
+    dispatch(setVisibleAuthModal(true));
+  };
   return (
     <div className={styles.header}>
       <div>
@@ -23,10 +36,10 @@ export default function Header() {
           Онлайн-тренировки для занятий дома
         </h4>
       </div>
-      <button className={styles.header__button}>
-        {/* <button className={styles.button_signin}>Войти</button> */}
+      <button className={styles.header__button} onClick={hadleAuthModal}>
         <p className={styles.button__text}>Войти</p>
       </button>
+      {visibleAuthModal ? <AuthModal /> : <></>}
       {/* <PopUser /> */}
     </div>
   );

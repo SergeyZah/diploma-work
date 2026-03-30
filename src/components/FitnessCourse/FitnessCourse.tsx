@@ -2,8 +2,6 @@ import Image from 'next/image';
 import styles from './fitnessCourse.module.css';
 import { CourseType } from '@/sharedTypes/types';
 import FitnessCourseBottom from '../FitnessCourseBotom/FitnessCourseBottom';
-import classnames from 'classnames';
-import { CoverCourse } from '../AddFeatures/Covers';
 import { FetchRightCover } from '@/utils/FetchRightCover';
 
 type FitnessCourseTypeProp = {

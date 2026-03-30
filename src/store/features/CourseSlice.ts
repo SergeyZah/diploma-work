@@ -5,12 +5,14 @@ type initialStateType = {
   allCourses: CourseType[];
   fetchIsLoading: boolean;
   fetchError: string;
+  visibleAuthModal: boolean;
 };
 
 const initialState: initialStateType = {
   allCourses: [],
   fetchIsLoading: false,
   fetchError: '',
+  visibleAuthModal: false,
 };
 
 const CourseSlice = createSlice({
@@ -26,9 +28,16 @@ const CourseSlice = createSlice({
     setFetchError: (state, action: PayloadAction<string>) => {
       state.fetchError = action.payload;
     },
+    setVisibleAuthModal: (state, action: PayloadAction<boolean>) => {
+      state.visibleAuthModal = action.payload;
+    },
   },
 });
 
-export const { setAllCourses, setFetchIsLoading, setFetchError } =
-  CourseSlice.actions;
+export const {
+  setAllCourses,
+  setFetchIsLoading,
+  setFetchError,
+  setVisibleAuthModal,
+} = CourseSlice.actions;
 export const CourseSliceReducer = CourseSlice.reducer;
