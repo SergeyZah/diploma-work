@@ -17,7 +17,7 @@ export default function CoursesLayout({ children }: AuthLayoutProps) {
       <div className={styles.container}>
         <FetchingCourses />
         <Header />
-        <div className={styles.scroll}>{children}</div>
+        {children}
       </div>
     </div>
   );

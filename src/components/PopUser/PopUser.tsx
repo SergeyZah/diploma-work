@@ -20,6 +20,11 @@ export default function PopUser() {
     dispatch(setVisiblePopUser(false));
   };
 
+  const handleMyProfile = () => {
+    router.push('/courses/profile');
+    dispatch(setVisiblePopUser(false));
+  };
+
   return (
     <div className={styles.popUser}>
       <div className={styles.container}>
@@ -28,7 +33,9 @@ export default function PopUser() {
           <div className={styles.userMail}>sergey.petrov96@mail.ru</div>
         </div>
         <div className={styles.buttons}>
-          <button className={styles.btnProfile}>Мой профиль</button>
+          <button className={styles.btnProfile} onClick={handleMyProfile}>
+            Мой профиль
+          </button>
           <button className={styles.btnExit} onClick={handleExit}>
             Выйти
           </button>

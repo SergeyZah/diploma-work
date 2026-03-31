@@ -8,9 +8,3 @@
   padding-left: calc(50% - 580px);
   padding-right: calc(50% - 580px);
 }
-
-.scroll {
-  max-height: 1200px;
-  overflow-y: auto;
-  scrollbar-width: none;
-}
