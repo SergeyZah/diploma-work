@@ -70,3 +70,18 @@
   letter-spacing: 0px;
   text-align: center;
 }
+
+@media (max-width: 376px) {
+  .authUser__name {
+  display: none;
+}
+
+.header__title {
+  display: none;
+}
+
+.header__button {
+  width: 83px;
+  height: 36px;
+}
+}

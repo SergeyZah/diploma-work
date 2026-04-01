@@ -13,16 +13,11 @@ import { useAppSelector } from '@/store/store';
 import { useDispatch } from 'react-redux';
 
 type CardTypeProp = {
-  courses: CourseType[];
   course: CourseType;
   displayInProfile: boolean;
 };
 
-export default function Card({
-  courses,
-  course,
-  displayInProfile,
-}: CardTypeProp) {
+export default function Card({ course, displayInProfile }: CardTypeProp) {
   const router = useRouter();
   const dispatch = useDispatch();
 

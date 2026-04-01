@@ -11,7 +11,6 @@ interface CoursesLayoutProps {
 }
 
 export default function CoursesLayout({ children }: CoursesLayoutProps) {
-  console.log('Layout перезагружается');
   useInitAuth();
   return (
     <div className={styles.wrapper}>

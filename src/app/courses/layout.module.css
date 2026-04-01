@@ -8,3 +8,10 @@
   padding-left: calc(50% - 580px);
   padding-right: calc(50% - 580px);
 }
+
+@media (max-width: 376px) {
+  .container {
+  padding-left: calc(50% - 171px);
+  padding-right: calc(50% - 171px);
+}
+}

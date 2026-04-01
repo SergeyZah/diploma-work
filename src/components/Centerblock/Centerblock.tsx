@@ -1,9 +1,6 @@
-'use client';
-
 import Image from 'next/image';
 import styles from './centerblock.module.css';
 import Card from '../Card/Card';
-import { data } from '@/data';
 import { CourseType } from '@/sharedTypes/types';
 
 type CenterblockTypeProp = {
@@ -39,12 +36,7 @@ export default function Centerblock({ courseList }: CenterblockTypeProp) {
       <div className={styles.centerblock__cards}>
         {sortCourseList.map((course) => {
           return (
-            <Card
-              key={course._id}
-              course={course}
-              courses={data}
-              displayInProfile={false}
-            />
+            <Card key={course._id} course={course} displayInProfile={false} />
           );
         })}
       </div>

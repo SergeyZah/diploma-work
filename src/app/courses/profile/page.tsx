@@ -7,9 +7,15 @@ import { useEffect, useState } from 'react';
 import { getUserNameByEmail } from '@/hooks/getUserNameByEmail';
 import Card from '@/components/Card/Card';
 import { data } from '@/data';
+import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
+import { useDispatch } from 'react-redux';
+import { clearUser } from '@/store/features/AuthSlice';
+import { useRouter } from 'next/navigation';
 import { setSelectedCourses } from '@/store/features/CourseSlice';
 
 export default function ProfilePage() {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { user, userName } = useAppSelector((state) => state.auth);
   const { allCourses, selectedCourses } = useAppSelector(
     (state) => state.courses,
@@ -17,18 +23,19 @@ export default function ProfilePage() {
 
   const [name, setName] = useState(userName);
 
-  console.log(user?.selectedCourses);
-
   useEffect(() => {
     if (user) {
       setName(getUserNameByEmail(user.email));
       setSelectedCourses(
-        allCourses.filter((course) =>
-          user?.selectedCourses.includes(course._id),
-        ),
+        fetchSelectedCourses(allCourses, user.selectedCourses),
       );
     }
   }, [user]);
+
+  const handleExit = () => {
+    dispatch(clearUser());
+    router.push('/courses/main');
+  };
 
   return (
     <div className={styles.container}>
@@ -65,7 +72,9 @@ export default function ProfilePage() {
         <div className={styles.profile__info}>
           <h3 className={styles.profile__name}>{name}</h3>
           <p className={styles.profile__login}>Логин:{user?.email}</p>
-          <button className={styles.button__exit}>Выйти</button>
+          <button className={styles.button__exit} onClick={handleExit}>
+            Выйти
+          </button>
         </div>
       </div>
       <div className={styles.courses__box}>
@@ -73,12 +82,7 @@ export default function ProfilePage() {
         <div className={styles.courses__me}>
           {selectedCourses.map((course) => {
             return (
-              <Card
-                key={course._id}
-                course={course}
-                courses={data}
-                displayInProfile={true}
-              />
+              <Card key={course._id} course={course} displayInProfile={true} />
             );
           })}
         </div>
