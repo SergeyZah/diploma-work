@@ -12,6 +12,18 @@
 
 .card__image {
   height: 325px;
+  position: relative;
+}
+
+.card__plus {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transition: transform 0.2s;
+}
+
+.card__plus:hover {
+  transform: scale(1.2);
 }
 
 .card__info {

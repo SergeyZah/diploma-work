@@ -37,6 +37,7 @@ export default function Header() {
   useEffect(() => {
     if (user) {
       setName(getUserNameByEmail(user.email));
+      dispatch(setUserName(getUserNameByEmail(user.email)));
     }
   }, [user]);
 

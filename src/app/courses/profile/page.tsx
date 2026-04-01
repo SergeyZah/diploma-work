@@ -5,15 +5,28 @@ import styles from './page.module.css';
 import { useAppSelector } from '@/store/store';
 import { useEffect, useState } from 'react';
 import { getUserNameByEmail } from '@/hooks/getUserNameByEmail';
+import Card from '@/components/Card/Card';
+import { data } from '@/data';
+import { setSelectedCourses } from '@/store/features/CourseSlice';
 
 export default function ProfilePage() {
   const { user, userName } = useAppSelector((state) => state.auth);
+  const { allCourses, selectedCourses } = useAppSelector(
+    (state) => state.courses,
+  );
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState(userName);
+
+  console.log(user?.selectedCourses);
 
   useEffect(() => {
     if (user) {
       setName(getUserNameByEmail(user.email));
+      setSelectedCourses(
+        allCourses.filter((course) =>
+          user?.selectedCourses.includes(course._id),
+        ),
+      );
     }
   }, [user]);
 
@@ -57,7 +70,18 @@ export default function ProfilePage() {
       </div>
       <div className={styles.courses__box}>
         <h2 className={styles.courses__title}>Мои курсы</h2>
-        <div className={styles.courses__me}></div>
+        <div className={styles.courses__me}>
+          {selectedCourses.map((course) => {
+            return (
+              <Card
+                key={course._id}
+                course={course}
+                courses={data}
+                displayInProfile={true}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

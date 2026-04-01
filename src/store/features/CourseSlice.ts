@@ -7,6 +7,7 @@ type initialStateType = {
   fetchError: string;
   visibleAuthModal: boolean;
   visiblePopUser: boolean;
+  selectedCourses: CourseType[];
 };
 
 const initialState: initialStateType = {
@@ -15,6 +16,7 @@ const initialState: initialStateType = {
   fetchError: '',
   visibleAuthModal: false,
   visiblePopUser: false,
+  selectedCourses: [],
 };
 
 const courseSlice = createSlice({
@@ -36,6 +38,10 @@ const courseSlice = createSlice({
     setVisiblePopUser: (state, action: PayloadAction<boolean>) => {
       state.visiblePopUser = action.payload;
     },
+    setSelectedCourses: (state, action: PayloadAction<CourseType[]>) => {
+      state.selectedCourses = action.payload;
+      console.log(action.payload);
+    },
   },
 });
 
@@ -45,5 +51,6 @@ export const {
   setFetchError,
   setVisibleAuthModal,
   setVisiblePopUser,
+  setSelectedCourses,
 } = courseSlice.actions;
 export const courseSliceReducer = courseSlice.reducer;

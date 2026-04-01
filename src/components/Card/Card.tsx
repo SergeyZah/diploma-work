@@ -6,23 +6,97 @@ import classnames from 'classnames';
 import { CourseType } from '@/sharedTypes/types';
 import { FetchRightCover } from '@/utils/FetchRightCover';
 import { useRouter } from 'next/navigation';
+import { addUserCourse, removeUserCourse } from '@/services/courses/coursesApi';
+import { useState } from 'react';
+import { AxiosError } from 'axios';
+import { useAppSelector } from '@/store/store';
+import { useDispatch } from 'react-redux';
 
 type CardTypeProp = {
   courses: CourseType[];
   course: CourseType;
+  displayInProfile: boolean;
 };
 
-export default function Card({ courses, course }: CardTypeProp) {
+export default function Card({
+  courses,
+  course,
+  displayInProfile,
+}: CardTypeProp) {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { token, user } = useAppSelector((state) => state.auth);
+
+  const [error, setError] = useState('');
+
   const handleCourseCard = () => {
     router.push(`/courses/course/${course._id}`);
   };
 
   const theme = FetchRightCover(course.nameEN);
 
+  const hadleAddCourse = (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    addUserCourse(token, course._id)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data.message);
+          } else if (error.request) {
+            setError('Отсутствует интернет. Попробуйте позже');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+        console.log('error: ', error);
+      });
+  };
+
+  const hadleRemoveCourse = (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    removeUserCourse(token, course._id)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data.message);
+          } else if (error.request) {
+            setError('Отсутствует интернет. Попробуйте позже');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+        console.log('error: ', error);
+      });
+  };
+
   return (
     <div className={styles.card} onClick={handleCourseCard}>
       <div className={styles.card__image}>
+        <Image
+          width={32}
+          height={32}
+          className={styles.card__plus}
+          src={
+            displayInProfile
+              ? `/icon/minus_in_circle.svg`
+              : `/icon/plus_in_circle.svg`
+          }
+          alt={displayInProfile ? `minus_in_circle` : `plus_in_circle`}
+          aria-label="Добавить"
+          priority
+          onClick={displayInProfile ? hadleRemoveCourse : hadleAddCourse}
+        />
         <Image
           width={360}
           height={325}

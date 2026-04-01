@@ -8,7 +8,7 @@ export const useInitAuth = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token') || '';
-    const userEmail = JSON.parse(localStorage.getItem('userEmail') || '');
+    const userEmail = JSON.parse(localStorage.getItem('user') || '');
 
     dispatch(setToken(token));
     dispatch(setUser(userEmail));

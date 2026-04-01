@@ -38,7 +38,14 @@ export default function Centerblock({ courseList }: CenterblockTypeProp) {
       </div>
       <div className={styles.centerblock__cards}>
         {sortCourseList.map((course) => {
-          return <Card key={course._id} course={course} courses={data} />;
+          return (
+            <Card
+              key={course._id}
+              course={course}
+              courses={data}
+              displayInProfile={false}
+            />
+          );
         })}
       </div>
     </div>

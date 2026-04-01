@@ -6,11 +6,12 @@ import Header from '@/components/Header/Header';
 import FetchingCourses from '@/components/FetchingCourses/FetchingCourses';
 import { useInitAuth } from '@/hooks/useInitAuth';
 
-interface AuthLayoutProps {
+interface CoursesLayoutProps {
   children: ReactNode;
 }
 
-export default function CoursesLayout({ children }: AuthLayoutProps) {
+export default function CoursesLayout({ children }: CoursesLayoutProps) {
+  console.log('Layout перезагружается');
   useInitAuth();
   return (
     <div className={styles.wrapper}>

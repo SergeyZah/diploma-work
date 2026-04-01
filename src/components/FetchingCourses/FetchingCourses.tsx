@@ -14,6 +14,8 @@ export default function FetchingCourses() {
   const dispatch = useAppDispatch();
   const { allCourses } = useAppSelector((state) => state.courses);
 
+  // console.log('FetchingCourses до юза');
+
   useEffect(() => {
     if (allCourses.length) {
       dispatch(setAllCourses(allCourses));
@@ -31,11 +33,12 @@ export default function FetchingCourses() {
               dispatch(setFetchError('Произошла ошибка. Попробуйте позже'));
               console.log(error);
             } else {
-              dispatch(setFetchError('Неизвестная ошибка'));
+              // dispatch(setFetchError('Неизвестная ошибка'));
             }
         })
         .finally(() => {
           dispatch(setFetchIsLoading(true));
+          console.log('FetchingCourses конец юза');
         });
     }
   });

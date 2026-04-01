@@ -8,10 +8,13 @@ import {
   setVisibleAuthModal,
   setVisiblePopUser,
 } from '@/store/features/CourseSlice';
+import { useAppSelector } from '@/store/store';
 
 export default function PopUser() {
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const { user, userName } = useAppSelector((state) => state.auth);
 
   const handleExit = () => {
     dispatch(clearUser());
@@ -29,8 +32,10 @@ export default function PopUser() {
     <div className={styles.popUser}>
       <div className={styles.container}>
         <div className={styles.userInfo}>
-          <div className={styles.userName}>Сергей</div>
-          <div className={styles.userMail}>sergey.petrov96@mail.ru</div>
+          <div className={styles.userName}>{userName}</div>
+          <div className={styles.userMail}>
+            {user ? user.email : 'email@mail.com'}
+          </div>
         </div>
         <div className={styles.buttons}>
           <button className={styles.btnProfile} onClick={handleMyProfile}>
