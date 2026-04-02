@@ -13,12 +13,18 @@
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
   background: rgba(255, 255, 255, 1);
   padding: 30px;
+  display: flex;
+  gap: 33px;
 }
 
 .images {
   position: relative;
   width: 197px;
   height: 197px;
+}
+
+.images__mobile {
+  display: none;
 }
 
 .image__background {
@@ -35,11 +41,6 @@
   position: absolute;
   top: 125px;
   left: -7px;
-}
-
-.profile__box {
-  display: flex;
-  gap: 33px;
 }
 
 .profile__name {
@@ -111,4 +112,92 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
+}
+
+.centerblock__buttonUp {
+  border-radius: 46px;
+  background: rgba(188, 236, 48, 1);
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: center;
+  padding: 16px 26px;
+  width: 127px;
+  cursor: pointer;
+}
+
+@media (max-width: 376px) {
+  .container__title {
+    font-size: 24px;
+  }
+
+  .profile__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile__image {
+    display: flex;
+    width: 141px;
+    height: 141px;
+  }
+
+  .images {
+    display: none;
+  }
+
+  .images__mobile {
+    position: relative;
+    display: block;
+  }
+
+  .image__background {
+    position: absolute;
+  }
+
+  .image__circle {
+    position: absolute;
+    top: 20px;
+    left: 45px;
+  }
+
+  .image__semicircle {
+    position: absolute;
+    top: 90px;
+    left: -5px;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button__exit {
+    width: 283px;
+  }
+
+  .courses__box {
+    margin-top: 60px;
+    padding-bottom: 40px;
+  }
+
+  .courses__title {
+    font-size: 24px;
+  }
+
+  .courses__container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .courses__me {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 100px;
+  }
 }

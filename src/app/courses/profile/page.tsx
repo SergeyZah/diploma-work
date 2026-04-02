@@ -68,10 +68,38 @@ export default function ProfilePage() {
               priority
             />
           </div>
+          <div className={styles.images__mobile}>
+            <Image
+              width={141}
+              height={141}
+              className={styles.image__background}
+              src="/icon/profile_background.svg"
+              alt={'profile_background'}
+              priority
+            />
+            <Image
+              width={52}
+              height={52}
+              className={styles.image__circle}
+              src="/icon/profile_circle.svg"
+              alt={'profile_circle'}
+              priority
+            />
+            <Image
+              width={151}
+              height={52}
+              className={styles.image__semicircle}
+              src="/icon/profile_semicircle.svg"
+              alt={'profile_semicircle'}
+              priority
+            />
+          </div>
         </div>
         <div className={styles.profile__info}>
-          <h3 className={styles.profile__name}>{name}</h3>
-          <p className={styles.profile__login}>Логин:{user?.email}</p>
+          <h3 className={styles.profile__name}>{name || 'Имя'}</h3>
+          <p className={styles.profile__login}>
+            Логин: {user?.email || 'email@mail.ru'}
+          </p>
           <button className={styles.button__exit} onClick={handleExit}>
             Выйти
           </button>
@@ -79,12 +107,21 @@ export default function ProfilePage() {
       </div>
       <div className={styles.courses__box}>
         <h2 className={styles.courses__title}>Мои курсы</h2>
-        <div className={styles.courses__me}>
-          {selectedCourses.map((course) => {
-            return (
-              <Card key={course._id} course={course} displayInProfile={true} />
-            );
-          })}
+        <div className={styles.courses__container}>
+          <div className={styles.courses__me}>
+            {selectedCourses.map((course) => {
+              return (
+                <Card
+                  key={course._id}
+                  course={course}
+                  displayInProfile={true}
+                />
+              );
+            })}
+          </div>
+          <a href="#top" className={styles.centerblock__buttonUp}>
+            Наверх ↑
+          </a>
         </div>
       </div>
     </div>
