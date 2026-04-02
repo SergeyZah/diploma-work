@@ -14,17 +14,30 @@ export default function FitnessCourse({
   error,
 }: FitnessCourseTypeProp) {
   const theme = FetchRightCover(course.nameEN);
+  console.log(theme.courseImageSrcMobile);
+
+  const dynamicStyle = {
+    backgroundColor: `${theme.color}`,
+  };
 
   return (
     <div className={styles.fitnessCourse}>
       <div className={styles.fitnessCourse__header}>
         <h3 className={styles.header__title}>{course.nameRU}</h3>
-        <div className={styles.header__image}>
+        <div className={styles.header__image} style={dynamicStyle}>
           <Image
             width={1160}
             height={310}
             className={styles.image}
             src={theme.courseImageSrcLong}
+            alt={course.nameEN}
+            priority
+          />
+          <Image
+            width={343}
+            height={325}
+            className={styles.image__mobile}
+            src={theme.courseImageSrcMobile}
             alt={course.nameEN}
             priority
           />

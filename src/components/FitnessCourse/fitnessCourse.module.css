@@ -22,10 +22,15 @@
 
 .header__image {
   position: absolute;
+  border-radius: 30px;
 }
 
 .image {
   border-radius: 40px;
+}
+
+.image__mobile {
+  display: none;
 }
 
 .fitnessCourse__description {
@@ -107,6 +112,7 @@
 .direction {
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
 .direction__text {
@@ -118,80 +124,69 @@
   text-align: left;
 }
 
-.fitnessCourse__adding {
-  margin-top: 102px;
-  padding: 40px;
-  border-radius: 30px;
-  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
-  background: rgba(255, 255, 255, 1);
-  position: relative;
+@media (max-width: 376px) {
+  .fitnessCourse__header {
+    height: 385px;
+  }
+
+  .centerblock__title {
+    font-size: 32px;
+    line-height: 110%;
+  }
+
+  .header__title {
+    display: none;
+  }
+
+  .header__image {
+    padding-top: 58px;
+    padding-bottom: 20px;
+  }
+
+  .image {
+    display: none;
+  }
+
+  .image__mobile {
+    display: block;
+  }
+
+  .fitnessCourse__description {
+    padding-top: 40px;
+  }
+
+  .description__title {
+    font-size: 24px;
+  }
+
+  .description__points {
+    display: flex;
+    gap: 17px;
+    padding-top: 24px;
+    flex-direction: column;
+  }
+
+  .point__text {
+    font-size: 18px;
+  }
+
+  .fitnessCourse__directions {
+  padding-top: 40px;
+  margin-bottom: 156px;
 }
 
-.adding__container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 437px;
-}
+  .directions__title {
+    font-size: 24px;
+  }
 
-.adding__title {
-  color: rgba(0, 0, 0, 1);
-  font-size: 60px;
-  font-weight: 500;
-  line-height: 100%;
-  letter-spacing: 0px;
-  text-align: left;
-}
+  .directions {
+    margin-top: 24px;
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+  }
 
-.adding__advantages {
-  padding-top: 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  padding-left: 34px;
-}
-
-.advantage__text {
-  color: rgba(0, 0, 0, 1);
-  font-family: 'Roboto';
-  font-style: Regular;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 110%;
-  letter-spacing: 0px;
-  text-align: left;
-}
-
-.adding__button {
-  margin-top: 28px;
-  border-radius: 46px;
-  background: rgba(188, 236, 48, 1);
-  border: 1px solid rgba(188, 236, 48, 1);
-  color: rgba(0, 0, 0, 1);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 110%;
-  letter-spacing: 0px;
-  text-align: left;
-  padding: 16px 26px 16px 26px;
-  align-self: center;
-}
-
-.image_runner {
-  position: absolute;
-  top: -104px;
-  right: 32px;
-  z-index: 5;
-}
-
-.image_vectorBlack {
-  position: absolute;
-  top: 28px;
-  right: 380px;
-}
-
-.image_vectorGreen {
-  position: absolute;
-  top: 78px;
-  right: -22px;
+  .direction__text {
+    font-size: 18px;
+  }
 }

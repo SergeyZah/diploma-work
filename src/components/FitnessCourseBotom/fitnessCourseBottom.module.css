@@ -1,3 +1,7 @@
+.fitnessCourseBottom {
+  position: relative;
+}
+
 .fitnessCourse__adding {
   margin-top: 102px;
   padding: 40px;
@@ -83,4 +87,82 @@
   position: absolute;
   top: 78px;
   right: -22px;
+}
+
+.image_vectorGreen__mobile {
+  display: none;
+}
+
+@media (max-width: 376px) {
+  .fitnessCourse__adding {
+    padding: 30px;
+    border-radius: 30px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .adding__container {
+    width: 283px;
+    z-index: 1;
+  }
+
+  .adding__title {
+    font-size: 32px;
+  }
+
+  .adding__advantages {
+    padding-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    padding-left: 30px;
+  }
+
+  .advantage__text {
+    font-size: 18px;
+  }
+
+  .adding__button {
+    font-size: 16px;
+    padding: 16px 26px 16px 26px;
+    width: 283px;
+    justify-content: center;
+    display: flex;
+  }
+
+  .image_runner {
+    width: 334px;
+    height: 347px;
+    position: absolute;
+    top: -262px;
+    right: -72px;
+    z-index: 0;
+  }
+
+  .image_vectorBlack {
+    width: 32px;
+    height: 27px;
+    position: absolute;
+    top: -180px;
+    right: 154px;
+  }
+
+  .container_vectorGreen {
+    width: 640px;
+    height: 485px;
+    top: -150px;
+    right: -100px;
+    z-index: -1;
+  }
+
+  .image_vectorGreen {
+    display: none;
+  }
+
+  .image_vectorGreen__mobile {
+    display: block;
+    position: absolute;
+    top: -14px;
+    right: 38px;
+  }
 }

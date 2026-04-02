@@ -72,6 +72,11 @@
 }
 
 @media (max-width: 376px) {
+
+  .header {
+  padding-bottom: 40px;
+}
+
   .authUser__name {
   display: none;
 }

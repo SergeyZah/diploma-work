@@ -41,8 +41,26 @@
 }
 
 .centerblock__cards {
-    padding-top: 50px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+  padding-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+@media (max-width: 376px) {
+  .centerblock__title {
+    font-size: 32px;
+    line-height: 110%;
+  }
+
+  .centerblock__slogan {
+    display: none;
+  }
+
+  .centerblock__cards {
+  padding-top: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 }

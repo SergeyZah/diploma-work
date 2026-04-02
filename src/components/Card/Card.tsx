@@ -95,7 +95,15 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
         <Image
           width={360}
           height={325}
-          className={styles.card__imageYoga}
+          className={styles.image}
+          src={theme.courseImageSrc}
+          alt={course.nameEN}
+          priority
+        />
+        <Image
+          width={343}
+          height={325}
+          className={styles.image__mobile}
           src={theme.courseImageSrc}
           alt={course.nameEN}
           priority
