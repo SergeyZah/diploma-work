@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import { useAppSelector } from '@/store/store';
 import { useEffect, useState } from 'react';
-import { getUserNameByEmail } from '@/hooks/getUserNameByEmail';
+import { getUserNameByEmail } from '@/hooks/croppingLines';
 import Card from '@/components/Card/Card';
 import { data } from '@/data';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { clearUser } from '@/store/features/AuthSlice';
 import { useRouter } from 'next/navigation';
 import { setSelectedCourses } from '@/store/features/CourseSlice';
+import SelectWorkauts from '@/components/SelectWorkauts/SelectWorkauts';
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -124,6 +125,7 @@ export default function ProfilePage() {
           </a>
         </div>
       </div>
+      <SelectWorkauts />
     </div>
   );
 }

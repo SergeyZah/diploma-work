@@ -26,3 +26,16 @@ export type UserType = {
   selectedCourses: string[];
   courseProgress: string[];
 };
+
+export type ExercisesType = {
+  name: string;
+  quantity: number;
+  _id: string;
+};
+
+export type WorksType = {
+  _id: string;
+  name: string;
+  video: string;
+  exercises: ExercisesType[];
+};
