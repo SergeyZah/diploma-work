@@ -125,3 +125,9 @@
   letter-spacing: 0px;
   text-align: center;
 }
+
+@media (max-width: 376px) {
+  .authModalContainer {
+    width: 343px;
+  }
+}

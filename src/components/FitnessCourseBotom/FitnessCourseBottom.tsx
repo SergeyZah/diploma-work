@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import styles from './fitnessCourseBottom.module.css';
+import { useAppSelector } from '@/store/store';
 
 export default function FitnessCourseBottom() {
+  const { token } = useAppSelector((state) => state.auth);
   return (
     <div className={styles.fitnessCourseBottom}>
       <div className={styles.fitnessCourse__adding}>
@@ -34,7 +36,9 @@ export default function FitnessCourseBottom() {
               </p>
             </li>
           </ul>
-          <button className={styles.adding__button}>Добавить курс</button>
+          <button className={styles.adding__button}>
+            {token ? 'Добавить курс' : 'Войдите, чтобы добавить курс'}
+          </button>
         </div>
       </div>
       <Image

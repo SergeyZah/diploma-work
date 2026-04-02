@@ -37,7 +37,7 @@ export const CoverCourse: Record<string, CourseTheme> = {
   BodyFlex: {
     courseImageSrc: '/img/bodyflex.png',
     courseImageSrcLong: '/img/bodyflexLong.png',
-    courseImageSrcMobile: '/img/yogaMobile.png',
+    courseImageSrcMobile: '/img/bodyflexMobile.png',
     color: 'rgba(125, 69, 140, 1)',
   },
 };

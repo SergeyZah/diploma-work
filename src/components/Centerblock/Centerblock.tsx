@@ -13,7 +13,7 @@ export default function Centerblock({ courseList }: CenterblockTypeProp) {
     .sort((a: CourseType, b: CourseType) => a.order - b.order);
 
   return (
-    <div className={styles.centerblock}>
+    <div id="top" className={styles.centerblock}>
       <div className={styles.centerblock__header}>
         <h1 className={styles.centerblock__title}>
           Начните заниматься спортом и улучшите качество жизни
@@ -33,12 +33,17 @@ export default function Centerblock({ courseList }: CenterblockTypeProp) {
           </div>
         </div>
       </div>
-      <div className={styles.centerblock__cards}>
-        {sortCourseList.map((course) => {
-          return (
-            <Card key={course._id} course={course} displayInProfile={false} />
-          );
-        })}
+      <div className={styles.centerblock__box}>
+        <div className={styles.centerblock__cards}>
+          {sortCourseList.map((course) => {
+            return (
+              <Card key={course._id} course={course} displayInProfile={false} />
+            );
+          })}
+        </div>
+        <a href="#top" className={styles.centerblock__buttonUp}>
+          Наверх ↑
+        </a>
       </div>
     </div>
   );

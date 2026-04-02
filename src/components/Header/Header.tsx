@@ -68,6 +68,15 @@ export default function Header() {
             src="/icon/profile.svg"
             alt={'profile'}
             priority
+            className={styles.authUser__profile}
+          />
+          <Image
+            width={36}
+            height={36}
+            src="/icon/profile.svg"
+            alt={'profile'}
+            priority
+            className={styles.authUser__profileMobile}
           />
           <div className={styles.authUser__container} onClick={hadlePopUser}>
             <p className={styles.authUser__name}>

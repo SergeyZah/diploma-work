@@ -126,7 +126,7 @@
 
 @media (max-width: 376px) {
   .fitnessCourse__header {
-    height: 385px;
+    height: 325px;
   }
 
   .centerblock__title {
@@ -136,11 +136,6 @@
 
   .header__title {
     display: none;
-  }
-
-  .header__image {
-    padding-top: 58px;
-    padding-bottom: 20px;
   }
 
   .image {
