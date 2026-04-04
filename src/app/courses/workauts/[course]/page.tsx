@@ -2,35 +2,32 @@
 
 import styles from './page.module.css';
 import SelectWorkauts from '@/components/SelectWorkauts/SelectWorkauts';
-import { WorksType } from '@/sharedTypes/types';
 import { useAppSelector } from '@/store/store';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 export default function WorkautsPage() {
   const params = useParams<{ course: string }>();
 
-  const dispatch = useDispatch();
+  const { allCourses } = useAppSelector((state) => state.courses);
 
-  const { token } = useAppSelector((state) => state.auth);
-  const { fetchIsLoading, courseWorkauts } = useAppSelector(
-    (state) => state.courses,
-  );
-
-  const [workauts, setWorkauts] = useState<WorksType[]>();
+  const [courseName, setCourseName] = useState('');
 
   useEffect(() => {
-    if (!fetchIsLoading && courseWorkauts) {
-      setWorkauts(courseWorkauts);
-    }
-  }, []);
+    if (params?.course) {
+      const courseSelect = allCourses.find(
+        (course) => course._id === params?.course,
+      );
 
-  console.log(workauts);
+      if (courseSelect) {
+        setCourseName(courseSelect?.nameRU);
+      }
+    }
+  }, [params]);
 
   return (
     <div className={styles.workautsPage}>
-      <SelectWorkauts />
+      <SelectWorkauts courseName={courseName} />
     </div>
   );
 }

@@ -15,11 +15,11 @@ export const getNameWorkaut = (string: string) => {
   }
 };
 
-export const getString = (string: string) => {
+export const getString = (string: string, courseName: string, id: number) => {
   if (string.includes('/')) {
     const reqString = string.split('/').slice(1, 3).join('/');
     return reqString;
   } else {
-    return;
+    return `${courseName} / ${id + 1} день`;
   }
 };

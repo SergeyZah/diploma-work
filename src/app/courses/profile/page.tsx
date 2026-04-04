@@ -52,7 +52,7 @@ export default function ProfilePage() {
   return (
     <div className={styles.container}>
       <h2 className={styles.container__title}>Профиль</h2>
-      <div className={styles.profile__box}>
+      <div id="top" className={styles.profile__box}>
         <div className={styles.profile__image}>
           <div className={styles.images}>
             <Image
