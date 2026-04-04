@@ -1,23 +1,24 @@
 'use client';
 
 import { getUserInfo } from '@/services/auth/authApi';
-import { setToken, setUser } from '@/store/features/AuthSlice';
+import { setToken, setUser, setUserName } from '@/store/features/AuthSlice';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 export const useInitAuth = () => {
   const dispatch = useDispatch();
-  console.log('Работает useInitAuth');
 
   useEffect(() => {
-    const token = localStorage.getItem('token') || '';
-    // const user = JSON.parse(localStorage.getItem('user') || '');
-
-    dispatch(setToken(token));
-    // dispatch(setUser(user));
-
-    getUserInfo(token).then((response) => {
-      dispatch(setUser(response));
-    });
+    const token = localStorage.getItem('token');
+    const userName = localStorage.getItem('userName') || '';
+    if (token) {
+      dispatch(setToken(token));
+      getUserInfo(token).then((res) => {
+        dispatch(setUser(res));
+      });
+    } else {
+      console.log('Токен не передался');
+    }
+    dispatch(setUserName(userName));
   }, [dispatch]);
 };

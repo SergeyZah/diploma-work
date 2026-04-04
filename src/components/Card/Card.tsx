@@ -11,6 +11,13 @@ import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useAppSelector } from '@/store/store';
 import { useDispatch } from 'react-redux';
+import { getUserInfo } from '@/services/auth/authApi';
+import { setUser } from '@/store/features/AuthSlice';
+import {
+  setIdSelectedCourses,
+  setSelectedCourses,
+} from '@/store/features/CourseSlice';
+import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 
 type CardTypeProp = {
   course: CourseType;
@@ -22,6 +29,7 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
   const dispatch = useDispatch();
 
   const { token, user } = useAppSelector((state) => state.auth);
+  const { allCourses } = useAppSelector((state) => state.courses);
 
   const [error, setError] = useState('');
 
@@ -38,6 +46,16 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
     addUserCourse(token, course._id)
       .then((res) => {
         console.log(res);
+        return getUserInfo(token);
+      })
+      .then((response) => {
+        dispatch(setUser(response));
+        dispatch(setIdSelectedCourses(response.selectedCourses));
+        dispatch(
+          setSelectedCourses(
+            fetchSelectedCourses(allCourses, response.selectedCourses),
+          ),
+        );
       })
       .catch((error) => {
         if (error instanceof AxiosError) {
@@ -60,6 +78,17 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
     removeUserCourse(token, course._id)
       .then((res) => {
         console.log(res);
+        return getUserInfo(token);
+      })
+      .then((response) => {
+        console.log('Перезапись инф-ции о поль-ле');
+        dispatch(setUser(response));
+        dispatch(setIdSelectedCourses(response.selectedCourses));
+        dispatch(
+          setSelectedCourses(
+            fetchSelectedCourses(allCourses, response.selectedCourses),
+          ),
+        );
       })
       .catch((error) => {
         if (error instanceof AxiosError) {

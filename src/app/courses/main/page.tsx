@@ -6,11 +6,13 @@ import Centerblock from '@/components/Centerblock/Centerblock';
 import { useAppSelector } from '@/store/store';
 
 export default function MainPage() {
-  const { allCourses } = useAppSelector((state) => state.courses);
+  const { allCourses, fetchIsLoading } = useAppSelector(
+    (state) => state.courses,
+  );
 
   return (
     <div className={styles.scroll}>
-      <Centerblock courseList={allCourses} />
+      <Centerblock courseList={allCourses} fetchIsLoading={fetchIsLoading} />
     </div>
   );
 }

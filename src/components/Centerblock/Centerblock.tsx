@@ -5,9 +5,13 @@ import { CourseType } from '@/sharedTypes/types';
 
 type CenterblockTypeProp = {
   courseList: CourseType[];
+  fetchIsLoading: boolean;
 };
 
-export default function Centerblock({ courseList }: CenterblockTypeProp) {
+export default function Centerblock({
+  courseList,
+  fetchIsLoading,
+}: CenterblockTypeProp) {
   const sortCourseList = courseList
     .slice()
     .sort((a: CourseType, b: CourseType) => a.order - b.order);
@@ -33,18 +37,26 @@ export default function Centerblock({ courseList }: CenterblockTypeProp) {
           </div>
         </div>
       </div>
-      <div className={styles.centerblock__box}>
-        <div className={styles.centerblock__cards}>
-          {sortCourseList.map((course) => {
-            return (
-              <Card key={course._id} course={course} displayInProfile={false} />
-            );
-          })}
+      {fetchIsLoading ? (
+        'Загрузка курсов'
+      ) : (
+        <div className={styles.centerblock__box}>
+          <div className={styles.centerblock__cards}>
+            {sortCourseList.map((course) => {
+              return (
+                <Card
+                  key={course._id}
+                  course={course}
+                  displayInProfile={false}
+                />
+              );
+            })}
+          </div>
+          <a href="#top" className={styles.centerblock__buttonUp}>
+            Наверх ↑
+          </a>
         </div>
-        <a href="#top" className={styles.centerblock__buttonUp}>
-          Наверх ↑
-        </a>
-      </div>
+      )}
     </div>
   );
 }

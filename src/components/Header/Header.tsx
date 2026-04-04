@@ -15,10 +15,14 @@ import { getUserNameByEmail } from '@/hooks/croppingLines';
 import { useEffect, useState } from 'react';
 import { setUserName } from '@/store/features/AuthSlice';
 
-export default function Header() {
+type HeaderTypeProp = {
+  fetchIsLoading: boolean;
+};
+
+export default function Header({ fetchIsLoading }: HeaderTypeProp) {
   const dispatch = useDispatch();
 
-  const { user, token } = useAppSelector((state) => state.auth);
+  const { user, token, userName } = useAppSelector((state) => state.auth);
 
   const { visibleAuthModal, visiblePopUser } = useAppSelector(
     (state) => state.courses,
@@ -36,10 +40,10 @@ export default function Header() {
 
   useEffect(() => {
     if (user) {
-      setName(getUserNameByEmail(user.email));
+      setName(userName);
       dispatch(setUserName(getUserNameByEmail(user.email)));
     }
-  }, [user]);
+  }, [user, token]);
 
   return (
     <div className={styles.header}>
@@ -93,7 +97,9 @@ export default function Header() {
         </div>
       ) : (
         <button className={styles.header__button} onClick={hadleAuthModal}>
-          <p className={styles.button__text}>Войти</p>
+          <p className={styles.button__text}>
+            {fetchIsLoading ? 'Войти' : 'Войти'}
+          </p>
         </button>
       )}
       {visibleAuthModal ? <AuthModal /> : <></>}

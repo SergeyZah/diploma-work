@@ -9,29 +9,35 @@ import Card from '@/components/Card/Card';
 import { data } from '@/data';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { useDispatch } from 'react-redux';
-import { clearUser } from '@/store/features/AuthSlice';
+import { clearUser, setUser } from '@/store/features/AuthSlice';
 import { useRouter } from 'next/navigation';
-import { setSelectedCourses } from '@/store/features/CourseSlice';
-import SelectWorkauts from '@/components/SelectWorkauts/SelectWorkauts';
+import {
+  setIdSelectedCourses,
+  setSelectedCourses,
+} from '@/store/features/CourseSlice';
+import { getUserInfo } from '@/services/auth/authApi';
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { user, userName } = useAppSelector((state) => state.auth);
-  const { allCourses, selectedCourses } = useAppSelector(
+  const { user, userName, token } = useAppSelector((state) => state.auth);
+  const { allCourses, selectedCourses, idSelectedCourses } = useAppSelector(
     (state) => state.courses,
   );
 
-  const [name, setName] = useState(userName);
-
   useEffect(() => {
-    if (user) {
-      setName(getUserNameByEmail(user.email));
-      setSelectedCourses(
-        fetchSelectedCourses(allCourses, user.selectedCourses),
-      );
+    if (token) {
+      getUserInfo(token).then((response) => {
+        dispatch(setUser(response));
+        dispatch(setIdSelectedCourses(response.selectedCourses));
+        dispatch(
+          setSelectedCourses(
+            fetchSelectedCourses(allCourses, response.selectedCourses),
+          ),
+        );
+      });
     }
-  }, [user]);
+  }, [token]);
 
   const handleExit = () => {
     dispatch(clearUser());
@@ -97,7 +103,7 @@ export default function ProfilePage() {
           </div>
         </div>
         <div className={styles.profile__info}>
-          <h3 className={styles.profile__name}>{name || 'Имя'}</h3>
+          <h3 className={styles.profile__name}>{userName || 'Имя'}</h3>
           <p className={styles.profile__login}>
             Логин: {user?.email || 'email@mail.ru'}
           </p>
@@ -125,7 +131,6 @@ export default function ProfilePage() {
           </a>
         </div>
       </div>
-      <SelectWorkauts />
     </div>
   );
 }

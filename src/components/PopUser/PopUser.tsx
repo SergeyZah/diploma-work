@@ -3,18 +3,23 @@
 import { useDispatch } from 'react-redux';
 import styles from './popUser.module.css';
 import { useRouter } from 'next/navigation';
-import { clearUser } from '@/store/features/AuthSlice';
+import { clearUser, setUser } from '@/store/features/AuthSlice';
 import {
+  setIdSelectedCourses,
+  setSelectedCourses,
   setVisibleAuthModal,
   setVisiblePopUser,
 } from '@/store/features/CourseSlice';
 import { useAppSelector } from '@/store/store';
+import { getUserInfo } from '@/services/auth/authApi';
+import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 
 export default function PopUser() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { user, userName } = useAppSelector((state) => state.auth);
+  const { user, userName, token } = useAppSelector((state) => state.auth);
+  const { allCourses } = useAppSelector((state) => state.courses);
 
   const handleExit = () => {
     dispatch(clearUser());
@@ -26,6 +31,15 @@ export default function PopUser() {
   const handleMyProfile = () => {
     router.push('/courses/profile');
     dispatch(setVisiblePopUser(false));
+    getUserInfo(token).then((response) => {
+      dispatch(setUser(response));
+      dispatch(setIdSelectedCourses(response.selectedCourses));
+      dispatch(
+        setSelectedCourses(
+          fetchSelectedCourses(allCourses, response.selectedCourses),
+        ),
+      );
+    });
   };
 
   return (

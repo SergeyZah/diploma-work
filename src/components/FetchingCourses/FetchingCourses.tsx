@@ -1,10 +1,13 @@
 'use client';
 
+import { getUserInfo } from '@/services/auth/authApi';
 import { getAllCourses } from '@/services/courses/coursesApi';
+import { setUser } from '@/store/features/AuthSlice';
 import {
   setAllCourses,
   setFetchError,
   setFetchIsLoading,
+  setIdSelectedCourses,
 } from '@/store/features/CourseSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { AxiosError } from 'axios';
@@ -12,9 +15,10 @@ import { useEffect } from 'react';
 
 export default function FetchingCourses() {
   const dispatch = useAppDispatch();
-  const { allCourses } = useAppSelector((state) => state.courses);
-
-  // console.log('FetchingCourses до юза');
+  const { allCourses, idSelectedCourses } = useAppSelector(
+    (state) => state.courses,
+  );
+  const { token } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (allCourses.length) {
@@ -33,14 +37,40 @@ export default function FetchingCourses() {
               dispatch(setFetchError('Произошла ошибка. Попробуйте позже'));
               console.log(error);
             } else {
-              // dispatch(setFetchError('Неизвестная ошибка'));
+              dispatch(setFetchError('Неизвестная ошибка'));
+            }
+        })
+        .finally(() => {
+          dispatch(setFetchIsLoading(false));
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (idSelectedCourses) {
+      dispatch(setIdSelectedCourses(idSelectedCourses));
+    } else {
+      dispatch(setFetchIsLoading(true));
+      getUserInfo(token)
+        .then((response) => {
+          dispatch(setUser(response));
+          dispatch(setIdSelectedCourses(response.selectedCourses));
+        })
+        .catch((error) => {
+          if (error instanceof AxiosError)
+            if (error.response) {
+              dispatch(setFetchError(error.response.data));
+            } else if (error.request) {
+              dispatch(setFetchError('Произошла ошибка. Попробуйте позже'));
+              console.log(error);
+            } else {
+              dispatch(setFetchError('Неизвестная ошибка'));
             }
         })
         .finally(() => {
           dispatch(setFetchIsLoading(true));
-          console.log('FetchingCourses конец юза');
         });
     }
-  });
+  }, []);
   return <></>;
 }

@@ -8,6 +8,7 @@ type initialStateType = {
   visibleAuthModal: boolean;
   visiblePopUser: boolean;
   selectedCourses: CourseType[];
+  idSelectedCourses: string[];
 };
 
 const initialState: initialStateType = {
@@ -17,6 +18,7 @@ const initialState: initialStateType = {
   visibleAuthModal: false,
   visiblePopUser: false,
   selectedCourses: [],
+  idSelectedCourses: [],
 };
 
 const courseSlice = createSlice({
@@ -40,7 +42,9 @@ const courseSlice = createSlice({
     },
     setSelectedCourses: (state, action: PayloadAction<CourseType[]>) => {
       state.selectedCourses = action.payload;
-      console.log(action.payload);
+    },
+    setIdSelectedCourses: (state, action: PayloadAction<string[]>) => {
+      state.idSelectedCourses = action.payload;
     },
   },
 });
@@ -52,5 +56,6 @@ export const {
   setVisibleAuthModal,
   setVisiblePopUser,
   setSelectedCourses,
+  setIdSelectedCourses,
 } = courseSlice.actions;
 export const courseSliceReducer = courseSlice.reducer;

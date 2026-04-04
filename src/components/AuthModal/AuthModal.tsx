@@ -5,13 +5,19 @@ import styles from './authModal.module.css';
 import Link from 'next/link';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
-import { setVisibleAuthModal } from '@/store/features/CourseSlice';
+import {
+  setIdSelectedCourses,
+  setSelectedCourses,
+  setVisibleAuthModal,
+} from '@/store/features/CourseSlice';
 import { useEffect, useState } from 'react';
 import { getUserInfo, signIn, signUp } from '@/services/auth/authApi';
 import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
-import { setToken, setUser } from '@/store/features/AuthSlice';
+import { setToken, setUser, setUserName } from '@/store/features/AuthSlice';
 import { useAppSelector } from '@/store/store';
+import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
+import { getUserNameByEmail } from '@/hooks/croppingLines';
 
 export default function AuthModal() {
   const router = useRouter();
@@ -66,6 +72,11 @@ export default function AuthModal() {
         dispatch(setToken(res.token));
         router.push('/courses/main');
         dispatch(setVisibleAuthModal(false));
+        return getUserInfo(res.token);
+      })
+      .then((response) => {
+        dispatch(setUser(response));
+        dispatch(setUserName(getUserNameByEmail(response.email)));
       })
       .catch((error) => {
         setIsLoading(false);
