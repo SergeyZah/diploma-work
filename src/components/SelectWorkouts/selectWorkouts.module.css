@@ -1,4 +1,4 @@
-.selectWorkauts {
+.selectWorkouts {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@
   z-index: 1000;
 }
 
-.selectWorkauts__container {
+.selectWorkouts__container {
   border-radius: 30px;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
   background: rgba(255, 255, 255, 1);
@@ -20,7 +20,7 @@
   width: 460px;
 }
 
-.selectWorkauts__title {
+.selectWorkouts__title {
   color: rgba(0, 0, 0, 1);
   font-size: 32px;
   font-weight: 400;
@@ -30,7 +30,7 @@
   padding-bottom: 48px;
 }
 
-.selectWorkauts__box {
+.selectWorkouts__box {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -40,7 +40,7 @@
   scrollbar-width: none;
 }
 
-.selectWorkauts__workaut {
+.selectWorkouts__workaut {
   display: flex;
   gap: 12px;
   border-bottom: 1px solid rgba(196, 196, 196, 1);
@@ -73,7 +73,7 @@
   padding-bottom: 10px;
 }
 
-.selectWorkauts__button {
+.selectWorkouts__button {
   border-radius: 46px;
   border: 1px solid rgba(188, 236, 48, 1);
   background: rgba(188, 236, 48, 1);
@@ -88,22 +88,22 @@
   width: 100%;
 }
 
-.selectWorkauts__button:hover {
+.selectWorkouts__button:hover {
   background: rgba(198, 255, 0, 1);
 }
 
-.selectWorkauts__button:invalid {
+.selectWorkouts__button:invalid {
   color: rgba(153, 153, 153, 1);
   background: rgba(247, 247, 247, 1);
 }
 
-.selectWorkauts__button:active {
+.selectWorkouts__button:active {
   color: rgba(255, 255, 255, 1);
   background: rgba(0, 0, 0, 1);
 }
 
 @media (max-width: 376px) {
-  .selectWorkauts__container {
+  .selectWorkouts__container {
     width: 343px;
   }
 

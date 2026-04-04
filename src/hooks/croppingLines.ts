@@ -7,7 +7,6 @@ export const getUserNameByEmail = (email: string) => {
 export const getNameWorkaut = (string: string) => {
   if (string.includes('/')) {
     let from = string.search('/');
-    console.log(from);
     const reqString = string.substring(0, from);
     return reqString;
   } else {

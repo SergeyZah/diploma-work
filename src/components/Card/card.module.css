@@ -70,7 +70,7 @@
   text-align: left;
 }
 
-.selectWorkauts__button {
+.selectWorkouts__button {
   border-radius: 46px;
   border: 1px solid rgba(188, 236, 48, 1);
   background: rgba(188, 236, 48, 1);
@@ -86,16 +86,16 @@
   margin-top: 40px;
 }
 
-.selectWorkauts__button:hover {
+.selectWorkouts__button:hover {
   background: rgba(198, 255, 0, 1);
 }
 
-.selectWorkauts__button:invalid {
+.selectWorkouts__button:invalid {
   color: rgba(153, 153, 153, 1);
   background: rgba(247, 247, 247, 1);
 }
 
-.selectWorkauts__button:active {
+.selectWorkouts__button:active {
   color: rgba(255, 255, 255, 1);
   background: rgba(0, 0, 0, 1);
 }

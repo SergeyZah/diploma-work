@@ -1,4 +1,4 @@
-export const dataWorkauts = [
+export const dataWorkouts = [
   {
     _id: '3yvozj',
     name: 'Утренняя практика / Йога на каждый день / 1 день / Алексей Казубский',

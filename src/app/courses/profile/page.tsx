@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { clearUser, setUser } from '@/store/features/AuthSlice';
 import { useRouter } from 'next/navigation';
 import {
-  setCourseWorkauts,
+  setCourseWorkouts,
   setIdSelectedCourses,
   setSelectedCourses,
 } from '@/store/features/CourseSlice';
@@ -27,7 +27,7 @@ export default function ProfilePage() {
   );
 
   useEffect(() => {
-    dispatch(setCourseWorkauts([]));
+    dispatch(setCourseWorkouts([]));
   }, []);
 
   useEffect(() => {

@@ -1,12 +1,12 @@
 'use client';
 
 import styles from './page.module.css';
-import SelectWorkauts from '@/components/SelectWorkauts/SelectWorkauts';
+import SelectWorkouts from '@/components/SelectWorkouts/SelectWorkouts';
 import { useAppSelector } from '@/store/store';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function WorkautsPage() {
+export default function WorkoutsPage() {
   const params = useParams<{ course: string }>();
 
   const { allCourses } = useAppSelector((state) => state.courses);
@@ -26,8 +26,8 @@ export default function WorkautsPage() {
   }, [params]);
 
   return (
-    <div className={styles.workautsPage}>
-      <SelectWorkauts courseName={courseName} />
+    <div className={styles.workoutsPage}>
+      <SelectWorkouts courseName={courseName} />
     </div>
   );
 }

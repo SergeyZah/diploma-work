@@ -8,7 +8,8 @@ type initialStateType = {
   visibleAuthModal: boolean;
   visiblePopUser: boolean;
   selectedCourses: CourseType[];
-  courseWorkauts: WorksType[];
+  selectedWorkout: WorksType | null;
+  courseWorkouts: WorksType[];
   idSelectedCourses: string[];
 };
 
@@ -19,7 +20,8 @@ const initialState: initialStateType = {
   visibleAuthModal: false,
   visiblePopUser: false,
   selectedCourses: [],
-  courseWorkauts: [],
+  selectedWorkout: null,
+  courseWorkouts: [],
   idSelectedCourses: [],
 };
 
@@ -42,8 +44,11 @@ const courseSlice = createSlice({
     setIdSelectedCourses: (state, action: PayloadAction<string[]>) => {
       state.idSelectedCourses = action.payload;
     },
-    setCourseWorkauts: (state, action: PayloadAction<WorksType[]>) => {
-      state.courseWorkauts = action.payload;
+    setCourseWorkouts: (state, action: PayloadAction<WorksType[]>) => {
+      state.courseWorkouts = action.payload;
+    },
+    setSelectedWorkout: (state, action: PayloadAction<WorksType>) => {
+      state.selectedWorkout = action.payload;
     },
     setVisibleAuthModal: (state, action: PayloadAction<boolean>) => {
       state.visibleAuthModal = action.payload;
@@ -61,7 +66,8 @@ export const {
   setVisibleAuthModal,
   setVisiblePopUser,
   setSelectedCourses,
-  setCourseWorkauts,
+  setSelectedWorkout,
+  setCourseWorkouts,
   setIdSelectedCourses,
 } = courseSlice.actions;
 export const courseSliceReducer = courseSlice.reducer;

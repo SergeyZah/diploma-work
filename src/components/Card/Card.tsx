@@ -8,7 +8,7 @@ import { FetchRightCover } from '@/utils/FetchRightCover';
 import { useRouter } from 'next/navigation';
 import {
   addUserCourse,
-  getCourseWorkauts,
+  getCourseWorkouts,
   removeUserCourse,
 } from '@/services/courses/coursesApi';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 import { getUserInfo } from '@/services/auth/authApi';
 import { setUser } from '@/store/features/AuthSlice';
 import {
-  setCourseWorkauts,
+  setCourseWorkouts,
   setFetchIsLoading,
   setIdSelectedCourses,
   setSelectedCourses,
@@ -112,15 +112,15 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
       });
   };
 
-  const hadleSelectWorkauts = (
+  const hadleSelectWorkouts = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
-    getCourseWorkauts(token, course._id)
+    getCourseWorkouts(token, course._id)
       .then((res) => {
         console.log(res);
-        dispatch(setCourseWorkauts(res));
-        console.log('Закончился Use в WorkautsPage');
+        dispatch(setCourseWorkouts(res));
+        console.log('Закончился Use в WorkoutsPage');
       })
       .catch((error) => {
         if (error instanceof AxiosError) {
@@ -135,7 +135,7 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
       })
       .finally(() => {
         setFetchIsLoading(false);
-        router.push(`/courses/workauts/${course._id}`);
+        router.push(`/courses/workouts/${course._id}`);
       });
   };
 
@@ -228,10 +228,10 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
             </div>
           </div>
         </div>
-        <div className={styles.selectWorkauts__options}>
+        <div className={styles.selectWorkouts__options}>
           <button
-            className={styles.selectWorkauts__button}
-            onClick={hadleSelectWorkauts}
+            className={styles.selectWorkouts__button}
+            onClick={hadleSelectWorkouts}
           >
             Начать
           </button>
