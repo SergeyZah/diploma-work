@@ -5,12 +5,21 @@ export const getUserNameByEmail = (email: string) => {
 };
 
 export const getNameWorkaut = (string: string) => {
-  let from = string.search('/');
-  const reqString = string.substring(0, from);
-  return reqString;
+  if (string.includes('/')) {
+    let from = string.search('/');
+    console.log(from);
+    const reqString = string.substring(0, from);
+    return reqString;
+  } else {
+    return string;
+  }
 };
 
 export const getString = (string: string) => {
-  const reqString = string.split('/').slice(1, 3).join('/');
-  return reqString;
+  if (string.includes('/')) {
+    const reqString = string.split('/').slice(1, 3).join('/');
+    return reqString;
+  } else {
+    return;
+  }
 };

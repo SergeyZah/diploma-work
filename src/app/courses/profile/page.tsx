@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { clearUser, setUser } from '@/store/features/AuthSlice';
 import { useRouter } from 'next/navigation';
 import {
+  setCourseWorkauts,
   setIdSelectedCourses,
   setSelectedCourses,
 } from '@/store/features/CourseSlice';
@@ -24,6 +25,10 @@ export default function ProfilePage() {
   const { allCourses, selectedCourses, idSelectedCourses } = useAppSelector(
     (state) => state.courses,
   );
+
+  useEffect(() => {
+    dispatch(setCourseWorkauts([]));
+  }, []);
 
   useEffect(() => {
     if (token) {

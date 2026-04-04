@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CourseType } from '@/sharedTypes/types';
+import { CourseType, WorksType } from '@/sharedTypes/types';
 import { BASE_URL } from '../constants';
 
 type addUserCourseReturnType = {
@@ -52,4 +52,18 @@ export const removeUserCourse = (
     .then((res) => {
       return res.data;
     });
+};
+
+export const getCourseWorkauts = (
+  token: string,
+  courseId: string,
+): Promise<WorksType[]> => {
+  return axios(BASE_URL + `/api/fitness/courses/${courseId}/workouts`, {
+    headers: {
+      'content-type': '',
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    return res.data;
+  });
 };

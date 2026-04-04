@@ -6,7 +6,11 @@ import classnames from 'classnames';
 import { CourseType } from '@/sharedTypes/types';
 import { FetchRightCover } from '@/utils/FetchRightCover';
 import { useRouter } from 'next/navigation';
-import { addUserCourse, removeUserCourse } from '@/services/courses/coursesApi';
+import {
+  addUserCourse,
+  getCourseWorkauts,
+  removeUserCourse,
+} from '@/services/courses/coursesApi';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useAppSelector } from '@/store/store';
@@ -14,6 +18,8 @@ import { useDispatch } from 'react-redux';
 import { getUserInfo } from '@/services/auth/authApi';
 import { setUser } from '@/store/features/AuthSlice';
 import {
+  setCourseWorkauts,
+  setFetchIsLoading,
   setIdSelectedCourses,
   setSelectedCourses,
 } from '@/store/features/CourseSlice';
@@ -28,8 +34,10 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { token, user } = useAppSelector((state) => state.auth);
-  const { allCourses } = useAppSelector((state) => state.courses);
+  const { token } = useAppSelector((state) => state.auth);
+  const { allCourses, fetchIsLoading } = useAppSelector(
+    (state) => state.courses,
+  );
 
   const [error, setError] = useState('');
 
@@ -101,6 +109,33 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
           }
         }
         console.log('error: ', error);
+      });
+  };
+
+  const hadleSelectWorkauts = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    getCourseWorkauts(token, course._id)
+      .then((res) => {
+        console.log(res);
+        dispatch(setCourseWorkauts(res));
+        console.log('Закончился Use в WorkautsPage');
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data);
+          } else if (error.request) {
+            setError('Что-то с интернетом');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+      })
+      .finally(() => {
+        setFetchIsLoading(false);
+        router.push(`/courses/workauts/${course._id}`);
       });
   };
 
@@ -192,6 +227,14 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
               </p>
             </div>
           </div>
+        </div>
+        <div className={styles.selectWorkauts__options}>
+          <button
+            className={styles.selectWorkauts__button}
+            onClick={hadleSelectWorkauts}
+          >
+            Начать
+          </button>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { CourseType } from '@/sharedTypes/types';
+import { CourseType, WorksType } from '@/sharedTypes/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type initialStateType = {
@@ -8,6 +8,7 @@ type initialStateType = {
   visibleAuthModal: boolean;
   visiblePopUser: boolean;
   selectedCourses: CourseType[];
+  courseWorkauts: WorksType[];
   idSelectedCourses: string[];
 };
 
@@ -18,6 +19,7 @@ const initialState: initialStateType = {
   visibleAuthModal: false,
   visiblePopUser: false,
   selectedCourses: [],
+  courseWorkauts: [],
   idSelectedCourses: [],
 };
 
@@ -34,17 +36,20 @@ const courseSlice = createSlice({
     setFetchError: (state, action: PayloadAction<string>) => {
       state.fetchError = action.payload;
     },
-    setVisibleAuthModal: (state, action: PayloadAction<boolean>) => {
-      state.visibleAuthModal = action.payload;
-    },
-    setVisiblePopUser: (state, action: PayloadAction<boolean>) => {
-      state.visiblePopUser = action.payload;
-    },
     setSelectedCourses: (state, action: PayloadAction<CourseType[]>) => {
       state.selectedCourses = action.payload;
     },
     setIdSelectedCourses: (state, action: PayloadAction<string[]>) => {
       state.idSelectedCourses = action.payload;
+    },
+    setCourseWorkauts: (state, action: PayloadAction<WorksType[]>) => {
+      state.courseWorkauts = action.payload;
+    },
+    setVisibleAuthModal: (state, action: PayloadAction<boolean>) => {
+      state.visibleAuthModal = action.payload;
+    },
+    setVisiblePopUser: (state, action: PayloadAction<boolean>) => {
+      state.visiblePopUser = action.payload;
     },
   },
 });
@@ -56,6 +61,7 @@ export const {
   setVisibleAuthModal,
   setVisiblePopUser,
   setSelectedCourses,
+  setCourseWorkauts,
   setIdSelectedCourses,
 } = courseSlice.actions;
 export const courseSliceReducer = courseSlice.reducer;

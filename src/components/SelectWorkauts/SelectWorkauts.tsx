@@ -1,14 +1,17 @@
-import { dataWorkauts } from '@/dataWorks';
+'use client';
+
 import styles from './selectWorkauts.module.css';
 import { getNameWorkaut, getString } from '@/hooks/croppingLines';
+import { useAppSelector } from '@/store/store';
 
 export default function SelectWorkauts() {
+  const { courseWorkauts } = useAppSelector((state) => state.courses);
   return (
     <div className={styles.selectWorkauts}>
       <div className={styles.selectWorkauts__container}>
         <h2 className={styles.selectWorkauts__title}>Выберите тренировку</h2>
         <div className={styles.selectWorkauts__box}>
-          {dataWorkauts.map((workaut) => {
+          {courseWorkauts.map((workaut) => {
             return (
               <label
                 key={workaut._id}
