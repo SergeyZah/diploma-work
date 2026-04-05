@@ -1,8 +1,11 @@
 'use client';
 
+import { calculatingProgress } from '@/hooks/calculatingProgress';
 import styles from './workout.module.css';
 import { WorkoutProgressType, WorksType } from '@/sharedTypes/types';
 import { useAppSelector } from '@/store/store';
+import { getNameExercise } from '@/hooks/croppingLines';
+import { useEffect, useState } from 'react';
 
 type WorkoutTypeProp = {
   workout: WorksType;
@@ -10,9 +13,26 @@ type WorkoutTypeProp = {
 };
 
 export default function Workout({ workout, workProgress }: WorkoutTypeProp) {
-  const { selectedWorkout, selectCoursName } = useAppSelector(
+  const { selectedWorkout, selectCoursName, workoutProgress } = useAppSelector(
     (state) => state.courses,
   );
+
+  const [progressData, setProgressData] = useState<number[]>([]);
+  const [progressExercise, setProgressExercise] = useState(false);
+  const [finish, setFinish] = useState(false);
+
+  useEffect(() => {
+    if (!workoutProgress || !workoutProgress.progressData) {
+      const arr = Array.from({ length: 20 }, () => 0);
+      setProgressData(arr);
+    } else {
+      setProgressData(workoutProgress.progressData);
+      setProgressExercise(true);
+      if (workoutProgress.workoutCompleted === true) {
+        setFinish(true);
+      }
+    }
+  }, [workoutProgress]);
 
   return (
     <div className={styles.workout}>
@@ -32,20 +52,40 @@ export default function Workout({ workout, workProgress }: WorkoutTypeProp) {
       <div className={styles.workout__box}>
         <h3 className={styles.workout__title}>Упражнения тренировки </h3>
         <div className={styles.workout__exercises}>
-          {}
-          {selectedWorkout?.exercises.map((exercise) => {
+          {selectedWorkout?.exercises.map((exercise, idx) => {
+            const progressExercise = calculatingProgress(
+              progressData[idx],
+              exercise.quantity,
+            );
+
             return (
               <div key={`${exercise._id}`} className={styles.workout__exercise}>
                 <p
                   className={styles.exercise__name}
-                >{`${exercise.name} ${10}%`}</p>
+                >{`${getNameExercise(exercise.name)} ${progressExercise}%`}</p>
                 <div className={styles.exercise__progress}>
-                  <div className={styles.progress}></div>
+                  <div
+                    className={styles.progress}
+                    style={{
+                      width: `${calculatingProgress(progressData[idx], exercise.quantity)}%`,
+                    }}
+                  ></div>
                 </div>
               </div>
             );
           })}
         </div>
+        {finish ? (
+          <button className={styles.workout__button}>
+            Сбросить прогресс тренировки
+          </button>
+        ) : (
+          <button className={styles.workout__button}>
+            {progressExercise
+              ? 'Обновить свой прогресс'
+              : 'Заполнить свой прогресс'}
+          </button>
+        )}
       </div>
     </div>
   );

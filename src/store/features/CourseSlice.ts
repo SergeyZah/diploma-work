@@ -68,7 +68,7 @@ const courseSlice = createSlice({
     },
     setSelectCourseId: (state, action: PayloadAction<string>) => {
       state.selectCourseId = action.payload;
-      localStorage.setItem('selectCourseId', JSON.stringify(action.payload));
+      localStorage.setItem('selectCourseId', action.payload);
       console.log(`Сохранил в localStorage ${action.payload}`);
     },
     setCourseProgress: (state, action: PayloadAction<CourseProgressType>) => {

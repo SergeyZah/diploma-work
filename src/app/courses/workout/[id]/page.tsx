@@ -25,12 +25,19 @@ export default function WorkoutPage() {
   const [workProgress, setWorkProgress] = useState<WorkoutProgressType | null>(
     null,
   );
+  const [courseId, setCourseId] = useState<string | null>('');
 
   const workoutId = params?.id ?? '';
-  const coursesId = localStorage.getItem('selectCourseId');
 
   useEffect(() => {
-    if (!workoutId || !token || !coursesId) return;
+    if (params?.id) {
+      const courseId = localStorage.getItem('selectCourseId');
+      setCourseId(courseId);
+    }
+  }, [params]);
+
+  useEffect(() => {
+    if (!workoutId || !token || !courseId) return;
 
     getWorkautInfo(token, workoutId)
       .then((res) => {
@@ -49,7 +56,7 @@ export default function WorkoutPage() {
         }
       });
 
-    getWorkoutProgress(token, coursesId, workoutId)
+    getWorkoutProgress(token, courseId, workoutId)
       .then((res) => {
         dispatch(setWorkoutProgress(res));
         setWorkProgress(res);
@@ -65,7 +72,7 @@ export default function WorkoutPage() {
           }
         }
       });
-  }, [token, workoutId, dispatch, coursesId]);
+  }, [token, workoutId, dispatch, courseId]);
 
   return <Workout workout={workout!} workProgress={workProgress!} />;
 }
