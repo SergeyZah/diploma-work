@@ -1,13 +1,17 @@
 'use client';
 
-import { getWorkautInfo } from '@/services/courses/coursesApi';
+import {
+  getCourseWorkouts,
+  getWorkautInfo,
+} from '@/services/courses/coursesApi';
 import styles from './selectWorkouts.module.css';
 import { getNameWorkaut, getString } from '@/hooks/croppingLines';
 import { useAppSelector } from '@/store/store';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
+  setCourseWorkouts,
   setFetchIsLoading,
   setSelectedWorkout,
 } from '@/store/features/CourseSlice';
@@ -33,6 +37,7 @@ export default function SelectWorkouts({ courseName }: SelectWorkoutsTypeProp) {
       .then((res) => {
         console.log(res);
         dispatch(setSelectedWorkout(res));
+        console.log('Происходит запрос');
       })
       .catch((error) => {
         if (error instanceof AxiosError) {

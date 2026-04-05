@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { CourseType, WorksType } from '@/sharedTypes/types';
+import {
+  CourseProgressType,
+  CourseType,
+  WorkoutProgressType,
+  WorksType,
+} from '@/sharedTypes/types';
 import { BASE_URL } from '../constants';
 
 type addUserCourseReturnType = {
@@ -78,6 +83,42 @@ export const getWorkautInfo = (
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => {
+    return res.data;
+  });
+};
+
+export const getCourseProgress = (
+  token: string,
+  courseId: string,
+): Promise<CourseProgressType> => {
+  return axios(
+    BASE_URL + `/api/fitness/users/me/progress?courseId=${courseId}`,
+    {
+      headers: {
+        'content-type': '',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  ).then((res) => {
+    return res.data;
+  });
+};
+
+export const getWorkoutProgress = (
+  token: string,
+  courseId: string,
+  workautId: string,
+): Promise<WorkoutProgressType> => {
+  return axios(
+    BASE_URL +
+      `/api/fitness/users/me/progress?courseId=${courseId}&workoutId=${workautId}`,
+    {
+      headers: {
+        'content-type': '',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  ).then((res) => {
     return res.data;
   });
 };

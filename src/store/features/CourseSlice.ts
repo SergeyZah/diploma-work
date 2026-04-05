@@ -1,4 +1,9 @@
-import { CourseType, WorksType } from '@/sharedTypes/types';
+import {
+  CourseProgressType,
+  CourseType,
+  WorkoutProgressType,
+  WorksType,
+} from '@/sharedTypes/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type initialStateType = {
@@ -9,6 +14,10 @@ type initialStateType = {
   visiblePopUser: boolean;
   selectedCourses: CourseType[];
   selectedWorkout: WorksType | null;
+  selectCoursName: string;
+  selectCourseId: string;
+  courseProgress: CourseProgressType | null;
+  workoutProgress: WorkoutProgressType | null;
   courseWorkouts: WorksType[];
   idSelectedCourses: string[];
 };
@@ -21,6 +30,10 @@ const initialState: initialStateType = {
   visiblePopUser: false,
   selectedCourses: [],
   selectedWorkout: null,
+  selectCoursName: '',
+  selectCourseId: '',
+  courseProgress: null,
+  workoutProgress: null,
   courseWorkouts: [],
   idSelectedCourses: [],
 };
@@ -50,6 +63,20 @@ const courseSlice = createSlice({
     setSelectedWorkout: (state, action: PayloadAction<WorksType>) => {
       state.selectedWorkout = action.payload;
     },
+    setSelectCourseName: (state, action: PayloadAction<string>) => {
+      state.selectCoursName = action.payload;
+    },
+    setSelectCourseId: (state, action: PayloadAction<string>) => {
+      state.selectCourseId = action.payload;
+      localStorage.setItem('selectCourseId', JSON.stringify(action.payload));
+      console.log(`Сохранил в localStorage ${action.payload}`);
+    },
+    setCourseProgress: (state, action: PayloadAction<CourseProgressType>) => {
+      state.courseProgress = action.payload;
+    },
+    setWorkoutProgress: (state, action: PayloadAction<WorkoutProgressType>) => {
+      state.workoutProgress = action.payload;
+    },
     setVisibleAuthModal: (state, action: PayloadAction<boolean>) => {
       state.visibleAuthModal = action.payload;
     },
@@ -68,6 +95,10 @@ export const {
   setSelectedCourses,
   setSelectedWorkout,
   setCourseWorkouts,
+  setSelectCourseId,
   setIdSelectedCourses,
+  setSelectCourseName,
+  setCourseProgress,
+  setWorkoutProgress,
 } = courseSlice.actions;
 export const courseSliceReducer = courseSlice.reducer;

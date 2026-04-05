@@ -7,9 +7,11 @@ import { useAppSelector } from '@/store/store';
 import { getCourseCardInfo } from '@/services/courses/coursesApi';
 import { CourseType } from '@/sharedTypes/types';
 import { AxiosError } from 'axios';
+import { useDispatch } from 'react-redux';
 
 export default function CoursePage() {
   const params = useParams<{ id: string }>();
+  const dispatch = useDispatch();
 
   const { fetchIsLoading, fetchError } = useAppSelector(
     (state) => state.courses,
@@ -19,27 +21,29 @@ export default function CoursePage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
+  const courseId = params?.id ?? '';
+
   useEffect(() => {
-    if (params?.id) {
-      getCourseCardInfo(params?.id)
-        .then((res) => {
-          setCourseInfo(res);
-        })
-        .catch((error) => {
-          if (error instanceof AxiosError) {
-            if (error.response) {
-              setError(error.response.data);
-            } else if (error.request) {
-              setError('Что-то с интернетом');
-            } else {
-              setError('Неизвестная ошибка');
-            }
+    if (!courseId) return;
+
+    getCourseCardInfo(courseId)
+      .then((res) => {
+        setCourseInfo(res);
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data);
+          } else if (error.request) {
+            setError('Что-то с интернетом');
+          } else {
+            setError('Неизвестная ошибка');
           }
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (

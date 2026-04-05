@@ -26,9 +26,9 @@ export default function ProfilePage() {
     (state) => state.courses,
   );
 
-  useEffect(() => {
-    dispatch(setCourseWorkouts([]));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(setCourseWorkouts([]));
+  // }, []);
 
   useEffect(() => {
     if (token) {

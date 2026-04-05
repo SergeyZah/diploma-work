@@ -1,17 +1,31 @@
 'use client';
 
+import {
+  setCourseWorkouts,
+  setFetchIsLoading,
+  setSelectCourseName,
+} from '@/store/features/CourseSlice';
 import styles from './page.module.css';
 import SelectWorkouts from '@/components/SelectWorkouts/SelectWorkouts';
 import { useAppSelector } from '@/store/store';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCourseWorkouts } from '@/services/courses/coursesApi';
+import { AxiosError } from 'axios';
 
 export default function WorkoutsPage() {
   const params = useParams<{ course: string }>();
+  const dispatch = useDispatch();
 
-  const { allCourses } = useAppSelector((state) => state.courses);
+  const { allCourses, selectedWorkout } = useAppSelector(
+    (state) => state.courses,
+  );
+  const { token } = useAppSelector((state) => state.auth);
 
   const [courseName, setCourseName] = useState('');
+  const [courseId, setCourseId] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (params?.course) {
@@ -19,11 +33,43 @@ export default function WorkoutsPage() {
         (course) => course._id === params?.course,
       );
 
+      setCourseId(params?.course);
+
       if (courseSelect) {
         setCourseName(courseSelect?.nameRU);
+        dispatch(setSelectCourseName(courseSelect?.nameRU));
       }
     }
-  }, [params]);
+  }, [params, selectedWorkout]);
+
+  useEffect(() => {
+    if (!token || !courseId) return;
+
+    console.log(`Выполняется юз на странице, но не запрос`);
+    console.log(courseId);
+
+    getCourseWorkouts(token, courseId)
+      .then((res) => {
+        console.log(res);
+        dispatch(setCourseWorkouts(res));
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data);
+          } else if (error.request) {
+            setError('Что-то с интернетом');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+      })
+      .finally(() => {
+        setFetchIsLoading(false);
+      });
+  }, [token, courseId]);
+
+  console.log(error);
 
   return (
     <div className={styles.workoutsPage}>

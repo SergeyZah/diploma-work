@@ -39,3 +39,17 @@ export type WorksType = {
   video: string;
   exercises: ExercisesType[];
 };
+
+export type WorkoutProgressType = {
+  workoutId: string;
+  workoutCompleted: boolean;
+  progressData: number[];
+  _id: string;
+};
+
+export type CourseProgressType = {
+  courseId: string;
+  courseCompleted: boolean;
+  workoutsProgress: WorkoutProgressType[];
+  _id: string;
+};

@@ -21,6 +21,7 @@ import {
   setCourseWorkouts,
   setFetchIsLoading,
   setIdSelectedCourses,
+  setSelectCourseId,
   setSelectedCourses,
 } from '@/store/features/CourseSlice';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
@@ -89,7 +90,6 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
         return getUserInfo(token);
       })
       .then((response) => {
-        console.log('Перезапись инф-ции о поль-ле');
         dispatch(setUser(response));
         dispatch(setIdSelectedCourses(response.selectedCourses));
         dispatch(
@@ -116,11 +116,11 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
+    dispatch(setSelectCourseId(course._id));
     getCourseWorkouts(token, course._id)
       .then((res) => {
         console.log(res);
         dispatch(setCourseWorkouts(res));
-        console.log('Закончился Use в WorkoutsPage');
       })
       .catch((error) => {
         if (error instanceof AxiosError) {
@@ -228,14 +228,18 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
             </div>
           </div>
         </div>
-        <div className={styles.selectWorkouts__options}>
-          <button
-            className={styles.selectWorkouts__button}
-            onClick={hadleSelectWorkouts}
-          >
-            Начать
-          </button>
-        </div>
+        {displayInProfile ? (
+          <div className={styles.selectWorkouts__options}>
+            <button
+              className={styles.selectWorkouts__button}
+              onClick={hadleSelectWorkouts}
+            >
+              Начать
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
