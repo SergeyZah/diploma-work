@@ -11,8 +11,8 @@ import { useAppSelector } from '@/store/store';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getCourseWorkouts } from '@/services/courses/coursesApi';
 import { AxiosError } from 'axios';
+import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
 
 export default function WorkoutsPage() {
   const params = useParams<{ course: string }>();

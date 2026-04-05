@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  getCourseWorkouts,
-  getWorkautInfo,
-} from '@/services/courses/coursesApi';
+import { getWorkautInfo } from '@/services/workouts/workoutsApi';
 import styles from './selectWorkouts.module.css';
 import { getNameWorkaut, getString } from '@/hooks/croppingLines';
 import { useAppSelector } from '@/store/store';

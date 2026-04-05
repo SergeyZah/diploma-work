@@ -6,11 +6,7 @@ import classnames from 'classnames';
 import { CourseType } from '@/sharedTypes/types';
 import { FetchRightCover } from '@/utils/FetchRightCover';
 import { useRouter } from 'next/navigation';
-import {
-  addUserCourse,
-  getCourseWorkouts,
-  removeUserCourse,
-} from '@/services/courses/coursesApi';
+import { addUserCourse, removeUserCourse } from '@/services/courses/coursesApi';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useAppSelector } from '@/store/store';
@@ -25,6 +21,7 @@ import {
   setSelectedCourses,
 } from '@/store/features/CourseSlice';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
+import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
 
 type CardTypeProp = {
   course: CourseType;

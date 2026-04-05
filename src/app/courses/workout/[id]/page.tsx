@@ -1,11 +1,8 @@
 'use client';
 
 import Workout from '@/components/Workout/Workout';
-import { dataWorkouts } from '@/dataWorks';
-import {
-  getWorkautInfo,
-  getWorkoutProgress,
-} from '@/services/courses/coursesApi';
+import { getWorkoutProgress } from '@/services/progress/progressApi';
+import { getWorkautInfo } from '@/services/workouts/workoutsApi';
 import { WorkoutProgressType, WorksType } from '@/sharedTypes/types';
 import {
   setSelectedWorkout,
@@ -21,12 +18,6 @@ export default function WorkoutPage() {
   const params = useParams<{ id: string }>();
   const dispatch = useDispatch();
 
-  const {
-    selectedWorkout,
-    selectCoursName,
-    idSelectedCourses,
-    selectCourseId,
-  } = useAppSelector((state) => state.courses);
   const { token } = useAppSelector((state) => state.auth);
 
   const [error, setError] = useState('');
