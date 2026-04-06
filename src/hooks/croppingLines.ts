@@ -27,3 +27,9 @@ export const getNameExercise = (name: string) => {
   const Name = name.match(/^[^(]*/);
   return Name;
 };
+
+export const getQuestionExercise = (name: string) => {
+  const search = name.match(/^[^(]*/);
+  const Name = String(search).toLocaleLowerCase();
+  return Name;
+};

@@ -6,13 +6,14 @@ import { WorkoutProgressType, WorksType } from '@/sharedTypes/types';
 import { useAppSelector } from '@/store/store';
 import { getNameExercise } from '@/hooks/croppingLines';
 import { useEffect, useState } from 'react';
+import ProgressModal from '../ProgressModal/ProgressModal';
 
 type WorkoutTypeProp = {
   workout: WorksType;
   workProgress: WorkoutProgressType;
 };
 
-export default function Workout({ workout, workProgress }: WorkoutTypeProp) {
+export default function Workout() {
   const { selectedWorkout, selectCoursName, workoutProgress } = useAppSelector(
     (state) => state.courses,
   );
@@ -25,14 +26,18 @@ export default function Workout({ workout, workProgress }: WorkoutTypeProp) {
     if (!workoutProgress || !workoutProgress.progressData) {
       const arr = Array.from({ length: 20 }, () => 0);
       setProgressData(arr);
+      setFinish(false);
+      setProgressExercise(false);
     } else {
       setProgressData(workoutProgress.progressData);
       setProgressExercise(true);
       if (workoutProgress.workoutCompleted === true) {
         setFinish(true);
+      } else {
+        setFinish(false);
       }
     }
-  }, [workoutProgress]);
+  }, [workoutProgress, selectedWorkout]);
 
   return (
     <div className={styles.workout}>
@@ -87,6 +92,7 @@ export default function Workout({ workout, workProgress }: WorkoutTypeProp) {
           </button>
         )}
       </div>
+      <ProgressModal />
     </div>
   );
 }

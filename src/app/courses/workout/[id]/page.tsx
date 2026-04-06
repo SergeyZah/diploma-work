@@ -74,5 +74,5 @@ export default function WorkoutPage() {
       });
   }, [token, workoutId, dispatch, courseId]);
 
-  return <Workout workout={workout!} workProgress={workProgress!} />;
+  return <Workout />;
 }
