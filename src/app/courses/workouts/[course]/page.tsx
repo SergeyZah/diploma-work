@@ -30,7 +30,7 @@ export default function WorkoutsPage() {
   useEffect(() => {
     if (params?.course) {
       const courseSelect = allCourses.find(
-        (course) => course._id === params?.course,
+        (course) => course._id === params.course,
       );
 
       setCourseId(params?.course);
@@ -44,13 +44,8 @@ export default function WorkoutsPage() {
 
   useEffect(() => {
     if (!token || !courseId) return;
-
-    console.log(`Выполняется юз на странице, но не запрос`);
-    console.log(courseId);
-
     getCourseWorkouts(token, courseId)
       .then((res) => {
-        console.log(res);
         dispatch(setCourseWorkouts(res));
       })
       .catch((error) => {

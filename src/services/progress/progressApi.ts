@@ -37,12 +37,12 @@ export const saveWorkoutProgress = (
   token: string,
   courseId: string,
   workautId: string,
-  body: number[],
-): Promise<saveWorkoutProgressReturnType> => {
+  progressData: number[],
+): Promise<void | { message: string }> => {
   return axios
     .patch(
       BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}`,
-      body,
+      JSON.stringify({ progressData }),
       {
         headers: {
           'content-type': '',
@@ -51,7 +51,10 @@ export const saveWorkoutProgress = (
       },
     )
     .then((res) => {
-      return res.data;
+      console.log(res);
+    })
+    .catch((res) => {
+      console.log(res);
     });
 };
 

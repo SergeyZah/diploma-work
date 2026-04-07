@@ -11,6 +11,7 @@ import {
   setCourseWorkouts,
   setFetchIsLoading,
   setSelectedWorkout,
+  setSelectWorkoutId,
 } from '@/store/features/CourseSlice';
 import { AxiosError } from 'axios';
 
@@ -32,9 +33,8 @@ export default function SelectWorkouts({ courseName }: SelectWorkoutsTypeProp) {
     e.stopPropagation();
     getWorkautInfo(token, selectedId)
       .then((res) => {
-        console.log(res);
         dispatch(setSelectedWorkout(res));
-        console.log('Происходит запрос');
+        dispatch(setSelectWorkoutId(selectedId));
       })
       .catch((error) => {
         if (error instanceof AxiosError) {

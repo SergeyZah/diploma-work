@@ -7,6 +7,8 @@ import { useAppSelector } from '@/store/store';
 import { getNameExercise } from '@/hooks/croppingLines';
 import { useEffect, useState } from 'react';
 import ProgressModal from '../ProgressModal/ProgressModal';
+import { useDispatch } from 'react-redux';
+import { setVisibleProgressModal } from '@/store/features/CourseSlice';
 
 type WorkoutTypeProp = {
   workout: WorksType;
@@ -14,9 +16,13 @@ type WorkoutTypeProp = {
 };
 
 export default function Workout() {
-  const { selectedWorkout, selectCoursName, workoutProgress } = useAppSelector(
-    (state) => state.courses,
-  );
+  const dispatch = useDispatch();
+  const {
+    selectedWorkout,
+    selectCoursName,
+    workoutProgress,
+    visibleProgressModal,
+  } = useAppSelector((state) => state.courses);
 
   const [progressData, setProgressData] = useState<number[]>([]);
   const [progressExercise, setProgressExercise] = useState(false);
@@ -24,7 +30,8 @@ export default function Workout() {
 
   useEffect(() => {
     if (!workoutProgress || !workoutProgress.progressData) {
-      const arr = Array.from({ length: 20 }, () => 0);
+      const length = selectedWorkout?.exercises.length ?? 0;
+      const arr = Array.from({ length: length }, () => 0);
       setProgressData(arr);
       setFinish(false);
       setProgressExercise(false);
@@ -38,6 +45,10 @@ export default function Workout() {
       }
     }
   }, [workoutProgress, selectedWorkout]);
+
+  const openProgressModal = () => {
+    dispatch(setVisibleProgressModal(true));
+  };
 
   return (
     <div className={styles.workout}>
@@ -85,14 +96,21 @@ export default function Workout() {
             Сбросить прогресс тренировки
           </button>
         ) : (
-          <button className={styles.workout__button}>
+          <button
+            className={styles.workout__button}
+            onClick={openProgressModal}
+          >
             {progressExercise
               ? 'Обновить свой прогресс'
               : 'Заполнить свой прогресс'}
           </button>
         )}
       </div>
-      <ProgressModal />
+      {visibleProgressModal ? (
+        <ProgressModal valuesNull={progressData} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

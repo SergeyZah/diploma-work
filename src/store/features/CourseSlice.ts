@@ -12,10 +12,12 @@ type initialStateType = {
   fetchError: string;
   visibleAuthModal: boolean;
   visiblePopUser: boolean;
+  visibleProgressModal: boolean;
   selectedCourses: CourseType[];
   selectedWorkout: WorksType | null;
   selectCoursName: string;
   selectCourseId: string;
+  selectWorkoutId: string;
   courseProgress: CourseProgressType | null;
   workoutProgress: WorkoutProgressType | null;
   courseWorkouts: WorksType[];
@@ -28,10 +30,12 @@ const initialState: initialStateType = {
   fetchError: '',
   visibleAuthModal: false,
   visiblePopUser: false,
+  visibleProgressModal: false,
   selectedCourses: [],
   selectedWorkout: null,
   selectCoursName: '',
   selectCourseId: '',
+  selectWorkoutId: '',
   courseProgress: null,
   workoutProgress: null,
   courseWorkouts: [],
@@ -69,7 +73,10 @@ const courseSlice = createSlice({
     setSelectCourseId: (state, action: PayloadAction<string>) => {
       state.selectCourseId = action.payload;
       localStorage.setItem('selectCourseId', action.payload);
-      console.log(`Сохранил в localStorage ${action.payload}`);
+    },
+    setSelectWorkoutId: (state, action: PayloadAction<string>) => {
+      state.selectWorkoutId = action.payload;
+      localStorage.setItem('selectWorkoutId', action.payload);
     },
     setCourseProgress: (state, action: PayloadAction<CourseProgressType>) => {
       state.courseProgress = action.payload;
@@ -83,6 +90,9 @@ const courseSlice = createSlice({
     setVisiblePopUser: (state, action: PayloadAction<boolean>) => {
       state.visiblePopUser = action.payload;
     },
+    setVisibleProgressModal: (state, action: PayloadAction<boolean>) => {
+      state.visibleProgressModal = action.payload;
+    },
   },
 });
 
@@ -92,10 +102,12 @@ export const {
   setFetchError,
   setVisibleAuthModal,
   setVisiblePopUser,
+  setVisibleProgressModal,
   setSelectedCourses,
   setSelectedWorkout,
   setCourseWorkouts,
   setSelectCourseId,
+  setSelectWorkoutId,
   setIdSelectedCourses,
   setSelectCourseName,
   setCourseProgress,
