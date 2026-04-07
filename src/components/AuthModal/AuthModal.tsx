@@ -70,7 +70,6 @@ export default function AuthModal() {
     signIn({ email, password })
       .then((res) => {
         dispatch(setToken(res.token));
-        router.push('/courses/main');
         dispatch(setVisibleAuthModal(false));
         return getUserInfo(res.token);
       })

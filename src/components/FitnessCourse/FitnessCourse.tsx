@@ -14,7 +14,6 @@ export default function FitnessCourse({
   error,
 }: FitnessCourseTypeProp) {
   const theme = FetchRightCover(course.nameEN);
-  console.log(theme.color);
 
   const dynamicStyle = {
     backgroundColor: `${theme.color}`,

@@ -48,6 +48,7 @@ export default function Card({
 
   const handleCourseCard = () => {
     router.push(`/courses/course/${course._id}`);
+    dispatch(setSelectCourseId(course._id));
   };
 
   const theme = FetchRightCover(course.nameEN);

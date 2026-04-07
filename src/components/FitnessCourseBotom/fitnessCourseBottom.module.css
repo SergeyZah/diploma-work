@@ -59,6 +59,21 @@
   text-align: left;
   padding: 16px 26px 16px 26px;
   align-self: center;
+  cursor: pointer;
+}
+
+.adding__button:hover {
+  background: rgba(198, 255, 0, 1);
+}
+
+.adding__button:invalid {
+  color: rgba(153, 153, 153, 1);
+  background: rgba(247, 247, 247, 1);
+}
+
+.adding__button:active {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 1);
 }
 
 .image_runner {

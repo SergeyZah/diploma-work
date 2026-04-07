@@ -1,9 +1,65 @@
 import Image from 'next/image';
 import styles from './fitnessCourseBottom.module.css';
 import { useAppSelector } from '@/store/store';
+import { useDispatch } from 'react-redux';
+import {
+  setIdSelectedCourses,
+  setSelectedCourses,
+  setVisibleAuthModal,
+} from '@/store/features/CourseSlice';
+import { addUserCourse } from '@/services/courses/coursesApi';
+import { getUserInfo } from '@/services/auth/authApi';
+import { setUser } from '@/store/features/AuthSlice';
+import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
+import { AxiosError } from 'axios';
+import { useState } from 'react';
 
 export default function FitnessCourseBottom() {
+  const dispatch = useDispatch();
+
+  const { allCourses, selectCourseId } = useAppSelector(
+    (state) => state.courses,
+  );
   const { token } = useAppSelector((state) => state.auth);
+
+  const [error, setError] = useState('');
+
+  const hadleAuthModal = () => {
+    dispatch(setVisibleAuthModal(true));
+  };
+
+  const hadleAddCourse = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    addUserCourse(token, selectCourseId)
+      .then((res) => {
+        console.log(res);
+        return getUserInfo(token);
+      })
+      .then((response) => {
+        dispatch(setUser(response));
+        dispatch(setIdSelectedCourses(response.selectedCourses));
+        dispatch(
+          setSelectedCourses(
+            fetchSelectedCourses(allCourses, response.selectedCourses),
+          ),
+        );
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data.message);
+          } else if (error.request) {
+            setError('Отсутствует интернет. Попробуйте позже');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+        console.log('error: ', error);
+      });
+  };
+
   return (
     <div className={styles.fitnessCourseBottom}>
       <div className={styles.fitnessCourse__adding}>
@@ -36,7 +92,10 @@ export default function FitnessCourseBottom() {
               </p>
             </li>
           </ul>
-          <button className={styles.adding__button}>
+          <button
+            className={styles.adding__button}
+            onClick={token ? hadleAddCourse : hadleAuthModal}
+          >
             {token ? 'Добавить курс' : 'Войдите, чтобы добавить курс'}
           </button>
         </div>

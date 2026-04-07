@@ -1,3 +1,9 @@
+.fitnessCourse {
+  max-height: 1200px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
 .fitnessCourse__header {
   border-radius: 30px;
   display: flex;
@@ -166,9 +172,9 @@
   }
 
   .fitnessCourse__directions {
-  padding-top: 40px;
-  margin-bottom: 156px;
-}
+    padding-top: 40px;
+    margin-bottom: 156px;
+  }
 
   .directions__title {
     font-size: 24px;
