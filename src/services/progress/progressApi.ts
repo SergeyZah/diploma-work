@@ -68,7 +68,7 @@ export const removeWorkoutProgress = (
       BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}/reset`,
       {
         headers: {
-          'Content-type': null,
+          'Content-type': '',
           Authorization: `Bearer ${token}`,
         },
       },

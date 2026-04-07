@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { AxiosError } from 'axios';
 import {
   setFetchIsLoading,
+  setVisibleChekProgress,
   setVisibleProgressModal,
   setWorkoutProgress,
 } from '@/store/features/CourseSlice';
@@ -60,6 +61,7 @@ export default function ProgressModal({ valuesNull }: ProgressModalTypeProp) {
         .then((res) => {
           setValues(valuesNull);
           dispatch(setVisibleProgressModal(false));
+          dispatch(setVisibleChekProgress(true));
           return getWorkoutProgress(token, selectCourseId, selectWorkoutId);
         })
         .then((res) => {

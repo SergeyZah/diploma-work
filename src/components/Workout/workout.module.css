@@ -13,6 +13,10 @@
   border: 0;
 }
 
+.workoutMobile__video {
+  display: none;
+}
+
 .workout__box {
   margin-top: 80px;
   padding: 40px;
@@ -40,13 +44,13 @@
 }
 
 .workout__exercise {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .exercise__name {
-  color: rgba(0, 0, 0, 1); 
+  color: rgba(0, 0, 0, 1);
   font-size: 18px;
   font-weight: 400;
   line-height: 110%;
@@ -58,12 +62,14 @@
   width: 320px;
   height: 6px;
   background-color: #f0f0f0;
+  border-radius: 50px;
 }
 .progress {
   height: 100%;
   background-color: #4951f5;
   width: 0;
   transition: width 0.5s ease;
+  border-radius: 50px;
 }
 
 .workout__button {
@@ -93,4 +99,33 @@
 .workout__button:active {
   color: rgba(255, 255, 255, 1);
   background: rgba(0, 0, 0, 1);
+}
+
+@media (max-width: 376px) {
+  .workout__box {
+    margin-top: 24px;
+    padding: 30px;
+  }
+  .workout__name {
+    font-size: 24px;
+    padding-bottom: 24px;
+  }
+
+  .workout__video {
+    display: none;
+  }
+
+  .workoutMobile__video {
+    display: block;
+    border-radius: 8.87px;
+    border: 0;
+  }
+
+  .exercise__progress {
+    width: 283px;
+  }
+
+  .workout__button {
+    font-size: 18px;
+  }
 }

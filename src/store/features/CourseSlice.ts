@@ -13,6 +13,7 @@ type initialStateType = {
   visibleAuthModal: boolean;
   visiblePopUser: boolean;
   visibleProgressModal: boolean;
+  visibleChekProgress: boolean;
   selectedCourses: CourseType[];
   selectedWorkout: WorksType | null;
   selectCoursName: string;
@@ -31,6 +32,7 @@ const initialState: initialStateType = {
   visibleAuthModal: false,
   visiblePopUser: false,
   visibleProgressModal: false,
+  visibleChekProgress: false,
   selectedCourses: [],
   selectedWorkout: null,
   selectCoursName: '',
@@ -93,6 +95,9 @@ const courseSlice = createSlice({
     setVisibleProgressModal: (state, action: PayloadAction<boolean>) => {
       state.visibleProgressModal = action.payload;
     },
+    setVisibleChekProgress: (state, action: PayloadAction<boolean>) => {
+      state.visibleChekProgress = action.payload;
+    },
   },
 });
 
@@ -103,6 +108,7 @@ export const {
   setVisibleAuthModal,
   setVisiblePopUser,
   setVisibleProgressModal,
+  setVisibleChekProgress,
   setSelectedCourses,
   setSelectedWorkout,
   setCourseWorkouts,

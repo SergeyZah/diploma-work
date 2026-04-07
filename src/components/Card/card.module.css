@@ -86,6 +86,7 @@
   width: 320px;
   height: 6px;
   background-color: #f0f0f0;
+  border-radius: 50px;
 }
 
 .progress {
@@ -93,6 +94,7 @@
   background-color: #4951f5;
   width: 0;
   transition: width 0.5s ease;
+  border-radius: 50px;
 }
 
 .selectWorkouts__button {
@@ -145,5 +147,9 @@
 
   .name__title {
     font-size: 24px;
+  }
+
+  .selectWorkouts__progress {
+    width: 300px;
   }
 }

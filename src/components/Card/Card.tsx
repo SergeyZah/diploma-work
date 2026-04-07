@@ -23,6 +23,7 @@ import {
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
 import { calculatingProgress } from '@/hooks/calculatingProgress';
+import { removeCourseProgress } from '@/services/progress/progressApi';
 
 type CardTypeProp = {
   course: CourseType;
@@ -142,6 +143,31 @@ export default function Card({
       });
   };
 
+  const removeProgressCourse = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    dispatch(setSelectCourseId(course._id));
+    removeCourseProgress(token, course._id)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data);
+          } else if (error.request) {
+            setError('Что-то с интернетом');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+      })
+      .finally(() => {
+        setFetchIsLoading(false);
+      });
+  };
+
   return (
     <div className={styles.card} onClick={handleCourseCard}>
       <div className={styles.card__image}>
@@ -249,7 +275,7 @@ export default function Card({
             {progressCourse?.courseCompleted ? (
               <button
                 className={styles.selectWorkouts__button}
-                onClick={hadleSelectWorkouts}
+                onClick={removeProgressCourse}
               >
                 Начать заново
               </button>

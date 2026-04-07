@@ -18,6 +18,7 @@ import {
   removeWorkoutProgress,
 } from '@/services/progress/progressApi';
 import { AxiosError } from 'axios';
+import ChekProgressModal from '../ChekProgressModal/ChekProgressModal';
 
 type WorkoutTypeProp = {
   workout: WorksType;
@@ -34,6 +35,7 @@ export default function Workout() {
     visibleProgressModal,
     selectCourseId,
     selectWorkoutId,
+    visibleChekProgress,
   } = useAppSelector((state) => state.courses);
 
   const [progressData, setProgressData] = useState<number[]>([]);
@@ -92,14 +94,24 @@ export default function Workout() {
     <div className={styles.workout}>
       <h2 className={styles.workout__name}>{selectCoursName}</h2>
       {selectedWorkout ? (
-        <iframe
-          className={styles.workout__video}
-          src={`${selectedWorkout?.video}`}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          width={1160}
-          height={639}
-        ></iframe>
+        <>
+          <iframe
+            className={styles.workout__video}
+            src={`${selectedWorkout?.video}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            width={1160}
+            height={639}
+          ></iframe>
+          <iframe
+            className={styles.workoutMobile__video}
+            src={`${selectedWorkout?.video}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            width={343}
+            height={189}
+          ></iframe>
+        </>
       ) : (
         <div className={styles.workout__video}></div>
       )}
@@ -149,6 +161,7 @@ export default function Workout() {
       ) : (
         <></>
       )}
+      {visibleChekProgress ? <ChekProgressModal /> : <></>}
     </div>
   );
 }
