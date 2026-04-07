@@ -60,7 +60,7 @@ export default function WorkoutsPage() {
         }
       })
       .finally(() => {
-        setFetchIsLoading(false);
+        dispatch(setFetchIsLoading(false));
       });
   }, [token, courseId]);
 

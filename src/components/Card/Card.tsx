@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import styles from './card.module.css';
 import classnames from 'classnames';
-import { CourseType } from '@/sharedTypes/types';
+import { CourseProgressType, CourseType } from '@/sharedTypes/types';
 import { FetchRightCover } from '@/utils/FetchRightCover';
 import { useRouter } from 'next/navigation';
 import { addUserCourse, removeUserCourse } from '@/services/courses/coursesApi';
@@ -22,13 +22,19 @@ import {
 } from '@/store/features/CourseSlice';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
+import { calculatingProgress } from '@/hooks/calculatingProgress';
 
 type CardTypeProp = {
   course: CourseType;
   displayInProfile: boolean;
+  progressCourse: CourseProgressType;
 };
 
-export default function Card({ course, displayInProfile }: CardTypeProp) {
+export default function Card({
+  course,
+  displayInProfile,
+  progressCourse,
+}: CardTypeProp) {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -227,12 +233,36 @@ export default function Card({ course, displayInProfile }: CardTypeProp) {
         </div>
         {displayInProfile ? (
           <div className={styles.selectWorkouts__options}>
-            <button
-              className={styles.selectWorkouts__button}
-              onClick={hadleSelectWorkouts}
-            >
-              Начать
-            </button>
+            <div className={styles.selectWorkouts__info}>
+              <p
+                className={styles.selectWorkouts__name}
+              >{`Прогресс ${progressCourse?.workoutsProgress ? calculatingProgress(progressCourse?.workoutsProgress.length, course.workouts.length) : 0} %`}</p>
+              <div className={styles.selectWorkouts__progress}>
+                <div
+                  className={styles.progress}
+                  style={{
+                    width: `${progressCourse?.workoutsProgress ? calculatingProgress(progressCourse?.workoutsProgress.length, course.workouts.length) : 0}%`,
+                  }}
+                ></div>
+              </div>
+            </div>
+            {progressCourse?.courseCompleted ? (
+              <button
+                className={styles.selectWorkouts__button}
+                onClick={hadleSelectWorkouts}
+              >
+                Начать заново
+              </button>
+            ) : (
+              <button
+                className={styles.selectWorkouts__button}
+                onClick={hadleSelectWorkouts}
+              >
+                {progressCourse?.workoutsProgress
+                  ? 'Продолжить'
+                  : 'Начать тренировки'}
+              </button>
+            )}
           </div>
         ) : (
           <></>

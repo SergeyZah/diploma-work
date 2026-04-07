@@ -8,7 +8,16 @@ import { getNameExercise } from '@/hooks/croppingLines';
 import { useEffect, useState } from 'react';
 import ProgressModal from '../ProgressModal/ProgressModal';
 import { useDispatch } from 'react-redux';
-import { setVisibleProgressModal } from '@/store/features/CourseSlice';
+import {
+  setFetchIsLoading,
+  setVisibleProgressModal,
+  setWorkoutProgress,
+} from '@/store/features/CourseSlice';
+import {
+  getWorkoutProgress,
+  removeWorkoutProgress,
+} from '@/services/progress/progressApi';
+import { AxiosError } from 'axios';
 
 type WorkoutTypeProp = {
   workout: WorksType;
@@ -17,16 +26,20 @@ type WorkoutTypeProp = {
 
 export default function Workout() {
   const dispatch = useDispatch();
+  const { token } = useAppSelector((state) => state.auth);
   const {
     selectedWorkout,
     selectCoursName,
     workoutProgress,
     visibleProgressModal,
+    selectCourseId,
+    selectWorkoutId,
   } = useAppSelector((state) => state.courses);
 
   const [progressData, setProgressData] = useState<number[]>([]);
   const [progressExercise, setProgressExercise] = useState(false);
   const [finish, setFinish] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!workoutProgress || !workoutProgress.progressData) {
@@ -48,6 +61,31 @@ export default function Workout() {
 
   const openProgressModal = () => {
     dispatch(setVisibleProgressModal(true));
+  };
+
+  const removeProgress = () => {
+    removeWorkoutProgress(token, selectCourseId, selectWorkoutId)
+      .then(() => {
+        console.log('Выполнился запрос на удаление');
+        return getWorkoutProgress(token, selectCourseId, selectWorkoutId);
+      })
+      .then((res) => {
+        dispatch(setWorkoutProgress(res));
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data);
+          } else if (error.request) {
+            setError('Что-то с интернетом');
+          } else {
+            setError('Неизвестная ошибка');
+          }
+        }
+      })
+      .finally(() => {
+        dispatch(setFetchIsLoading(false));
+      });
   };
 
   return (
@@ -92,7 +130,7 @@ export default function Workout() {
           })}
         </div>
         {finish ? (
-          <button className={styles.workout__button}>
+          <button className={styles.workout__button} onClick={removeProgress}>
             Сбросить прогресс тренировки
           </button>
         ) : (

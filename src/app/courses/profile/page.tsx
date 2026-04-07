@@ -17,6 +17,12 @@ import {
   setSelectedCourses,
 } from '@/store/features/CourseSlice';
 import { getUserInfo } from '@/services/auth/authApi';
+import { getCourseProgress } from '@/services/progress/progressApi';
+import { CourseProgressType } from '@/sharedTypes/types';
+
+type progressMapType = {
+  [key: string]: CourseProgressType;
+};
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -26,9 +32,7 @@ export default function ProfilePage() {
     (state) => state.courses,
   );
 
-  // useEffect(() => {
-  //   dispatch(setCourseWorkouts([]));
-  // }, []);
+  const [courseProgress, setCourseProgress] = useState<progressMapType>({});
 
   useEffect(() => {
     if (token) {
@@ -43,6 +47,38 @@ export default function ProfilePage() {
       });
     }
   }, [token]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (selectedCourses) {
+          const progressPromises = selectedCourses.map(async (course) => {
+            const progress = await getCourseProgress(token, course._id);
+            return { courseID: course._id, progress };
+          });
+
+          const progressResults = await Promise.all(progressPromises);
+          const progressMap = {};
+          progressResults.forEach(({ courseID, progress }) => {
+            progressMap[courseID] = progress;
+          });
+
+          setCourseProgress(progressMap);
+        } else {
+          console.log('Ошибка');
+        }
+      } catch (e) {
+        console.log('Ошибка');
+      }
+
+      // const progressMap = {};
+      // progressResults.forEach(({ courseId, progress }) => {
+      //   progressMap[courseId] = progress;
+      // });
+    };
+
+    fetchData();
+  }, [selectedCourses]);
 
   const handleExit = () => {
     dispatch(clearUser());
@@ -122,11 +158,13 @@ export default function ProfilePage() {
         <div className={styles.courses__container}>
           <div className={styles.courses__me}>
             {selectedCourses.map((course) => {
+              const progressCourse = courseProgress[course._id];
               return (
                 <Card
                   key={course._id}
                   course={course}
                   displayInProfile={true}
+                  progressCourse={progressCourse}
                 />
               );
             })}

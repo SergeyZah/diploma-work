@@ -77,7 +77,7 @@ export default function ProgressModal({ valuesNull }: ProgressModalTypeProp) {
           }
         })
         .finally(() => {
-          setFetchIsLoading(false);
+          dispatch(setFetchIsLoading(false));
         });
     }
   };

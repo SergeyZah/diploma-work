@@ -70,6 +70,31 @@
   text-align: left;
 }
 
+.selectWorkouts__options {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.selectWorkouts__info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selectWorkouts__progress {
+  width: 320px;
+  height: 6px;
+  background-color: #f0f0f0;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4951f5;
+  width: 0;
+  transition: width 0.5s ease;
+}
+
 .selectWorkouts__button {
   border-radius: 46px;
   border: 1px solid rgba(188, 236, 48, 1);
@@ -115,10 +140,10 @@
   }
 
   .card__info {
-  padding: 0px 21px 15px 21px;
-}
+    padding: 0px 21px 15px 21px;
+  }
 
   .name__title {
-  font-size: 24px;
-}
+    font-size: 24px;
+  }
 }
