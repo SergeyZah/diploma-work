@@ -19,6 +19,7 @@ import {
   setIdSelectedCourses,
   setSelectCourseId,
   setSelectedCourses,
+  setVisibleAuthModal,
 } from '@/store/features/CourseSlice';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
@@ -28,7 +29,7 @@ import { removeCourseProgress } from '@/services/progress/progressApi';
 type CardTypeProp = {
   course: CourseType;
   displayInProfile: boolean;
-  progressCourse: CourseProgressType;
+  progressCourse?: CourseProgressType;
 };
 
 export default function Card({
@@ -57,32 +58,36 @@ export default function Card({
     e: React.MouseEvent<HTMLImageElement, MouseEvent>,
   ) => {
     e.stopPropagation();
-    addUserCourse(token, course._id)
-      .then((res) => {
-        console.log(res);
-        return getUserInfo(token);
-      })
-      .then((response) => {
-        dispatch(setUser(response));
-        dispatch(setIdSelectedCourses(response.selectedCourses));
-        dispatch(
-          setSelectedCourses(
-            fetchSelectedCourses(allCourses, response.selectedCourses),
-          ),
-        );
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          if (error.response) {
-            setError(error.response.data.message);
-          } else if (error.request) {
-            setError('Отсутствует интернет. Попробуйте позже');
-          } else {
-            setError('Неизвестная ошибка');
+    if (token) {
+      addUserCourse(token, course._id)
+        .then((res) => {
+          console.log(res);
+          return getUserInfo(token);
+        })
+        .then((response) => {
+          dispatch(setUser(response));
+          dispatch(setIdSelectedCourses(response.selectedCourses));
+          dispatch(
+            setSelectedCourses(
+              fetchSelectedCourses(allCourses, response.selectedCourses),
+            ),
+          );
+        })
+        .catch((error) => {
+          if (error instanceof AxiosError) {
+            if (error.response) {
+              setError(error.response.data.message);
+            } else if (error.request) {
+              setError('Отсутствует интернет. Попробуйте позже');
+            } else {
+              setError('Неизвестная ошибка');
+            }
           }
-        }
-        console.log('error: ', error);
-      });
+          console.log('error: ', error);
+        });
+    } else {
+      dispatch(setVisibleAuthModal(true));
+    }
   };
 
   const hadleRemoveCourse = (

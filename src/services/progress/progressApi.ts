@@ -66,9 +66,10 @@ export const removeWorkoutProgress = (
   return axios
     .patch(
       BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}/reset`,
+      {},
       {
         headers: {
-          'Content-type': '',
+          'Content-Type': '',
           Authorization: `Bearer ${token}`,
         },
       },
@@ -103,12 +104,16 @@ export const removeCourseProgress = (
   courseId: string,
 ): Promise<removeCourseProgressReturnType> => {
   return axios
-    .patch(BASE_URL + `/api/fitness/courses/${courseId}/reset`, {
-      headers: {
-        'content-type': '',
-        Authorization: `Bearer ${token}`,
+    .patch(
+      BASE_URL + `/api/fitness/courses/${courseId}/reset`,
+      {},
+      {
+        headers: {
+          'content-type': '',
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
     .then((res) => {
       return res.data;
     });

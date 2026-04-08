@@ -37,26 +37,47 @@ export default function Centerblock({
           </div>
         </div>
       </div>
-      {fetchIsLoading ? (
-        'Загрузка курсов'
-      ) : (
-        <div className={styles.centerblock__box}>
-          <div className={styles.centerblock__cards}>
-            {sortCourseList.map((course) => {
-              return (
-                <Card
-                  key={course._id}
-                  course={course}
-                  displayInProfile={false}
-                />
-              );
-            })}
-          </div>
-          <a href="#top" className={styles.centerblock__buttonUp}>
-            Наверх ↑
-          </a>
+      <div className={styles.centerblock__box}>
+        <div className={styles.centerblock__cards}>
+          {fetchIsLoading
+            ? Array.from({ length: 6 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className={styles.loadingCard}
+                  aria-hidden="true"
+                >
+                  <div className={styles.loadingImage} />
+                  <div className={styles.loadingContent}>
+                    <div className={styles.loadingTitle} />
+                    <div className={styles.loadingMetaRow} />
+                    <div className={styles.loadingMetaRowShort} />
+                    <div className={styles.loadingButton} />
+                  </div>
+                </div>
+              ))
+            : sortCourseList.map((course) => {
+                return (
+                  <Card
+                    key={course._id}
+                    course={course}
+                    displayInProfile={false}
+                  />
+                );
+              })}
         </div>
-      )}
+        <a
+          href="#top"
+          className={styles.centerblock__buttonUp}
+          onClick={(e) => {
+            e.preventDefault();
+            document
+              .getElementById('top')
+              ?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          Наверх ↑
+        </a>
+      </div>
     </div>
   );
 }

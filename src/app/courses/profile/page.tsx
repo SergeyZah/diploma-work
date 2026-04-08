@@ -58,7 +58,7 @@ export default function ProfilePage() {
           });
 
           const progressResults = await Promise.all(progressPromises);
-          const progressMap = {};
+          const progressMap: Record<string, CourseProgressType> = {};
           progressResults.forEach(({ courseID, progress }) => {
             progressMap[courseID] = progress;
           });
