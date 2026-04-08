@@ -79,7 +79,7 @@
   text-align: center;
 }
 
-@media (max-width: 376px) {
+@media (max-width: 426px) {
   .header {
     padding-bottom: 40px;
   }

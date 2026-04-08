@@ -130,7 +130,7 @@
   text-align: left;
 }
 
-@media (max-width: 376px) {
+@media (max-width: 426px) {
   .fitnessCourse__header {
     height: 325px;
   }

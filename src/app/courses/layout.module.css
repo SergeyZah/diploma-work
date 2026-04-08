@@ -19,7 +19,7 @@
   padding-top: 10px;
 }
 
-@media (max-width: 376px) {
+@media (max-width: 426px) {
   .container {
     padding-left: calc(50% - 171px);
     padding-right: calc(50% - 171px);

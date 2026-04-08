@@ -125,7 +125,7 @@
     width: 100%;
 }
 
-@media (max-width: 376px) {
+@media (max-width: 426px) {
   .centerblock {
   padding-bottom: 30px;
 }

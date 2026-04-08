@@ -127,7 +127,7 @@
   background: rgba(0, 0, 0, 1);
 }
 
-@media (max-width: 376px) {
+@media (max-width: 426px) {
   .card {
     width: 343px;
   }
