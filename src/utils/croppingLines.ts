@@ -25,7 +25,7 @@ export const getString = (string: string, courseName: string, id: number) => {
 
 export const getNameExercise = (name: string) => {
   const Name = name.match(/^[^(]*/);
-  return Name;
+  return String(Name);
 };
 
 export const getQuestionExercise = (name: string) => {
