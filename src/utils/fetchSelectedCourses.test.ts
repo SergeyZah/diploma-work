@@ -2,7 +2,7 @@ import { data } from '@/data';
 import { fetchSelectedCourses } from './fetchSelectedCourses';
 
 describe('fetchSelectedCourses', () => {
-  it('Поиск курса по ID', () => {
+  it('Поиск нужных курсов по ID', () => {
     expect(fetchSelectedCourses(data, ['q02a6i'])).toStrictEqual([
       {
         dailyDurationInMinutes: {
