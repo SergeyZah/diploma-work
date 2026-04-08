@@ -2,7 +2,7 @@
 
 import { getWorkautInfo } from '@/services/workouts/workoutsApi';
 import styles from './selectWorkouts.module.css';
-import { getNameWorkaut, getString } from '@/hooks/croppingLines';
+import { getNameWorkaut, getString } from '@/utils/croppingLines';
 import { useAppSelector } from '@/store/store';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';

@@ -1,10 +1,10 @@
 'use client';
 
-import { calculatingProgress } from '@/hooks/calculatingProgress';
+import { calculatingProgress } from '@/utils/calculatingProgress';
 import styles from './workout.module.css';
 import { WorkoutProgressType, WorksType } from '@/sharedTypes/types';
 import { useAppSelector } from '@/store/store';
-import { getNameExercise } from '@/hooks/croppingLines';
+import { getNameExercise } from '@/utils/croppingLines';
 import { useEffect, useState } from 'react';
 import ProgressModal from '../ProgressModal/ProgressModal';
 import { useDispatch } from 'react-redux';
@@ -37,12 +37,12 @@ export default function Workout() {
     selectCourseId,
     selectWorkoutId,
     visibleChekProgress,
+    fetchIsLoading,
   } = useAppSelector((state) => state.courses);
 
   const [progressData, setProgressData] = useState<number[]>([]);
   const [progressExercise, setProgressExercise] = useState(false);
   const [finish, setFinish] = useState(false);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!workoutProgress || !workoutProgress.progressData) {
@@ -149,28 +149,33 @@ export default function Workout() {
       <div className={styles.workout__box}>
         <h3 className={styles.workout__title}>Упражнения тренировки </h3>
         <div className={styles.workout__exercises}>
-          {selectedWorkout?.exercises.map((exercise, idx) => {
-            const progressExercise = calculatingProgress(
-              progressData[idx],
-              exercise.quantity,
-            );
+          {fetchIsLoading
+            ? 'Загружаем тренировки...'
+            : selectedWorkout?.exercises.map((exercise, idx) => {
+                const progressExercise = calculatingProgress(
+                  progressData[idx],
+                  exercise.quantity,
+                );
 
-            return (
-              <div key={`${exercise._id}`} className={styles.workout__exercise}>
-                <p
-                  className={styles.exercise__name}
-                >{`${getNameExercise(exercise.name)} ${progressExercise}%`}</p>
-                <div className={styles.exercise__progress}>
+                return (
                   <div
-                    className={styles.progress}
-                    style={{
-                      width: `${calculatingProgress(progressData[idx], exercise.quantity)}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
-            );
-          })}
+                    key={`${exercise._id}`}
+                    className={styles.workout__exercise}
+                  >
+                    <p
+                      className={styles.exercise__name}
+                    >{`${getNameExercise(exercise.name)} ${progressExercise}%`}</p>
+                    <div className={styles.exercise__progress}>
+                      <div
+                        className={styles.progress}
+                        style={{
+                          width: `${calculatingProgress(progressData[idx], exercise.quantity)}%`,
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                );
+              })}
         </div>
         {finish ? (
           <button className={styles.workout__button} onClick={removeProgress}>

@@ -11,7 +11,7 @@ import {
   setVisiblePopUser,
 } from '@/store/features/CourseSlice';
 import { useAppSelector } from '@/store/store';
-import { getUserNameByEmail } from '@/hooks/croppingLines';
+import { getUserNameByEmail } from '@/utils/croppingLines';
 import { useEffect, useState } from 'react';
 import { setUserName } from '@/store/features/AuthSlice';
 

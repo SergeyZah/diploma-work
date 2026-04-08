@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
 import { setToken, setUser, setUserName } from '@/store/features/AuthSlice';
 import { useAppSelector } from '@/store/store';
-import { getUserNameByEmail } from '@/hooks/croppingLines';
+import { getUserNameByEmail } from '@/utils/croppingLines';
 import { Bounce, toast } from 'react-toastify';
 
 export default function AuthModal() {

@@ -13,6 +13,8 @@ import {
 import { useAppSelector } from '@/store/store';
 import { getUserInfo } from '@/services/auth/authApi';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
+import { Bounce, toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 export default function PopUser() {
   const dispatch = useDispatch();
@@ -31,15 +33,57 @@ export default function PopUser() {
   const handleMyProfile = () => {
     router.push('/courses/profile');
     dispatch(setVisiblePopUser(false));
-    getUserInfo(token).then((response) => {
-      dispatch(setUser(response));
-      dispatch(setIdSelectedCourses(response.selectedCourses));
-      dispatch(
-        setSelectedCourses(
-          fetchSelectedCourses(allCourses, response.selectedCourses),
-        ),
-      );
-    });
+    getUserInfo(token)
+      .then((response) => {
+        dispatch(setUser(response));
+        dispatch(setIdSelectedCourses(response.selectedCourses));
+        dispatch(
+          setSelectedCourses(
+            fetchSelectedCourses(allCourses, response.selectedCourses),
+          ),
+        );
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            toast.error(error.response.data, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
+          } else if (error.request) {
+            toast.error('Что-то с интернетом', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
+          } else {
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
+          }
+        }
+      });
   };
 
   return (

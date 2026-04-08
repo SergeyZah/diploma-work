@@ -9,6 +9,7 @@ import { CourseType } from '@/sharedTypes/types';
 import { AxiosError } from 'axios';
 import { useDispatch } from 'react-redux';
 import { Bounce, toast } from 'react-toastify';
+import styles from './page.module.css';
 
 export default function CoursePage() {
   const params = useParams<{ id: string }>();
@@ -83,7 +84,7 @@ export default function CoursePage() {
   return (
     <>
       {isLoading ? (
-        <div>Загрузка</div>
+        <div className={styles.loader}>Загрузка профиля...</div>
       ) : courseInfo ? (
         <FitnessCourse course={courseInfo} error={fetchError || error} />
       ) : (

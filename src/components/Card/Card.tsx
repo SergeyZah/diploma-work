@@ -23,7 +23,7 @@ import {
 } from '@/store/features/CourseSlice';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
-import { calculatingProgress } from '@/hooks/calculatingProgress';
+import { calculatingProgress } from '@/utils/calculatingProgress';
 import { removeCourseProgress } from '@/services/progress/progressApi';
 import { Bounce, toast } from 'react-toastify';
 

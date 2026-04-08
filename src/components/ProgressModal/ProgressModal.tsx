@@ -2,7 +2,7 @@
 
 import { useAppSelector } from '@/store/store';
 import styles from './progressModal.module.css';
-import { getQuestionExercise } from '@/hooks/croppingLines';
+import { getQuestionExercise } from '@/utils/croppingLines';
 import { useEffect, useState } from 'react';
 import {
   getWorkoutProgress,
@@ -37,10 +37,6 @@ export default function ProgressModal({ valuesNull }: ProgressModalTypeProp) {
   useEffect(() => {
     setValues(valuesNull);
   }, [valuesNull, workoutProgress]);
-
-  // useEffect(() => {
-  //   setRequestValues(Object.values(values));
-  // }, [values]);
 
   const onChange = (id: number, value: string) => {
     const next = Number(value);
