@@ -8,6 +8,7 @@ import { getCourseCardInfo } from '@/services/courses/coursesApi';
 import { CourseType } from '@/sharedTypes/types';
 import { AxiosError } from 'axios';
 import { useDispatch } from 'react-redux';
+import { Bounce, toast } from 'react-toastify';
 
 export default function CoursePage() {
   const params = useParams<{ id: string }>();
@@ -34,10 +35,43 @@ export default function CoursePage() {
         if (error instanceof AxiosError) {
           if (error.response) {
             setError(error.response.data);
+            toast.error(error.response.data, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
             setError('Что-то с интернетом');
+            toast.error(error.request, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
             setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
       })

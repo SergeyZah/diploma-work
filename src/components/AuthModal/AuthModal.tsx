@@ -5,19 +5,15 @@ import styles from './authModal.module.css';
 import Link from 'next/link';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
-import {
-  setIdSelectedCourses,
-  setSelectedCourses,
-  setVisibleAuthModal,
-} from '@/store/features/CourseSlice';
-import { useEffect, useState } from 'react';
+import { setVisibleAuthModal } from '@/store/features/CourseSlice';
+import { useState } from 'react';
 import { getUserInfo, signIn, signUp } from '@/services/auth/authApi';
 import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
 import { setToken, setUser, setUserName } from '@/store/features/AuthSlice';
 import { useAppSelector } from '@/store/store';
-import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { getUserNameByEmail } from '@/hooks/croppingLines';
+import { Bounce, toast } from 'react-toastify';
 
 export default function AuthModal() {
   const router = useRouter();
@@ -81,17 +77,62 @@ export default function AuthModal() {
         setIsLoading(false);
         if (error instanceof AxiosError) {
           if (error.response) {
-            setError(error.response.data.message);
+            setError(error.response.data);
+            toast.error(error.response.data, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
-            setError('Отсутствует интернет. Попробуйте позже');
+            setError('Что-то с интернетом');
+            toast.error('Что-то с интернетом', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
             setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
         console.log('error: ', error);
       })
       .finally(() => {
         setIsLoading(false);
+        toast.info('Авторизация прошла успешно!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        });
+        console.log('Авторизация прошла успешно!');
       });
   };
 
@@ -121,14 +162,46 @@ export default function AuthModal() {
         setIsLoading(false);
         if (error instanceof AxiosError) {
           if (error.response) {
-            setError(error.response.data.message);
+            setError(error.response.data);
+            toast.error(error.response.data, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
-            setError('Отсутствует интернет. Попробуйте позже');
+            setError('Что-то с интернетом');
+            toast.error('Что-то с интернетом', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
             setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
-        console.log('error: ', error);
       })
       .finally(() => {
         setIsLoading(false);

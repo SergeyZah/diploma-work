@@ -19,6 +19,7 @@ import {
 } from '@/services/progress/progressApi';
 import { AxiosError } from 'axios';
 import ChekProgressModal from '../ChekProgressModal/ChekProgressModal';
+import { Bounce, toast } from 'react-toastify';
 
 type WorkoutTypeProp = {
   workout: WorksType;
@@ -77,11 +78,41 @@ export default function Workout() {
       .catch((error) => {
         if (error instanceof AxiosError) {
           if (error.response) {
-            setError(error.response.data);
+            toast.error(error.response.data.message, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
-            setError('Что-то с интернетом');
+            toast.error('Отсутствует интернет. Попробуйте позже', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
-            setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
       })

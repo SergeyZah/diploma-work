@@ -13,6 +13,7 @@ import { AxiosError } from 'axios';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Bounce, toast } from 'react-toastify';
 
 export default function WorkoutPage() {
   const params = useParams<{ id: string }>();
@@ -48,10 +49,43 @@ export default function WorkoutPage() {
         if (error instanceof AxiosError) {
           if (error.response) {
             setError(error.response.data);
+            toast.error(error.response.data, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
             setError('Что-то с интернетом');
+            toast.error('Что-то с интернетом', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
             setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
       });
@@ -65,10 +99,43 @@ export default function WorkoutPage() {
         if (error instanceof AxiosError) {
           if (error.response) {
             setError(error.response.data);
+            toast.error(error.response.data, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
             setError('Что-то с интернетом');
+            toast.error('Что-то с интернетом', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
             setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
       });

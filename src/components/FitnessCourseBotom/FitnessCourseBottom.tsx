@@ -13,6 +13,7 @@ import { setUser } from '@/store/features/AuthSlice';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
+import { Bounce, toast } from 'react-toastify';
 
 export default function FitnessCourseBottom() {
   const dispatch = useDispatch();
@@ -49,11 +50,41 @@ export default function FitnessCourseBottom() {
       .catch((error) => {
         if (error instanceof AxiosError) {
           if (error.response) {
-            setError(error.response.data.message);
+            toast.error(error.response.data.message, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
-            setError('Отсутствует интернет. Попробуйте позже');
+            toast.error('Отсутствует интернет. Попробуйте позже', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
-            setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
         console.log('error: ', error);

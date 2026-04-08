@@ -25,6 +25,7 @@ import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
 import { calculatingProgress } from '@/hooks/calculatingProgress';
 import { removeCourseProgress } from '@/services/progress/progressApi';
+import { Bounce, toast } from 'react-toastify';
 
 type CardTypeProp = {
   course: CourseType;
@@ -76,14 +77,46 @@ export default function Card({
         .catch((error) => {
           if (error instanceof AxiosError) {
             if (error.response) {
-              setError(error.response.data.message);
+              setError(error.response.data);
+              toast.error(error.response.data, {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Bounce,
+              });
             } else if (error.request) {
-              setError('Отсутствует интернет. Попробуйте позже');
+              setError('Что-то с интернетом');
+              toast.error('Что-то с интернетом', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Bounce,
+              });
             } else {
               setError('Неизвестная ошибка');
+              toast.error('Неизвестная ошибка', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Bounce,
+              });
             }
           }
-          console.log('error: ', error);
         });
     } else {
       dispatch(setVisibleAuthModal(true));
@@ -111,14 +144,46 @@ export default function Card({
       .catch((error) => {
         if (error instanceof AxiosError) {
           if (error.response) {
-            setError(error.response.data.message);
+            setError(error.response.data);
+            toast.error(error.response.data.message, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
             setError('Отсутствует интернет. Попробуйте позже');
+            toast.error('Отсутствует интернет. Попробуйте позже', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
             setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
-        console.log('error: ', error);
       });
   };
 
@@ -136,10 +201,43 @@ export default function Card({
         if (error instanceof AxiosError) {
           if (error.response) {
             setError(error.response.data);
+            toast.error(error.response.data.message, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
-            setError('Что-то с интернетом');
+            setError('Отсутствует интернет. Попробуйте позже');
+            toast.error('Отсутствует интернет. Попробуйте позже', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
             setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
       })
@@ -162,10 +260,43 @@ export default function Card({
         if (error instanceof AxiosError) {
           if (error.response) {
             setError(error.response.data);
+            toast.error(error.response.data.message, {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else if (error.request) {
-            setError('Что-то с интернетом');
+            setError('Отсутствует интернет. Попробуйте позже');
+            toast.error('Отсутствует интернет. Попробуйте позже', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           } else {
             setError('Неизвестная ошибка');
+            toast.error('Неизвестная ошибка', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         }
       })

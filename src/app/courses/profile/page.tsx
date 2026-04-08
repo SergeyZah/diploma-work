@@ -4,21 +4,19 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import { useAppSelector } from '@/store/store';
 import { useEffect, useState } from 'react';
-import { getUserNameByEmail } from '@/hooks/croppingLines';
 import Card from '@/components/Card/Card';
-import { data } from '@/data';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { useDispatch } from 'react-redux';
 import { clearUser, setUser } from '@/store/features/AuthSlice';
 import { useRouter } from 'next/navigation';
 import {
-  setCourseWorkouts,
   setIdSelectedCourses,
   setSelectedCourses,
 } from '@/store/features/CourseSlice';
 import { getUserInfo } from '@/services/auth/authApi';
 import { getCourseProgress } from '@/services/progress/progressApi';
 import { CourseProgressType } from '@/sharedTypes/types';
+import { Bounce, toast } from 'react-toastify';
 
 type progressMapType = {
   [key: string]: CourseProgressType;
@@ -28,7 +26,7 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { user, userName, token } = useAppSelector((state) => state.auth);
-  const { allCourses, selectedCourses, idSelectedCourses } = useAppSelector(
+  const { allCourses, selectedCourses } = useAppSelector(
     (state) => state.courses,
   );
 
@@ -65,16 +63,31 @@ export default function ProfilePage() {
 
           setCourseProgress(progressMap);
         } else {
-          console.log('Ошибка');
+          toast.error('Не прогрузились курсы.', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Bounce,
+          });
         }
-      } catch (e) {
-        console.log('Ошибка');
+      } catch {
+        toast.error('Не смог получить курсы.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        });
       }
-
-      // const progressMap = {};
-      // progressResults.forEach(({ courseId, progress }) => {
-      //   progressMap[courseId] = progress;
-      // });
     };
 
     fetchData();

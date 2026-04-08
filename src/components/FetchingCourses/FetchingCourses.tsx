@@ -12,6 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { AxiosError } from 'axios';
 import { useEffect } from 'react';
+import { Bounce, toast } from 'react-toastify';
 
 export default function FetchingCourses() {
   const dispatch = useAppDispatch();
@@ -57,15 +58,45 @@ export default function FetchingCourses() {
           dispatch(setIdSelectedCourses(response.selectedCourses));
         })
         .catch((error) => {
-          if (error instanceof AxiosError)
+          if (error instanceof AxiosError) {
             if (error.response) {
-              dispatch(setFetchError(error.response.data));
+              toast.error(error.response.data.message, {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Bounce,
+              });
             } else if (error.request) {
-              dispatch(setFetchError('Произошла ошибка. Попробуйте позже'));
-              console.log(error);
+              toast.error('Отсутствует интернет. Попробуйте позже', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Bounce,
+              });
             } else {
-              dispatch(setFetchError('Неизвестная ошибка'));
+              toast.error('Неизвестная ошибка', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Bounce,
+              });
             }
+          }
         })
         .finally(() => {
           dispatch(setFetchIsLoading(true));
