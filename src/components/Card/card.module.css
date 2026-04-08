@@ -1,0 +1,155 @@
+.card {
+  border-radius: 30px;
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgba(255, 255, 255, 1);
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+  cursor: pointer;
+  padding-bottom: 15px;
+}
+
+.card__image {
+  position: relative;
+}
+
+.image__mobile {
+  display: none;
+}
+
+.card__plus {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transition: transform 0.2s;
+  z-index: 2;
+}
+
+.card__plus:hover {
+  transform: scale(1.2);
+}
+
+.card__info {
+  padding: 0px 30px 15px 30px;
+}
+
+.name__title {
+  color: rgba(0, 0, 0, 1);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+.card__parameters {
+  padding-top: 20px;
+  max-width: 360px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.parameters {
+  border-radius: 50px;
+  background: rgba(247, 247, 247, 1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 10px;
+}
+
+.parameters__description {
+  color: rgba(32, 32, 32, 1);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+.selectWorkouts__options {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.selectWorkouts__info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selectWorkouts__progress {
+  width: 320px;
+  height: 6px;
+  background-color: #f0f0f0;
+  border-radius: 50px;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4951f5;
+  width: 0;
+  transition: width 0.5s ease;
+  border-radius: 50px;
+}
+
+.selectWorkouts__button {
+  border-radius: 46px;
+  border: 1px solid rgba(188, 236, 48, 1);
+  background: rgba(188, 236, 48, 1);
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: center;
+  padding: 16px 26px 16px 26px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.selectWorkouts__button:hover {
+  background: rgba(198, 255, 0, 1);
+}
+
+.selectWorkouts__button:invalid {
+  color: rgba(153, 153, 153, 1);
+  background: rgba(247, 247, 247, 1);
+}
+
+.selectWorkouts__button:active {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 1);
+}
+
+@media (max-width: 426px) {
+  .card {
+    width: 343px;
+  }
+
+  .image {
+    display: none;
+  }
+
+  .image__mobile {
+    display: block;
+    position: relative;
+  }
+
+  .card__info {
+    padding: 0px 21px 15px 21px;
+  }
+
+  .name__title {
+    font-size: 24px;
+  }
+
+  .selectWorkouts__progress {
+    width: 300px;
+  }
+}

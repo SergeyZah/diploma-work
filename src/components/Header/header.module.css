@@ -1,0 +1,111 @@
+.header {
+  max-width: 1160px;
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+.header__title {
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: left;
+  padding-top: 10px;
+}
+
+.header__authUser {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.authUser__profile {
+  display: block;
+}
+
+.authUser__profileMobile {
+  display: none;
+}
+
+.authUser__container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.header__button {
+  border-radius: 46px;
+  background: rgba(188, 236, 48, 1);
+  border: 1px solid rgba(188, 236, 48, 1);
+  width: 103px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 26px 16px 26px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 1);
+}
+
+.header__button:hover {
+  background: rgba(198, 255, 0, 1);
+  border: 1px solid rgba(198, 255, 0, 1);
+}
+
+.header__button:invalid {
+  color: rgba(153, 153, 153, 1);
+  background: rgba(247, 247, 247, 1);
+  border: 1px solid rgba(247, 247, 247, 1);
+}
+
+.header__button:active {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 1);
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.button__text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: center;
+}
+
+@media (max-width: 426px) {
+  .header {
+    padding-bottom: 40px;
+  }
+
+  .header__authUser {
+    gap: 10px;
+  }
+
+  .authUser__profile {
+    display: none;
+  }
+
+  .authUser__profileMobile {
+    display: block;
+  }
+
+  .authUser__name {
+    display: none;
+  }
+
+  .header__title {
+    display: none;
+  }
+
+  .header__button {
+    width: 83px;
+    height: 36px;
+  }
+}

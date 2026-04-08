@@ -1,0 +1,102 @@
+.progressModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0 0 0 / 0.2);
+  opacity: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.progressModal__container {
+  border-radius: 30px;
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgba(255, 255, 255, 1);
+  padding: 40px;
+  width: 426px;
+}
+
+.progressModal__box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progressModal__title {
+  color: rgba(0, 0, 0, 1);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0%;
+  text-align: left;
+  padding-bottom: 48px;
+}
+
+.progressModal__unit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input__text {
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+.progressModal__input {
+  width: 100%;
+  border: 1px solid rgba(208, 206, 206, 1);
+  border-radius: 8px;
+  padding: 16px 18px;
+  color: rgba(208, 206, 206, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: left;
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+.progressModal__button {
+  border-radius: 46px;
+  border: 1px solid rgba(188, 236, 48, 1);
+  background: rgba(188, 236, 48, 1);
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: center;
+  padding: 16px 26px 16px 26px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 34px;
+}
+
+.progressModal__button:hover {
+  background: rgba(198, 255, 0, 1);
+}
+
+.progressModal__button:invalid {
+  color: rgba(153, 153, 153, 1);
+  background: rgba(247, 247, 247, 1);
+}
+
+.progressModal__button:active {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 1);
+}
