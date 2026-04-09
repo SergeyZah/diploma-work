@@ -9,11 +9,11 @@ import {
   setFetchError,
   setFetchIsLoading,
   setIdSelectedCourses,
+  setMessageAllCourse,
 } from '@/store/features/CourseSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { AxiosError } from 'axios';
 import { useEffect } from 'react';
-import { Bounce, toast } from 'react-toastify';
 
 export default function FetchingCourses() {
   const dispatch = useAppDispatch();
@@ -29,6 +29,7 @@ export default function FetchingCourses() {
       dispatch(setFetchIsLoading(true));
       getAllCourses()
         .then((res) => {
+          dispatch(setMessageAllCourse(''));
           dispatch(setAllCourses(res));
         })
         .catch((error) => {
@@ -41,6 +42,7 @@ export default function FetchingCourses() {
               catchError('Неизвестная ошибка');
             }
           }
+          dispatch(setMessageAllCourse('Не удалось загрузить курсы'));
         })
         .finally(() => {
           dispatch(setFetchIsLoading(false));
