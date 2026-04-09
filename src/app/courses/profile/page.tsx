@@ -31,6 +31,7 @@ export default function ProfilePage() {
   );
 
   const [courseProgress, setCourseProgress] = useState<progressMapType>({});
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (token) {
@@ -42,7 +43,10 @@ export default function ProfilePage() {
             fetchSelectedCourses(allCourses, response.selectedCourses),
           ),
         );
+        setMessage('');
       });
+    } else {
+      setMessage('Загружаем курсы');
     }
   }, [token]);
 
@@ -193,7 +197,9 @@ export default function ProfilePage() {
             </a>
           </div>
         ) : (
-          <p className={styles.empty}>У вас пока нет добавленных курсов</p>
+          <p className={styles.empty}>
+            {message ? message : 'У вас пока нет добавленных курсов'}
+          </p>
         )}
       </div>
     </div>
