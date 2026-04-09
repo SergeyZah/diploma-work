@@ -153,6 +153,7 @@
   .centerblock__box {
     align-items: flex-end;
     gap: 24px;
+    z-index: 2;
   }
 }
 

@@ -135,7 +135,6 @@ export default function Card({
     dispatch(setSelectCourseId(course._id));
     getCourseWorkouts(token, course._id)
       .then((res) => {
-        console.log(res);
         dispatch(setCourseWorkouts(res));
       })
       .catch((error) => {
