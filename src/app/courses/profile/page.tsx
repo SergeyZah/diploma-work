@@ -31,7 +31,7 @@ export default function ProfilePage() {
   );
 
   const [courseProgress, setCourseProgress] = useState<progressMapType>({});
-  const [message, setMessage] = useState('');
+  const [messageLoad, setMessageLoad] = useState('');
 
   useEffect(() => {
     if (token) {
