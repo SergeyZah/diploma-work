@@ -43,10 +43,10 @@ export default function ProfilePage() {
             fetchSelectedCourses(allCourses, response.selectedCourses),
           ),
         );
-        setMessage('');
+        setMessageLoad('');
       });
     } else {
-      setMessage('Загружаем курсы');
+      setMessageLoad('Загружаем курсы');
     }
   }, [token]);
 
@@ -198,7 +198,7 @@ export default function ProfilePage() {
           </div>
         ) : (
           <p className={styles.empty}>
-            {message ? message : 'У вас пока нет добавленных курсов'}
+            {messageLoad ? messageLoad : 'У вас пока нет добавленных курсов'}
           </p>
         )}
       </div>
