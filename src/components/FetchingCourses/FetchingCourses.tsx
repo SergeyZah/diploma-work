@@ -1,5 +1,6 @@
 'use client';
 
+import { catchError } from '@/hooks/funcToast';
 import { getUserInfo } from '@/services/auth/authApi';
 import { getAllCourses } from '@/services/courses/coursesApi';
 import { setUser } from '@/store/features/AuthSlice';
@@ -8,11 +9,11 @@ import {
   setFetchError,
   setFetchIsLoading,
   setIdSelectedCourses,
+  setMessageAllCourse,
 } from '@/store/features/CourseSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { AxiosError } from 'axios';
 import { useEffect } from 'react';
-import { Bounce, toast } from 'react-toastify';
 
 export default function FetchingCourses() {
   const dispatch = useAppDispatch();
@@ -28,18 +29,20 @@ export default function FetchingCourses() {
       dispatch(setFetchIsLoading(true));
       getAllCourses()
         .then((res) => {
+          dispatch(setMessageAllCourse(''));
           dispatch(setAllCourses(res));
         })
         .catch((error) => {
-          if (error instanceof AxiosError)
+          if (error instanceof AxiosError) {
             if (error.response) {
-              dispatch(setFetchError(error.response.data));
+              catchError(error.response.data.message);
             } else if (error.request) {
-              dispatch(setFetchError('Произошла ошибка. Попробуйте позже'));
-              console.log(error);
+              catchError('Отсутствует интернет. Попробуйте позже');
             } else {
-              dispatch(setFetchError('Неизвестная ошибка'));
+              catchError('Неизвестная ошибка');
             }
+          }
+          dispatch(setMessageAllCourse('Не удалось загрузить курсы'));
         })
         .finally(() => {
           dispatch(setFetchIsLoading(false));
@@ -60,41 +63,11 @@ export default function FetchingCourses() {
         .catch((error) => {
           if (error instanceof AxiosError) {
             if (error.response) {
-              toast.error(error.response.data.message, {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'light',
-                transition: Bounce,
-              });
+              catchError(error.response.data.message);
             } else if (error.request) {
-              toast.error('Отсутствует интернет. Попробуйте позже', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'light',
-                transition: Bounce,
-              });
+              catchError('Отсутствует интернет. Попробуйте позже');
             } else {
-              toast.error('Неизвестная ошибка', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'light',
-                transition: Bounce,
-              });
+              catchError('Неизвестная ошибка');
             }
           }
         })

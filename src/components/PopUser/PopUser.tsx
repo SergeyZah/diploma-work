@@ -15,6 +15,7 @@ import { getUserInfo } from '@/services/auth/authApi';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { Bounce, toast } from 'react-toastify';
 import { AxiosError } from 'axios';
+import { catchError } from '@/hooks/funcToast';
 
 export default function PopUser() {
   const dispatch = useDispatch();
@@ -46,41 +47,11 @@ export default function PopUser() {
       .catch((error) => {
         if (error instanceof AxiosError) {
           if (error.response) {
-            toast.error(error.response.data, {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            catchError(error.response.data.message);
           } else if (error.request) {
-            toast.error('Что-то с интернетом', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            catchError('Отсутствует интернет. Попробуйте позже');
           } else {
-            toast.error('Неизвестная ошибка', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            catchError('Неизвестная ошибка');
           }
         }
       });

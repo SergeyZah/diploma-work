@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './fitnessCourseBottom.module.css';
 import { useAppSelector } from '@/store/store';
@@ -7,23 +9,33 @@ import {
   setSelectedCourses,
   setVisibleAuthModal,
 } from '@/store/features/CourseSlice';
-import { addUserCourse } from '@/services/courses/coursesApi';
+import { addUserCourse, removeUserCourse } from '@/services/courses/coursesApi';
 import { getUserInfo } from '@/services/auth/authApi';
 import { setUser } from '@/store/features/AuthSlice';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { AxiosError } from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Bounce, toast } from 'react-toastify';
+import { catchError } from '@/hooks/funcToast';
 
 export default function FitnessCourseBottom() {
   const dispatch = useDispatch();
 
-  const { allCourses, selectCourseId } = useAppSelector(
+  const { allCourses, selectCourseId, idSelectedCourses } = useAppSelector(
     (state) => state.courses,
   );
   const { token } = useAppSelector((state) => state.auth);
 
   const [error, setError] = useState('');
+  const [haveCourse, setHaveCourse] = useState(false);
+
+  useEffect(() => {
+    if (idSelectedCourses.includes(selectCourseId)) {
+      setHaveCourse(true);
+    } else {
+      setHaveCourse(false);
+    }
+  }, [idSelectedCourses]);
 
   const hadleAuthModal = () => {
     dispatch(setVisibleAuthModal(true));
@@ -50,44 +62,50 @@ export default function FitnessCourseBottom() {
       .catch((error) => {
         if (error instanceof AxiosError) {
           if (error.response) {
-            toast.error(error.response.data.message, {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError(error.response.data.message);
+            catchError(error.response.data.message);
           } else if (error.request) {
-            toast.error('Отсутствует интернет. Попробуйте позже', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError('Отсутствует интернет. Попробуйте позже');
+            catchError('Отсутствует интернет. Попробуйте позже');
           } else {
-            toast.error('Неизвестная ошибка', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError('Неизвестная ошибка');
+            catchError('Неизвестная ошибка');
           }
         }
-        console.log('error: ', error);
+      });
+  };
+
+  const hadleRemoveCourse = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    removeUserCourse(token, selectCourseId)
+      .then((res) => {
+        console.log(res);
+        return getUserInfo(token);
+      })
+      .then((response) => {
+        dispatch(setUser(response));
+        dispatch(setIdSelectedCourses(response.selectedCourses));
+        dispatch(
+          setSelectedCourses(
+            fetchSelectedCourses(allCourses, response.selectedCourses),
+          ),
+        );
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            setError(error.response.data.message);
+            catchError(error.response.data.message);
+          } else if (error.request) {
+            setError('Отсутствует интернет. Попробуйте позже');
+            catchError('Отсутствует интернет. Попробуйте позже');
+          } else {
+            setError('Неизвестная ошибка');
+            catchError('Неизвестная ошибка');
+          }
+        }
       });
   };
 
@@ -125,9 +143,19 @@ export default function FitnessCourseBottom() {
           </ul>
           <button
             className={styles.adding__button}
-            onClick={token ? hadleAddCourse : hadleAuthModal}
+            onClick={
+              token
+                ? haveCourse
+                  ? hadleRemoveCourse
+                  : hadleAddCourse
+                : hadleAuthModal
+            }
           >
-            {token ? 'Добавить курс' : 'Войдите, чтобы добавить курс'}
+            {token
+              ? haveCourse
+                ? 'Удалить курс из списка'
+                : 'Добавить курс'
+              : 'Войдите, чтобы добавить курс'}
           </button>
         </div>
       </div>

@@ -14,6 +14,7 @@ import { setToken, setUser, setUserName } from '@/store/features/AuthSlice';
 import { useAppSelector } from '@/store/store';
 import { getUserNameByEmail } from '@/utils/croppingLines';
 import { Bounce, toast } from 'react-toastify';
+import { catchError, toastInfo } from '@/hooks/funcToast';
 
 export default function AuthModal() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function AuthModal() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
   const { token } = useAppSelector((state) => state.auth);
 
@@ -61,7 +63,7 @@ export default function AuthModal() {
       return setError('Введите пароль');
     }
 
-    setIsLoading(true);
+    setDisabled(true);
 
     signIn({ email, password })
       .then((res) => {
@@ -72,67 +74,24 @@ export default function AuthModal() {
       .then((response) => {
         dispatch(setUser(response));
         dispatch(setUserName(getUserNameByEmail(response.email)));
+        toastInfo('Авторизация прошла успешно!');
       })
       .catch((error) => {
-        setIsLoading(false);
         if (error instanceof AxiosError) {
           if (error.response) {
-            setError(error.response.data);
-            toast.error(error.response.data, {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError(error.response.data.message);
+            catchError(error.response.data.message);
           } else if (error.request) {
-            setError('Что-то с интернетом');
-            toast.error('Что-то с интернетом', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError('Отсутствует интернет. Попробуйте позже');
+            catchError('Отсутствует интернет. Попробуйте позже');
           } else {
             setError('Неизвестная ошибка');
-            toast.error('Неизвестная ошибка', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            catchError('Неизвестная ошибка');
           }
         }
-        console.log('error: ', error);
       })
       .finally(() => {
-        setIsLoading(false);
-        toast.info('Авторизация прошла успешно!', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-        });
-        console.log('Авторизация прошла успешно!');
+        setDisabled(false);
       });
   };
 
@@ -154,52 +113,20 @@ export default function AuthModal() {
     setIsLoading(true);
 
     signUp({ email, password })
-      .then((res) => {
-        console.log('Ответ после регистрации: ', res.message);
+      .then(() => {
         setIsSignIn(false);
       })
       .catch((error) => {
-        setIsLoading(false);
         if (error instanceof AxiosError) {
           if (error.response) {
-            setError(error.response.data);
-            toast.error(error.response.data, {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError(error.response.data.message);
+            catchError(error.response.data.message);
           } else if (error.request) {
-            setError('Что-то с интернетом');
-            toast.error('Что-то с интернетом', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError('Отсутствует интернет. Попробуйте позже');
+            catchError('Отсутствует интернет. Попробуйте позже');
           } else {
             setError('Неизвестная ошибка');
-            toast.error('Неизвестная ошибка', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            catchError('Неизвестная ошибка');
           }
         }
       })
@@ -260,7 +187,7 @@ export default function AuthModal() {
         <div className={styles.authModal__buttons}>
           <button
             className={styles.authModal__btnSignin}
-            disabled={isLoading}
+            disabled={disabled}
             onClick={isSignIn ? onSubmitSignUp : onSubmitSignIn}
           >
             {isSignIn ? 'Зарегистрироваться' : 'Войти'}
@@ -268,7 +195,7 @@ export default function AuthModal() {
           <button
             className={styles.authModal__btnSignup}
             onClick={changeAuthModal}
-            disabled={isLoading}
+            disabled={disabled}
           >
             {isSignIn ? 'Войти' : 'Зарегистрироваться'}
           </button>

@@ -19,6 +19,7 @@ type initialStateType = {
   selectCoursName: string;
   selectCourseId: string;
   selectWorkoutId: string;
+  messageAllCourses: string;
   courseProgress: CourseProgressType | null;
   workoutProgress: WorkoutProgressType | null;
   courseWorkouts: WorksType[];
@@ -38,6 +39,7 @@ const initialState: initialStateType = {
   selectCoursName: '',
   selectCourseId: '',
   selectWorkoutId: '',
+  messageAllCourses: '',
   courseProgress: null,
   workoutProgress: null,
   courseWorkouts: [],
@@ -98,6 +100,9 @@ const courseSlice = createSlice({
     setVisibleChekProgress: (state, action: PayloadAction<boolean>) => {
       state.visibleChekProgress = action.payload;
     },
+    setMessageAllCourse: (state, action: PayloadAction<string>) => {
+      state.messageAllCourses = action.payload;
+    },
   },
 });
 
@@ -118,5 +123,6 @@ export const {
   setSelectCourseName,
   setCourseProgress,
   setWorkoutProgress,
+  setMessageAllCourse,
 } = courseSlice.actions;
 export const courseSliceReducer = courseSlice.reducer;

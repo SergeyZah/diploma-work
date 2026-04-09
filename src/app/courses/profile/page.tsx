@@ -16,7 +16,7 @@ import {
 import { getUserInfo } from '@/services/auth/authApi';
 import { getCourseProgress } from '@/services/progress/progressApi';
 import { CourseProgressType } from '@/sharedTypes/types';
-import { Bounce, toast } from 'react-toastify';
+import { catchError } from '@/hooks/funcToast';
 
 type progressMapType = {
   [key: string]: CourseProgressType;
@@ -31,6 +31,7 @@ export default function ProfilePage() {
   );
 
   const [courseProgress, setCourseProgress] = useState<progressMapType>({});
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (token) {
@@ -42,7 +43,10 @@ export default function ProfilePage() {
             fetchSelectedCourses(allCourses, response.selectedCourses),
           ),
         );
+        setMessage('');
       });
+    } else {
+      setMessage('Загружаем курсы');
     }
   }, [token]);
 
@@ -63,30 +67,10 @@ export default function ProfilePage() {
 
           setCourseProgress(progressMap);
         } else {
-          toast.error('Не прогрузились курсы.', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-            transition: Bounce,
-          });
+          catchError('Не прогрузились курсы.');
         }
       } catch {
-        toast.error('Не смог получить курсы.', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-        });
+        catchError('Не смог получить курсы.');
       }
     };
 
@@ -213,7 +197,9 @@ export default function ProfilePage() {
             </a>
           </div>
         ) : (
-          <p className={styles.empty}>У вас пока нет добавленных курсов</p>
+          <p className={styles.empty}>
+            {message ? message : 'У вас пока нет добавленных курсов'}
+          </p>
         )}
       </div>
     </div>

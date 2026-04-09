@@ -76,9 +76,10 @@
   background: rgba(198, 255, 0, 1);
 }
 
-.authModal__btnSignin:invalid {
+.authModal__btnSignin:disabled {
   color: rgba(153, 153, 153, 1);
   background: rgba(247, 247, 247, 1);
+  border: 1px solid rgba(247, 247, 247, 1);
 }
 
 .authModal__btnSignin:active {
@@ -108,7 +109,7 @@
   background: rgba(233, 236, 237, 1);
 }
 
-.authModal__btnSignup:invalid {
+.authModal__btnSignup:disabled {
   border: 1px solid rgba(153, 153, 153, 1);
   color: rgba(153, 153, 153, 1);
 }

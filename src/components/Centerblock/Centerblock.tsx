@@ -6,11 +6,13 @@ import { CourseType } from '@/sharedTypes/types';
 type CenterblockTypeProp = {
   courseList: CourseType[];
   fetchIsLoading: boolean;
+  messageCourses?: string;
 };
 
 export default function Centerblock({
   courseList,
   fetchIsLoading,
+  messageCourses,
 }: CenterblockTypeProp) {
   const sortCourseList = courseList
     .slice()
@@ -37,47 +39,53 @@ export default function Centerblock({
           </div>
         </div>
       </div>
-      <div className={styles.centerblock__box}>
-        <div className={styles.centerblock__cards}>
-          {fetchIsLoading
-            ? Array.from({ length: 6 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className={styles.loadingCard}
-                  aria-hidden="true"
-                >
-                  <div className={styles.loadingImage} />
-                  <div className={styles.loadingContent}>
-                    <div className={styles.loadingTitle} />
-                    <div className={styles.loadingMetaRow} />
-                    <div className={styles.loadingMetaRowShort} />
-                    <div className={styles.loadingButton} />
+      {courseList.length ? (
+        <div className={styles.centerblock__box}>
+          <div className={styles.centerblock__cards}>
+            {fetchIsLoading
+              ? Array.from({ length: 6 }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={styles.loadingCard}
+                    aria-hidden="true"
+                  >
+                    <div className={styles.loadingImage} />
+                    <div className={styles.loadingContent}>
+                      <div className={styles.loadingTitle} />
+                      <div className={styles.loadingMetaRow} />
+                      <div className={styles.loadingMetaRowShort} />
+                      <div className={styles.loadingButton} />
+                    </div>
                   </div>
-                </div>
-              ))
-            : sortCourseList.map((course) => {
-                return (
-                  <Card
-                    key={course._id}
-                    course={course}
-                    displayInProfile={false}
-                  />
-                );
-              })}
+                ))
+              : sortCourseList.map((course) => {
+                  return (
+                    <Card
+                      key={course._id}
+                      course={course}
+                      displayInProfile={false}
+                    />
+                  );
+                })}
+          </div>
+          <a
+            href="#top"
+            className={styles.centerblock__buttonUp}
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .getElementById('top')
+                ?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Наверх ↑
+          </a>
         </div>
-        <a
-          href="#top"
-          className={styles.centerblock__buttonUp}
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .getElementById('top')
-              ?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        >
-          Наверх ↑
-        </a>
-      </div>
+      ) : (
+        <p className={styles.empty}>
+          {messageCourses ? messageCourses : 'Загружаем курсы...'}
+        </p>
+      )}
     </div>
   );
 }

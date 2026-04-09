@@ -15,6 +15,7 @@ import {
 } from '@/store/features/CourseSlice';
 import { AxiosError } from 'axios';
 import { Bounce, toast } from 'react-toastify';
+import { catchError } from '@/hooks/funcToast';
 
 type SelectWorkoutsTypeProp = {
   courseName: string;
@@ -40,41 +41,14 @@ export default function SelectWorkouts({ courseName }: SelectWorkoutsTypeProp) {
       .catch((error) => {
         if (error instanceof AxiosError) {
           if (error.response) {
-            toast.error(error.response.data.message, {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError(error.response.data.message);
+            catchError(error.response.data.message);
           } else if (error.request) {
-            toast.error('Отсутствует интернет. Попробуйте позже', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError('Отсутствует интернет. Попробуйте позже');
+            catchError('Отсутствует интернет. Попробуйте позже');
           } else {
-            toast.error('Неизвестная ошибка', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError('Неизвестная ошибка');
+            catchError('Неизвестная ошибка');
           }
         }
       })

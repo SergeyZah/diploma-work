@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { AxiosError } from 'axios';
 import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
 import { Bounce, toast } from 'react-toastify';
+import { catchError } from '@/hooks/funcToast';
 
 export default function WorkoutsPage() {
   const params = useParams<{ course: string }>();
@@ -52,44 +53,14 @@ export default function WorkoutsPage() {
       .catch((error) => {
         if (error instanceof AxiosError) {
           if (error.response) {
-            setError(error.response.data);
-            toast.error(error.response.data, {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError(error.response.data.message);
+            catchError(error.response.data.message);
           } else if (error.request) {
-            setError('Что-то с интернетом');
-            toast.error('Что-то с интернетом', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError('Отсутствует интернет. Попробуйте позже');
+            catchError('Отсутствует интернет. Попробуйте позже');
           } else {
             setError('Неизвестная ошибка');
-            toast.error('Неизвестная ошибка', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            catchError('Неизвестная ошибка');
           }
         }
       })
