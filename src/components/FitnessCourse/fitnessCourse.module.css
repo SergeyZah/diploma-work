@@ -124,11 +124,34 @@
   text-align: left;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 1439px) {
   .fitnessCourse__header {
     height: 325px;
   }
 
+  .fitnessCourse__description {
+    padding-top: 40px;
+  }
+
+  .description__points {
+    display: flex;
+    gap: 17px;
+    padding-top: 24px;
+    flex-direction: column;
+  }
+
+  .fitnessCourse__directions {
+    padding-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .directions {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 759px) {
   .centerblock__title {
     font-size: 32px;
     line-height: 110%;
@@ -146,28 +169,12 @@
     display: block;
   }
 
-  .fitnessCourse__description {
-    padding-top: 40px;
-  }
-
   .description__title {
     font-size: 24px;
   }
 
-  .description__points {
-    display: flex;
-    gap: 17px;
-    padding-top: 24px;
-    flex-direction: column;
-  }
-
   .point__text {
     font-size: 18px;
-  }
-
-  .fitnessCourse__directions {
-    padding-top: 40px;
-    margin-bottom: 156px;
   }
 
   .directions__title {

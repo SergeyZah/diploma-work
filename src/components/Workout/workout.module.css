@@ -101,7 +101,7 @@
   background: rgba(0, 0, 0, 1);
 }
 
-@media (max-width: 426px) {
+@media (max-width: 759px) {
   .workout__box {
     margin-top: 24px;
     padding: 30px;

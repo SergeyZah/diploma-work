@@ -133,7 +133,7 @@
   text-align: center;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 1439px) {
   .centerblock {
     padding-bottom: 30px;
   }
@@ -143,6 +143,20 @@
     line-height: 110%;
   }
 
+  .centerblock__cards {
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .centerblock__box {
+    align-items: flex-end;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 759px) {
   .centerblock__slogan {
     display: none;
   }
@@ -151,11 +165,6 @@
     padding-top: 34px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
-  }
-
-  .centerblock__box {
-    align-items: flex-end;
     gap: 24px;
   }
 }
