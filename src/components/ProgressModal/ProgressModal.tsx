@@ -32,9 +32,6 @@ export default function ProgressModal({ valuesNull }: ProgressModalTypeProp) {
   const [values, setValues] = useState<number[]>([]);
   const [error, setError] = useState('');
 
-  console.log(values);
-  console.log(error);
-
   useEffect(() => {
     setValues(valuesNull);
   }, [valuesNull, workoutProgress]);

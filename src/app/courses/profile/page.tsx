@@ -26,11 +26,12 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { user, userName, token } = useAppSelector((state) => state.auth);
-  const { allCourses, selectedCourses, fetchIsLoading } = useAppSelector(
-    (state) => state.courses,
-  );
+  const { allCourses, selectedCourses, fetchIsLoading, courseProgress } =
+    useAppSelector((state) => state.courses);
 
-  const [courseProgress, setCourseProgress] = useState<progressMapType>({});
+  const [listCourseProgress, setListCourseProgress] = useState<progressMapType>(
+    {},
+  );
   const [messageLoad, setMessageLoad] = useState('');
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function ProfilePage() {
             progressMap[courseID] = progress;
           });
 
-          setCourseProgress(progressMap);
+          setListCourseProgress(progressMap);
         } else {
           catchError('Не прогрузились курсы.');
         }
@@ -75,7 +76,7 @@ export default function ProfilePage() {
     };
 
     fetchData();
-  }, [selectedCourses]);
+  }, [selectedCourses, courseProgress]);
 
   const handleExit = () => {
     dispatch(clearUser());
@@ -172,7 +173,7 @@ export default function ProfilePage() {
                     </div>
                   ))
                 : selectedCourses.map((course) => {
-                    const progressCourse = courseProgress[course._id];
+                    const progressCourse = listCourseProgress[course._id];
                     return (
                       <Card
                         key={course._id}
@@ -198,7 +199,9 @@ export default function ProfilePage() {
           </div>
         ) : (
           <p className={styles.empty}>
-            {messageLoad ? messageLoad : 'У вас пока нет добавленных курсов'}
+            {messageLoad.length
+              ? messageLoad
+              : 'У вас пока нет добавленных курсов'}
           </p>
         )}
       </div>

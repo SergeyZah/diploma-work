@@ -14,6 +14,7 @@ import { useAppSelector } from '@/store/store';
 import { getUserNameByEmail } from '@/utils/croppingLines';
 import { useEffect, useState } from 'react';
 import { setUserName } from '@/store/features/AuthSlice';
+import RemoveProgress from '../RemoveProgress/RemoveProgress';
 
 type HeaderTypeProp = {
   fetchIsLoading: boolean;
@@ -24,9 +25,12 @@ export default function Header() {
 
   const { user, token, userName } = useAppSelector((state) => state.auth);
 
-  const { visibleAuthModal, visiblePopUser } = useAppSelector(
-    (state) => state.courses,
-  );
+  const {
+    visibleAuthModal,
+    visiblePopUser,
+    visibleRemoveProgress,
+    removeCheck,
+  } = useAppSelector((state) => state.courses);
 
   const [name, setName] = useState('');
 
@@ -102,6 +106,7 @@ export default function Header() {
       )}
       {visibleAuthModal ? <AuthModal /> : <></>}
       {visiblePopUser ? <PopUser /> : <></>}
+      {visibleRemoveProgress ? <RemoveProgress course={removeCheck} /> : <></>}
     </div>
   );
 }

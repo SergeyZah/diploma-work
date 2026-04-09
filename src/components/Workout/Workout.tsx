@@ -10,7 +10,9 @@ import ProgressModal from '../ProgressModal/ProgressModal';
 import { useDispatch } from 'react-redux';
 import {
   setFetchIsLoading,
+  setRemoveCheck,
   setVisibleProgressModal,
+  setVisibleRemoveProgress,
   setWorkoutProgress,
 } from '@/store/features/CourseSlice';
 import {
@@ -68,27 +70,8 @@ export default function Workout() {
   };
 
   const removeProgress = () => {
-    removeWorkoutProgress(token, selectCourseId, selectWorkoutId)
-      .then(() => {
-        return getWorkoutProgress(token, selectCourseId, selectWorkoutId);
-      })
-      .then((res) => {
-        dispatch(setWorkoutProgress(res));
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          if (error.response) {
-            catchError(error.response.data.message);
-          } else if (error.request) {
-            catchError('Отсутствует интернет. Попробуйте позже');
-          } else {
-            catchError('Неизвестная ошибка');
-          }
-        }
-      })
-      .finally(() => {
-        dispatch(setFetchIsLoading(false));
-      });
+    dispatch(setVisibleRemoveProgress(true));
+    dispatch(setRemoveCheck(false));
   };
 
   return (

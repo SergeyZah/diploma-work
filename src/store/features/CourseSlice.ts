@@ -14,6 +14,7 @@ type initialStateType = {
   visiblePopUser: boolean;
   visibleProgressModal: boolean;
   visibleChekProgress: boolean;
+  visibleRemoveProgress: boolean;
   selectedCourses: CourseType[];
   selectedWorkout: WorksType | null;
   selectCoursName: string;
@@ -24,6 +25,7 @@ type initialStateType = {
   workoutProgress: WorkoutProgressType | null;
   courseWorkouts: WorksType[];
   idSelectedCourses: string[];
+  removeCheck: boolean;
 };
 
 const initialState: initialStateType = {
@@ -34,6 +36,7 @@ const initialState: initialStateType = {
   visiblePopUser: false,
   visibleProgressModal: false,
   visibleChekProgress: false,
+  visibleRemoveProgress: false,
   selectedCourses: [],
   selectedWorkout: null,
   selectCoursName: '',
@@ -44,6 +47,7 @@ const initialState: initialStateType = {
   workoutProgress: null,
   courseWorkouts: [],
   idSelectedCourses: [],
+  removeCheck: false,
 };
 
 const courseSlice = createSlice({
@@ -100,8 +104,14 @@ const courseSlice = createSlice({
     setVisibleChekProgress: (state, action: PayloadAction<boolean>) => {
       state.visibleChekProgress = action.payload;
     },
+    setVisibleRemoveProgress: (state, action: PayloadAction<boolean>) => {
+      state.visibleRemoveProgress = action.payload;
+    },
     setMessageAllCourse: (state, action: PayloadAction<string>) => {
       state.messageAllCourses = action.payload;
+    },
+    setRemoveCheck: (state, action: PayloadAction<boolean>) => {
+      state.removeCheck = action.payload;
     },
   },
 });
@@ -114,6 +124,7 @@ export const {
   setVisiblePopUser,
   setVisibleProgressModal,
   setVisibleChekProgress,
+  setVisibleRemoveProgress,
   setSelectedCourses,
   setSelectedWorkout,
   setCourseWorkouts,
@@ -124,5 +135,6 @@ export const {
   setCourseProgress,
   setWorkoutProgress,
   setMessageAllCourse,
+  setRemoveCheck,
 } = courseSlice.actions;
 export const courseSliceReducer = courseSlice.reducer;

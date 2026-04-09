@@ -7,7 +7,7 @@ import { CourseProgressType, CourseType } from '@/sharedTypes/types';
 import { FetchRightCover } from '@/utils/FetchRightCover';
 import { useRouter } from 'next/navigation';
 import { addUserCourse, removeUserCourse } from '@/services/courses/coursesApi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { useAppSelector } from '@/store/store';
 import { useDispatch } from 'react-redux';
@@ -17,15 +17,15 @@ import {
   setCourseWorkouts,
   setFetchIsLoading,
   setIdSelectedCourses,
+  setRemoveCheck,
   setSelectCourseId,
   setSelectedCourses,
   setVisibleAuthModal,
+  setVisibleRemoveProgress,
 } from '@/store/features/CourseSlice';
 import { fetchSelectedCourses } from '@/utils/fetchSelectedCourses';
 import { getCourseWorkouts } from '@/services/workouts/workoutsApi';
 import { calculatingProgress } from '@/utils/calculatingProgress';
-import { removeCourseProgress } from '@/services/progress/progressApi';
-import { Bounce, toast } from 'react-toastify';
 import { catchError } from '@/hooks/funcToast';
 
 type CardTypeProp = {
@@ -43,7 +43,7 @@ export default function Card({
   const dispatch = useDispatch();
 
   const { token } = useAppSelector((state) => state.auth);
-  const { allCourses, fetchIsLoading } = useAppSelector(
+  const { allCourses, courseProgress } = useAppSelector(
     (state) => state.courses,
   );
 
@@ -160,29 +160,10 @@ export default function Card({
   const removeProgressCourse = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
+    dispatch(setVisibleRemoveProgress(true));
+    dispatch(setRemoveCheck(true));
     e.stopPropagation();
     dispatch(setSelectCourseId(course._id));
-    removeCourseProgress(token, course._id)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          if (error.response) {
-            setError(error.response.data.message);
-            catchError(error.response.data.message);
-          } else if (error.request) {
-            setError('Отсутствует интернет. Попробуйте позже');
-            catchError('Отсутствует интернет. Попробуйте позже');
-          } else {
-            setError('Неизвестная ошибка');
-            catchError('Неизвестная ошибка');
-          }
-        }
-      })
-      .finally(() => {
-        setFetchIsLoading(false);
-      });
   };
 
   return (
