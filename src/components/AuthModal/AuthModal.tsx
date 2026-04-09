@@ -25,6 +25,7 @@ export default function AuthModal() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
   const { token } = useAppSelector((state) => state.auth);
 
@@ -62,7 +63,7 @@ export default function AuthModal() {
       return setError('Введите пароль');
     }
 
-    setIsLoading(true);
+    setDisabled(true);
 
     signIn({ email, password })
       .then((res) => {
@@ -90,7 +91,7 @@ export default function AuthModal() {
         }
       })
       .finally(() => {
-        setIsLoading(false);
+        setDisabled(false);
       });
   };
 
@@ -186,7 +187,7 @@ export default function AuthModal() {
         <div className={styles.authModal__buttons}>
           <button
             className={styles.authModal__btnSignin}
-            disabled={isLoading}
+            disabled={disabled}
             onClick={isSignIn ? onSubmitSignUp : onSubmitSignIn}
           >
             {isSignIn ? 'Зарегистрироваться' : 'Войти'}
@@ -194,7 +195,7 @@ export default function AuthModal() {
           <button
             className={styles.authModal__btnSignup}
             onClick={changeAuthModal}
-            disabled={isLoading}
+            disabled={disabled}
           >
             {isSignIn ? 'Войти' : 'Зарегистрироваться'}
           </button>

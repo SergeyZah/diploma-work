@@ -7,13 +7,11 @@ import { useAppSelector } from '@/store/store';
 import { getCourseCardInfo } from '@/services/courses/coursesApi';
 import { CourseType } from '@/sharedTypes/types';
 import { AxiosError } from 'axios';
-import { useDispatch } from 'react-redux';
-import { Bounce, toast } from 'react-toastify';
 import styles from './page.module.css';
+import { catchError } from '@/hooks/funcToast';
 
 export default function CoursePage() {
   const params = useParams<{ id: string }>();
-  const dispatch = useDispatch();
 
   const { fetchIsLoading, fetchError } = useAppSelector(
     (state) => state.courses,
@@ -34,46 +32,15 @@ export default function CoursePage() {
       })
       .catch((error) => {
         if (error instanceof AxiosError) {
-          console.log(error);
           if (error.response) {
-            setError(error.response.data);
-            toast.error(error.response.data, {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError(error.response.data.message);
+            catchError(error.response.data.message);
           } else if (error.request) {
-            setError('Что-то с интернетом');
-            toast.error(error.request, {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            setError('Отсутствует интернет. Попробуйте позже');
+            catchError('Отсутствует интернет. Попробуйте позже');
           } else {
             setError('Неизвестная ошибка');
-            toast.error('Неизвестная ошибка', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              transition: Bounce,
-            });
+            catchError('Неизвестная ошибка');
           }
         }
       })

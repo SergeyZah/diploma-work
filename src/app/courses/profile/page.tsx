@@ -16,7 +16,7 @@ import {
 import { getUserInfo } from '@/services/auth/authApi';
 import { getCourseProgress } from '@/services/progress/progressApi';
 import { CourseProgressType } from '@/sharedTypes/types';
-import { Bounce, toast } from 'react-toastify';
+import { catchError } from '@/hooks/funcToast';
 
 type progressMapType = {
   [key: string]: CourseProgressType;
@@ -63,30 +63,10 @@ export default function ProfilePage() {
 
           setCourseProgress(progressMap);
         } else {
-          toast.error('Не прогрузились курсы.', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-            transition: Bounce,
-          });
+          catchError('Не прогрузились курсы.');
         }
       } catch {
-        toast.error('Не смог получить курсы.', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-        });
+        catchError('Не смог получить курсы.');
       }
     };
 

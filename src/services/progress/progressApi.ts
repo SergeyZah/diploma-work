@@ -39,23 +39,16 @@ export const saveWorkoutProgress = (
   workautId: string,
   progressData: number[],
 ): Promise<void | { message: string }> => {
-  return axios
-    .patch(
-      BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}`,
-      JSON.stringify({ progressData }),
-      {
-        headers: {
-          'content-type': '',
-          Authorization: `Bearer ${token}`,
-        },
+  return axios.patch(
+    BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}`,
+    JSON.stringify({ progressData }),
+    {
+      headers: {
+        'content-type': '',
+        Authorization: `Bearer ${token}`,
       },
-    )
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((res) => {
-      console.log(res);
-    });
+    },
+  );
 };
 
 export const removeWorkoutProgress = (
@@ -63,23 +56,16 @@ export const removeWorkoutProgress = (
   courseId: string,
   workautId: string,
 ): Promise<void | { message: string }> => {
-  return axios
-    .patch(
-      BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}/reset`,
-      {},
-      {
-        headers: {
-          'Content-Type': '',
-          Authorization: `Bearer ${token}`,
-        },
+  return axios.patch(
+    BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}/reset`,
+    {},
+    {
+      headers: {
+        'Content-Type': '',
+        Authorization: `Bearer ${token}`,
       },
-    )
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((res) => {
-      console.log(res);
-    });
+    },
+  );
 };
 
 export const getCourseProgress = (
