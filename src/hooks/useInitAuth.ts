@@ -8,6 +8,7 @@ import {
 } from '@/store/features/CourseSlice';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Bounce, toast } from 'react-toastify';
 
 export const useInitAuth = () => {
   const dispatch = useDispatch();
@@ -22,8 +23,6 @@ export const useInitAuth = () => {
       getUserInfo(token).then((res) => {
         dispatch(setUser(res));
       });
-    } else {
-      console.log('Токен не передался');
     }
     dispatch(setUserName(userName));
     dispatch(setSelectCourseId(courseId));

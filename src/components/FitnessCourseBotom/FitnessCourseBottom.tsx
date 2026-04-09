@@ -50,6 +50,7 @@ export default function FitnessCourseBottom() {
       .catch((error) => {
         if (error instanceof AxiosError) {
           if (error.response) {
+            console.log(error.response);
             toast.error(error.response.data.message, {
               position: 'top-right',
               autoClose: 3000,
@@ -87,7 +88,6 @@ export default function FitnessCourseBottom() {
             });
           }
         }
-        console.log('error: ', error);
       });
   };
 

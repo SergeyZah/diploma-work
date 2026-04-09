@@ -34,6 +34,7 @@ export default function CoursePage() {
       })
       .catch((error) => {
         if (error instanceof AxiosError) {
+          console.log(error);
           if (error.response) {
             setError(error.response.data);
             toast.error(error.response.data, {
