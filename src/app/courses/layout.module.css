@@ -9,6 +9,12 @@
   padding-right: calc(50% - 580px);
 }
 
+.scroll {
+  max-height: 1200px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
 .loader {
   color: rgba(0, 0, 0, 1);
   font-size: 36px;

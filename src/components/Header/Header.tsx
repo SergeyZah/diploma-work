@@ -19,7 +19,7 @@ type HeaderTypeProp = {
   fetchIsLoading: boolean;
 };
 
-export default function Header({ fetchIsLoading }: HeaderTypeProp) {
+export default function Header() {
   const dispatch = useDispatch();
 
   const { user, token, userName } = useAppSelector((state) => state.auth);
@@ -97,9 +97,7 @@ export default function Header({ fetchIsLoading }: HeaderTypeProp) {
         </div>
       ) : (
         <button className={styles.header__button} onClick={hadleAuthModal}>
-          <p className={styles.button__text}>
-            {fetchIsLoading ? 'Войти' : 'Войти'}
-          </p>
+          <p className={styles.button__text}>Войти</p>
         </button>
       )}
       {visibleAuthModal ? <AuthModal /> : <></>}

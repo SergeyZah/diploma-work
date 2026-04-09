@@ -1,9 +1,3 @@
-.container {
-  max-height: 1200px;
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-
 .container__title {
   color: rgba(0, 0, 0, 1);
   font-size: 40px;
@@ -139,6 +133,7 @@
   padding: 16px 26px;
   width: 127px;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .empty {

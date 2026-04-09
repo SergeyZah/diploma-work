@@ -21,7 +21,7 @@ export default function CoursesLayout({ children }: CoursesLayoutProps) {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <FetchingCourses />
-        <Header fetchIsLoading={fetchIsLoading} />
+        <Header />
         {fetchIsLoading ? (
           <div className={styles.loader}>Загрузка компонентов...</div>
         ) : (
