@@ -52,6 +52,11 @@
   text-align: left;
 }
 
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .progressModal__input {
   width: 100%;
   border: 1px solid rgba(208, 206, 206, 1);
@@ -99,4 +104,18 @@
 .progressModal__button:active {
   color: rgba(255, 255, 255, 1);
   background: rgba(0, 0, 0, 1);
+}
+
+@media (max-width: 759px) {
+  .progressModal__container {
+    width: 343px;
+  }
+
+  .name__text {
+    font-size: 16px;
+  }
+
+  .subtitle__text {
+    font-size: 14px;
+  }
 }

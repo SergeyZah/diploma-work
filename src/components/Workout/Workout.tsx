@@ -70,7 +70,6 @@ export default function Workout() {
   const removeProgress = () => {
     removeWorkoutProgress(token, selectCourseId, selectWorkoutId)
       .then(() => {
-        console.log('Выполнился запрос на удаление');
         return getWorkoutProgress(token, selectCourseId, selectWorkoutId);
       })
       .then((res) => {
@@ -104,6 +103,14 @@ export default function Workout() {
             allowFullScreen
             width={1160}
             height={639}
+          ></iframe>
+          <iframe
+            className={styles.workoutTable__video}
+            src={`${selectedWorkout?.video}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            width={710}
+            height={410}
           ></iframe>
           <iframe
             className={styles.workoutMobile__video}
