@@ -79,7 +79,7 @@
   text-align: center;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 1439px) {
   .header {
     padding-bottom: 40px;
   }
@@ -96,16 +96,18 @@
     display: block;
   }
 
+  .header__button {
+    width: 83px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 759px) {
   .authUser__name {
     display: none;
   }
 
   .header__title {
     display: none;
-  }
-
-  .header__button {
-    width: 83px;
-    height: 36px;
   }
 }
