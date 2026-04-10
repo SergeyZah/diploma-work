@@ -155,6 +155,10 @@
     gap: 24px;
     z-index: 2;
   }
+
+  .loadingCard {
+  width: 343px;
+}
 }
 
 @media (max-width: 759px) {

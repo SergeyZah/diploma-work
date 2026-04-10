@@ -239,6 +239,10 @@
     left: -5px;
   }
 
+  .loadingCard {
+  width: 343px;
+}
+
   .profile__info {
     display: flex;
     flex-direction: column;
