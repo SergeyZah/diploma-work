@@ -12,7 +12,7 @@
 }
 
 .card:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
   transition: 0.7s;
   z-index: 2;
 }

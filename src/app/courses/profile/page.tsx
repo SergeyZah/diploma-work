@@ -34,8 +34,10 @@ export default function ProfilePage() {
     {},
   );
   const [messageLoad, setMessageLoad] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     if (token) {
       getUserInfo(token).then((response) => {
         dispatch(setUser(response));
@@ -46,13 +48,15 @@ export default function ProfilePage() {
           ),
         );
         setMessageLoad('');
+        setIsLoading(false);
       });
     } else {
-      setMessageLoad('Загружаем курсы');
+      setIsLoading(true);
     }
   }, [token, allCourses]);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchData = async () => {
       try {
         if (selectedCourses) {
@@ -68,6 +72,7 @@ export default function ProfilePage() {
           });
 
           setListCourseProgress(progressMap);
+          setIsLoading(false);
         } else {
           catchError('Не прогрузились курсы.');
         }
@@ -154,7 +159,27 @@ export default function ProfilePage() {
       </div>
       <div className={styles.courses__box}>
         <h2 className={styles.courses__title}>Мои курсы</h2>
-        {selectedCourses.length ? (
+        {isLoading ? (
+          <div className={styles.courses__container}>
+            <div className={styles.courses__me}>
+              {Array.from({ length: 3 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className={styles.loadingCard}
+                  aria-hidden="true"
+                >
+                  <div className={styles.loadingImage} />
+                  <div className={styles.loadingContent}>
+                    <div className={styles.loadingTitle} />
+                    <div className={styles.loadingMetaRow} />
+                    <div className={styles.loadingMetaRowShort} />
+                    <div className={styles.loadingButton} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : selectedCourses.length ? (
           <div className={styles.courses__container}>
             <div className={styles.courses__me}>
               {selectedCourses.map((course) => {
@@ -183,25 +208,7 @@ export default function ProfilePage() {
             </a>
           </div>
         ) : (
-          <div className={styles.courses__container}>
-            <div className={styles.courses__me}>
-              {Array.from({ length: 3 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className={styles.loadingCard}
-                  aria-hidden="true"
-                >
-                  <div className={styles.loadingImage} />
-                  <div className={styles.loadingContent}>
-                    <div className={styles.loadingTitle} />
-                    <div className={styles.loadingMetaRow} />
-                    <div className={styles.loadingMetaRowShort} />
-                    <div className={styles.loadingButton} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <p className={styles.empty}>У вас пока нет выбранных курсов</p>
         )}
       </div>
     </div>
