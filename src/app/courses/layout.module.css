@@ -5,8 +5,14 @@
 }
 
 .container {
-  padding-left: calc(50% - 580px);
-  padding-right: calc(50% - 580px);
+  padding-left: calc(50% - 585px);
+  padding-right: calc(50% - 585px);
+}
+
+.scroll {
+  max-height: 1200px;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .loader {
@@ -19,7 +25,14 @@
   padding-top: 10px;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 1439px) {
+  .container {
+    padding-left: calc(50% - 355px);
+    padding-right: calc(50% - 355px);
+  }
+}
+
+@media (max-width: 759px) {
   .container {
     padding-left: calc(50% - 171px);
     padding-right: calc(50% - 171px);

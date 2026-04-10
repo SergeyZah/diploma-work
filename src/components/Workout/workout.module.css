@@ -13,6 +13,10 @@
   border: 0;
 }
 
+.workoutTable__video {
+    display: none;
+  }
+
 .workoutMobile__video {
   display: none;
 }
@@ -101,7 +105,27 @@
   background: rgba(0, 0, 0, 1);
 }
 
-@media (max-width: 426px) {
+@media (max-width: 1439px) {
+  .workout__video {
+    display: none;
+  }
+
+  .workoutTable__video {
+    display: block;
+    border-radius: 15px;
+    border: 0;
+  }
+
+  .exercise__progress {
+    width: 283px;
+  }
+
+  .workout__button {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 759px) {
   .workout__box {
     margin-top: 24px;
     padding: 30px;
@@ -112,6 +136,10 @@
   }
 
   .workout__video {
+    display: none;
+  }
+
+  .workoutTable__video {
     display: none;
   }
 

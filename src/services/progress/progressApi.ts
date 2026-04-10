@@ -55,17 +55,21 @@ export const removeWorkoutProgress = (
   token: string,
   courseId: string,
   workautId: string,
-): Promise<void | { message: string }> => {
-  return axios.patch(
-    BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}/reset`,
-    {},
-    {
-      headers: {
-        'Content-Type': '',
-        Authorization: `Bearer ${token}`,
+): Promise<{ message: string }> => {
+  return axios
+    .patch(
+      BASE_URL + `/api/fitness/courses/${courseId}/workouts/${workautId}/reset`,
+      {},
+      {
+        headers: {
+          'Content-Type': '',
+          Authorization: `Bearer ${token}`,
+        },
       },
-    },
-  );
+    )
+    .then((res) => {
+      return res.data;
+    });
 };
 
 export const getCourseProgress = (

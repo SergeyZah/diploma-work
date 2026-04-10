@@ -127,7 +127,7 @@
   text-align: center;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 759px) {
   .authModalContainer {
     width: 343px;
   }

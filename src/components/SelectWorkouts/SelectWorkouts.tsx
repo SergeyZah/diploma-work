@@ -64,6 +64,7 @@ export default function SelectWorkouts({ courseName }: SelectWorkoutsTypeProp) {
         <h2 className={styles.selectWorkouts__title}>Выберите тренировку</h2>
         <div className={styles.selectWorkouts__box}>
           {courseWorkouts.map((workout, id) => {
+            const isSelected = workout._id === selectedId;
             return (
               <label
                 key={workout._id}
@@ -73,6 +74,7 @@ export default function SelectWorkouts({ courseName }: SelectWorkoutsTypeProp) {
                   type="radio"
                   name="workout"
                   className={styles.radio}
+                  checked={isSelected}
                   onChange={() => setSelectedId(workout._id)}
                 />
                 <div className={styles.workaut__info}>
@@ -91,7 +93,11 @@ export default function SelectWorkouts({ courseName }: SelectWorkoutsTypeProp) {
             );
           })}
         </div>
-        <button className={styles.selectWorkouts__button} onClick={openWorkout}>
+        <button
+          className={styles.selectWorkouts__button}
+          onClick={openWorkout}
+          disabled={!selectedId}
+        >
           Начать
         </button>
       </div>

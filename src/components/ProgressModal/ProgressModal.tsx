@@ -32,9 +32,6 @@ export default function ProgressModal({ valuesNull }: ProgressModalTypeProp) {
   const [values, setValues] = useState<number[]>([]);
   const [error, setError] = useState('');
 
-  console.log(values);
-  console.log(error);
-
   useEffect(() => {
     setValues(valuesNull);
   }, [valuesNull, workoutProgress]);
@@ -106,7 +103,7 @@ export default function ProgressModal({ valuesNull }: ProgressModalTypeProp) {
                 >
                   <p
                     className={styles.input__text}
-                  >{`Сколько раз вы сделали ${getQuestionExercise(exercise.name)}?`}</p>
+                  >{`Сколько раз вы сделали ${getQuestionExercise(exercise.name)}? (из ${exercise.quantity})`}</p>
                   <input
                     className={styles.progressModal__input}
                     type="number"

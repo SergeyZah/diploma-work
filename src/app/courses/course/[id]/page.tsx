@@ -52,7 +52,7 @@ export default function CoursePage() {
   return (
     <>
       {isLoading ? (
-        <div className={styles.loader}>Загрузка профиля...</div>
+        <div className={styles.loader}>Загрузка...</div>
       ) : courseInfo ? (
         <FitnessCourse course={courseInfo} error={fetchError || error} />
       ) : (

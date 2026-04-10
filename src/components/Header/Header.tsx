@@ -14,19 +14,23 @@ import { useAppSelector } from '@/store/store';
 import { getUserNameByEmail } from '@/utils/croppingLines';
 import { useEffect, useState } from 'react';
 import { setUserName } from '@/store/features/AuthSlice';
+import RemoveProgress from '../RemoveProgress/RemoveProgress';
 
 type HeaderTypeProp = {
   fetchIsLoading: boolean;
 };
 
-export default function Header({ fetchIsLoading }: HeaderTypeProp) {
+export default function Header() {
   const dispatch = useDispatch();
 
   const { user, token, userName } = useAppSelector((state) => state.auth);
 
-  const { visibleAuthModal, visiblePopUser } = useAppSelector(
-    (state) => state.courses,
-  );
+  const {
+    visibleAuthModal,
+    visiblePopUser,
+    visibleRemoveProgress,
+    removeCheck,
+  } = useAppSelector((state) => state.courses);
 
   const [name, setName] = useState('');
 
@@ -97,13 +101,12 @@ export default function Header({ fetchIsLoading }: HeaderTypeProp) {
         </div>
       ) : (
         <button className={styles.header__button} onClick={hadleAuthModal}>
-          <p className={styles.button__text}>
-            {fetchIsLoading ? 'Войти' : 'Войти'}
-          </p>
+          <p className={styles.button__text}>Войти</p>
         </button>
       )}
       {visibleAuthModal ? <AuthModal /> : <></>}
       {visiblePopUser ? <PopUser /> : <></>}
+      {visibleRemoveProgress ? <RemoveProgress course={removeCheck} /> : <></>}
     </div>
   );
 }

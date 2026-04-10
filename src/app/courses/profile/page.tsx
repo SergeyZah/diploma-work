@@ -26,14 +26,18 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { user, userName, token } = useAppSelector((state) => state.auth);
-  const { allCourses, selectedCourses, fetchIsLoading } = useAppSelector(
+  const { allCourses, selectedCourses, courseProgress } = useAppSelector(
     (state) => state.courses,
   );
 
-  const [courseProgress, setCourseProgress] = useState<progressMapType>({});
-  const [message, setMessage] = useState('');
+  const [listCourseProgress, setListCourseProgress] = useState<progressMapType>(
+    {},
+  );
+  const [messageLoad, setMessageLoad] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     if (token) {
       getUserInfo(token).then((response) => {
         dispatch(setUser(response));
@@ -43,14 +47,16 @@ export default function ProfilePage() {
             fetchSelectedCourses(allCourses, response.selectedCourses),
           ),
         );
-        setMessage('');
+        setMessageLoad('');
+        setIsLoading(false);
       });
     } else {
-      setMessage('Загружаем курсы');
+      setIsLoading(true);
     }
-  }, [token]);
+  }, [token, allCourses]);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchData = async () => {
       try {
         if (selectedCourses) {
@@ -65,7 +71,8 @@ export default function ProfilePage() {
             progressMap[courseID] = progress;
           });
 
-          setCourseProgress(progressMap);
+          setListCourseProgress(progressMap);
+          setIsLoading(false);
         } else {
           catchError('Не прогрузились курсы.');
         }
@@ -75,7 +82,7 @@ export default function ProfilePage() {
     };
 
     fetchData();
-  }, [selectedCourses]);
+  }, [selectedCourses, courseProgress, allCourses]);
 
   const handleExit = () => {
     dispatch(clearUser());
@@ -152,36 +159,40 @@ export default function ProfilePage() {
       </div>
       <div className={styles.courses__box}>
         <h2 className={styles.courses__title}>Мои курсы</h2>
-        {selectedCourses.length ? (
+        {isLoading ? (
           <div className={styles.courses__container}>
             <div className={styles.courses__me}>
-              {fetchIsLoading
-                ? Array.from({ length: 6 }).map((_, idx) => (
-                    <div
-                      key={idx}
-                      className={styles.loadingCard}
-                      aria-hidden="true"
-                    >
-                      <div className={styles.loadingImage} />
-                      <div className={styles.loadingContent}>
-                        <div className={styles.loadingTitle} />
-                        <div className={styles.loadingMetaRow} />
-                        <div className={styles.loadingMetaRowShort} />
-                        <div className={styles.loadingButton} />
-                      </div>
-                    </div>
-                  ))
-                : selectedCourses.map((course) => {
-                    const progressCourse = courseProgress[course._id];
-                    return (
-                      <Card
-                        key={course._id}
-                        course={course}
-                        displayInProfile={true}
-                        progressCourse={progressCourse}
-                      />
-                    );
-                  })}
+              {Array.from({ length: 3 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className={styles.loadingCard}
+                  aria-hidden="true"
+                >
+                  <div className={styles.loadingImage} />
+                  <div className={styles.loadingContent}>
+                    <div className={styles.loadingTitle} />
+                    <div className={styles.loadingMetaRow} />
+                    <div className={styles.loadingMetaRowShort} />
+                    <div className={styles.loadingButton} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : selectedCourses.length ? (
+          <div className={styles.courses__container}>
+            <div className={styles.courses__me}>
+              {selectedCourses.map((course) => {
+                const progressCourse = listCourseProgress[course._id];
+                return (
+                  <Card
+                    key={course._id}
+                    course={course}
+                    displayInProfile={true}
+                    progressCourse={progressCourse}
+                  />
+                );
+              })}
             </div>
             <a
               href="#top"
@@ -197,9 +208,7 @@ export default function ProfilePage() {
             </a>
           </div>
         ) : (
-          <p className={styles.empty}>
-            {message ? message : 'У вас пока нет добавленных курсов'}
-          </p>
+          <p className={styles.empty}>У вас пока нет выбранных курсов</p>
         )}
       </div>
     </div>

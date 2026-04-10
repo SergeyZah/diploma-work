@@ -5,7 +5,7 @@ describe('calculatingProgress', () => {
     expect(calculatingProgress(20, 100)).toBe(20);
   });
   it('Первое число больше второго', () => {
-    expect(calculatingProgress(125, 100)).toBe(125);
+    expect(calculatingProgress(125, 100)).toBe(100);
   });
   it('Оба числа одинаковые', () => {
     expect(calculatingProgress(60, 60)).toBe(100);

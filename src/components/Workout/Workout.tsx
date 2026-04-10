@@ -10,7 +10,9 @@ import ProgressModal from '../ProgressModal/ProgressModal';
 import { useDispatch } from 'react-redux';
 import {
   setFetchIsLoading,
+  setRemoveCheck,
   setVisibleProgressModal,
+  setVisibleRemoveProgress,
   setWorkoutProgress,
 } from '@/store/features/CourseSlice';
 import {
@@ -68,28 +70,8 @@ export default function Workout() {
   };
 
   const removeProgress = () => {
-    removeWorkoutProgress(token, selectCourseId, selectWorkoutId)
-      .then(() => {
-        console.log('Выполнился запрос на удаление');
-        return getWorkoutProgress(token, selectCourseId, selectWorkoutId);
-      })
-      .then((res) => {
-        dispatch(setWorkoutProgress(res));
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          if (error.response) {
-            catchError(error.response.data.message);
-          } else if (error.request) {
-            catchError('Отсутствует интернет. Попробуйте позже');
-          } else {
-            catchError('Неизвестная ошибка');
-          }
-        }
-      })
-      .finally(() => {
-        dispatch(setFetchIsLoading(false));
-      });
+    dispatch(setVisibleRemoveProgress(true));
+    dispatch(setRemoveCheck(false));
   };
 
   return (
@@ -104,6 +86,14 @@ export default function Workout() {
             allowFullScreen
             width={1160}
             height={639}
+          ></iframe>
+          <iframe
+            className={styles.workoutTable__video}
+            src={`${selectedWorkout?.video}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            width={710}
+            height={410}
           ></iframe>
           <iframe
             className={styles.workoutMobile__video}

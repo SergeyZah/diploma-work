@@ -69,8 +69,6 @@ export default function WorkoutsPage() {
       });
   }, [token, courseId]);
 
-  console.log(error);
-
   return (
     <div className={styles.workoutsPage}>
       <SelectWorkouts courseName={courseName} />
