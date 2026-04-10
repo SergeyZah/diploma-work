@@ -26,8 +26,9 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { user, userName, token } = useAppSelector((state) => state.auth);
-  const { allCourses, selectedCourses, fetchIsLoading, courseProgress } =
-    useAppSelector((state) => state.courses);
+  const { allCourses, selectedCourses, courseProgress } = useAppSelector(
+    (state) => state.courses,
+  );
 
   const [listCourseProgress, setListCourseProgress] = useState<progressMapType>(
     {},
@@ -49,7 +50,7 @@ export default function ProfilePage() {
     } else {
       setMessageLoad('Загружаем курсы');
     }
-  }, [token]);
+  }, [token, allCourses]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +77,7 @@ export default function ProfilePage() {
     };
 
     fetchData();
-  }, [selectedCourses, courseProgress]);
+  }, [selectedCourses, courseProgress, allCourses]);
 
   const handleExit = () => {
     dispatch(clearUser());
@@ -156,33 +157,17 @@ export default function ProfilePage() {
         {selectedCourses.length ? (
           <div className={styles.courses__container}>
             <div className={styles.courses__me}>
-              {fetchIsLoading
-                ? Array.from({ length: 6 }).map((_, idx) => (
-                    <div
-                      key={idx}
-                      className={styles.loadingCard}
-                      aria-hidden="true"
-                    >
-                      <div className={styles.loadingImage} />
-                      <div className={styles.loadingContent}>
-                        <div className={styles.loadingTitle} />
-                        <div className={styles.loadingMetaRow} />
-                        <div className={styles.loadingMetaRowShort} />
-                        <div className={styles.loadingButton} />
-                      </div>
-                    </div>
-                  ))
-                : selectedCourses.map((course) => {
-                    const progressCourse = listCourseProgress[course._id];
-                    return (
-                      <Card
-                        key={course._id}
-                        course={course}
-                        displayInProfile={true}
-                        progressCourse={progressCourse}
-                      />
-                    );
-                  })}
+              {selectedCourses.map((course) => {
+                const progressCourse = listCourseProgress[course._id];
+                return (
+                  <Card
+                    key={course._id}
+                    course={course}
+                    displayInProfile={true}
+                    progressCourse={progressCourse}
+                  />
+                );
+              })}
             </div>
             <a
               href="#top"
@@ -198,11 +183,25 @@ export default function ProfilePage() {
             </a>
           </div>
         ) : (
-          <p className={styles.empty}>
-            {messageLoad.length
-              ? messageLoad
-              : 'У вас пока нет добавленных курсов'}
-          </p>
+          <div className={styles.courses__container}>
+            <div className={styles.courses__me}>
+              {Array.from({ length: 3 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className={styles.loadingCard}
+                  aria-hidden="true"
+                >
+                  <div className={styles.loadingImage} />
+                  <div className={styles.loadingContent}>
+                    <div className={styles.loadingTitle} />
+                    <div className={styles.loadingMetaRow} />
+                    <div className={styles.loadingMetaRowShort} />
+                    <div className={styles.loadingButton} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </div>

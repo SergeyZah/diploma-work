@@ -42,31 +42,15 @@ export default function Centerblock({
       {courseList.length ? (
         <div className={styles.centerblock__box}>
           <div className={styles.centerblock__cards}>
-            {fetchIsLoading
-              ? Array.from({ length: 6 }).map((_, idx) => (
-                  <div
-                    key={idx}
-                    className={styles.loadingCard}
-                    aria-hidden="true"
-                  >
-                    <div className={styles.loadingImage} />
-                    <div className={styles.loadingContent}>
-                      <div className={styles.loadingTitle} />
-                      <div className={styles.loadingMetaRow} />
-                      <div className={styles.loadingMetaRowShort} />
-                      <div className={styles.loadingButton} />
-                    </div>
-                  </div>
-                ))
-              : sortCourseList.map((course) => {
-                  return (
-                    <Card
-                      key={course._id}
-                      course={course}
-                      displayInProfile={false}
-                    />
-                  );
-                })}
+            {sortCourseList.map((course) => {
+              return (
+                <Card
+                  key={course._id}
+                  course={course}
+                  displayInProfile={false}
+                />
+              );
+            })}
           </div>
           <a
             href="#top"
@@ -82,9 +66,21 @@ export default function Centerblock({
           </a>
         </div>
       ) : (
-        <p className={styles.empty}>
-          {messageCourses ? messageCourses : 'Загружаем курсы...'}
-        </p>
+        <div className={styles.centerblock__box}>
+          <div className={styles.centerblock__cards}>
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div key={idx} className={styles.loadingCard} aria-hidden="true">
+                <div className={styles.loadingImage} />
+                <div className={styles.loadingContent}>
+                  <div className={styles.loadingTitle} />
+                  <div className={styles.loadingMetaRow} />
+                  <div className={styles.loadingMetaRowShort} />
+                  <div className={styles.loadingButton} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );
