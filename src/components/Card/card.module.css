@@ -14,6 +14,7 @@
 .card:hover {
   transform: scale(1.03);
   transition: 0.7s;
+  z-index: 2;
 }
 
 .card__image {
@@ -24,17 +25,50 @@
   display: none;
 }
 
-.card__plus {
+.card__imageCircle {
   position: absolute;
   top: 20px;
   right: 20px;
-  transition: transform 0.2s;
   z-index: 2;
+}
+
+.card__imageCircle .card__plusText {
+  visibility: hidden;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 5px;
+  width: 125px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  top: 40px;
+  left: 10px;
+  transform: translateX(20%);
+  z-index: 1000;
+}
+.card__imageCircle:hover .card__plusText {
+  visibility: visible;
+}
+
+.card__plus {
+  position: relative;
+}
+
+.card__plus::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s;
 }
 
 .card__plus:hover {
   transform: scale(1.2);
   transition: 0.5s;
+}
+
+.card__plus:hover::after {
+  opacity: 1;
 }
 
 .card__info {

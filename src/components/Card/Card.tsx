@@ -169,20 +169,26 @@ export default function Card({
   return (
     <div className={styles.card} onClick={handleCourseCard}>
       <div className={styles.card__image}>
-        <Image
-          width={32}
-          height={32}
-          className={styles.card__plus}
-          src={
-            displayInProfile
-              ? `/icon/minus_in_circle.svg`
-              : `/icon/plus_in_circle.svg`
-          }
-          alt={displayInProfile ? `minus_in_circle` : `plus_in_circle`}
-          aria-label="Добавить"
-          priority
-          onClick={displayInProfile ? hadleRemoveCourse : hadleAddCourse}
-        />
+        <div className={styles.card__imageCircle}>
+          <Image
+            width={32}
+            height={32}
+            className={styles.card__plus}
+            src={
+              displayInProfile
+                ? `/icon/minus_in_circle.svg`
+                : `/icon/plus_in_circle.svg`
+            }
+            alt={displayInProfile ? `minus_in_circle` : `plus_in_circle`}
+            aria-label="Добавить"
+            priority
+            onClick={displayInProfile ? hadleRemoveCourse : hadleAddCourse}
+          />
+          <span className={styles.card__plusText}>
+            {displayInProfile ? 'Удалить курс' : 'Добавить курс'}
+          </span>
+        </div>
+
         <Image
           width={360}
           height={325}
